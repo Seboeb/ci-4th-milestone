@@ -1,0 +1,1 @@
+web: gunicorn ci_4th_milestone.wsgi:application
