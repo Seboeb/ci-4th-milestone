@@ -1,4 +1,3 @@
-import env
 """
 Django settings for ci_4th_milestone project.
 
