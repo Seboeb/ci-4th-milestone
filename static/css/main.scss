@@ -1,0 +1,340 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700&display=swap');
+
+$primary-blue: #03BFE9;
+$submit-btn-bg-color: #4A4A4A;
+$login-link-color: #1B6087;
+$text-grey: #868686;
+$border-grey: #A2A2A2;
+
+body, html {
+  margin: 0;
+}
+
+body {
+  height: 100%;
+  font-family: 'Montserrat', 'sans-serif';
+}
+
+
+// ----------------------------------------------------------------------------- LANDING PAGE
+header {
+  position: absolute;
+  padding: 1em;
+  z-index: 20;
+  display: flex;
+  justify-content: space-between;
+  width: calc(100% - 2em);
+  background: white;
+  align-items: center;
+
+  a {
+    text-decoration: none;
+    color: black;
+  }
+
+  a.logo img {
+    width: 75px;
+
+    &.white {
+      display: none;
+    }
+  }
+
+  nav ul {
+    list-style-type: none;
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+
+    li a {
+      padding: 1em;
+    }
+
+    li:last-child {
+      a {
+        color:#1B6087;
+      }
+    }
+  }
+}
+
+.wrapper {
+  display: grid;
+  grid-template-columns: auto;
+
+  section {
+    padding: 3em;
+
+    h1, h2, .btn {
+      text-transform: uppercase;
+      margin: 0;
+    }
+
+    h1 {
+      font-size: 1.8rem;
+    }
+
+    h2 {
+      font-size: 1.4rem;
+      margin-bottom: 1em;
+    }
+
+    .btn {
+      text-decoration: none;
+      color: black;
+      font-weight: 600;
+      background: url('../img/arrow-black.svg') no-repeat;
+      background-size: 8px;
+      background-position: 0 3px;
+      padding-left: 1.5em;
+      display: inline-block;
+      margin-top: 2em;
+
+      &.white {
+        color: white;
+        background: url('../img/arrow-white.svg') no-repeat;
+        background-size: 8px;
+        background-position: 0 3px;
+      }
+    }
+
+
+    .start-btn {
+      color: white;
+      background: url('../img/arrow-white.svg') no-repeat;
+      background-color: rgba($primary-blue, 0.6);
+      background-size: 8px;
+      background-position: 3em;
+      padding: 1.5em 1.5em 1.5em calc(3em + 25px);
+      margin-top: 3em;
+      margin-left: -3em;
+      
+    }
+
+  }
+
+  section.hero {
+    color: white;
+    padding-top: 12em;
+    background: url('../img/hero.jpg');
+    background-size: cover;
+
+    p {
+      margin-bottom: 0;
+    }
+
+  }
+
+  section.sidebar, section.subscribe {
+    font-size: 0.9rem;
+    line-height: 1.6em;
+  }
+
+  section.sidebar {
+    background: $primary-blue;
+    color: white;
+  }
+
+  section.subscribe {
+    input {
+      width: calc(100% - 2em);
+      padding: 1em;
+      font-family: 'Montserrat';
+      margin-bottom: 1em;
+      border: 1px solid rgba(grey,0.5);
+    }
+
+    button {
+      width: 100%;
+      background: $submit-btn-bg-color;
+      color: white;
+      padding: 1em;
+      border: none;
+      font-family: 'Montserrat';
+    }
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  html {
+    font-size: 18px;
+  }
+}
+
+@media only screen and (min-width: 1020px) {
+  header {
+    background: none;
+    
+    a {
+      color: white;
+    }
+
+    a.logo img {
+      width: 100px;
+
+      &.white {
+        display: inline-block;
+      }
+      &.black {
+        display: none;
+      }
+    }
+  }
+
+  .wrapper.landing-page {
+    grid-template-columns: 75% auto;
+    grid-template-rows: 60% auto;
+    grid-template-areas: 
+      "hero featured"
+      "hero subscribe";
+    height: 100vh;
+
+    section {
+      .start-btn {
+        background-position: 6em;
+        padding: 1.5em 1.5em 1.5em calc(6em + 25px);
+        margin-left: -6em;
+      }
+    }
+  }
+  
+  section.hero {
+    grid-area: hero;
+
+    .inner {
+      margin-left: 3em;
+      margin-top: 2em;
+    }
+  }
+
+  section.sidebar, section.subscribe {
+    display: grid;
+    grid-template-rows: auto;
+    align-items: center;
+  }
+
+}
+
+@media only screen and (min-width: 1920px) {
+  html {
+    font-size: 21px;
+  }
+
+  section.hero {
+
+    .inner {
+      margin-top: 6em;
+    }
+  }
+}
+
+// ----------------------------------------------------------------------------- SIGN IN
+.wrapper.gradient {
+  height: 100vh;
+  background: linear-gradient(60.64deg, #03BFE9 0%, #3B707B 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+
+  .card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #FAFAFA;
+    padding: 3em;
+    height: 100vh;
+
+    form {
+      width: 100%;
+    }
+
+    a.logo img {
+      width: 50vw;
+    }
+
+    .submit-btn {
+      text-decoration: none;
+      color: white;
+      display:inline-block;
+      width: 100%;
+      background-color: $primary-blue;
+      text-align: center;
+      padding: 1em;
+      font-size: 1rem;
+      box-sizing: border-box;
+      box-shadow: 0px 4px 0px rgba(0, 0, 0, 0.25);
+      transition: transform 0.15s ease, top .15s ease;
+      font-family: 'Montserrat'
+    }
+
+    .submit-btn:hover {
+      cursor: pointer;
+      transform: translate(0,-5px);
+    }
+
+    p {
+      font-size: 0.9rem;
+      color: $text-grey;
+      margin: 1em 0;
+    }
+
+    input {
+      box-sizing: border-box;
+      width: 100%;
+      padding: 1em;
+      font-size: 0.9rem;
+      font-family: 'Montserrat';
+      border: 1px solid $border-grey;
+      margin: 0.25em 0;
+    }
+
+    .margin-down {
+      margin-bottom:3em;
+    }
+
+    button.outline-btn {
+      transition: all 0.15s ease-in-out;
+      transition-property: color, background-color;
+    }
+
+    button.outline-btn:hover {
+      cursor: pointer;
+      color: white;
+      background-color: $submit-btn-bg-color;
+    }
+
+    .outline-btn {
+      width: 100%;
+      font-family: 'Montserrat';
+      border: 1px solid black;
+      background: none;
+      margin-top: 2em;
+      padding: 1em;
+      font-size: 1rem;
+    }
+
+  }
+}
+
+
+@media only screen and (min-width: 1020px) {
+  .wrapper.gradient {
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+
+    .card {
+      height: auto;
+      width: 17em;
+      box-shadow: 0px 4px 10px #1B6087;
+
+      a.logo img {
+        width: 10em;
+      }
+
+    }
+  }
+}
+
