@@ -1,0 +1,19 @@
+// Width
+$dialog-width: 400px;
+
+// Break points
+$break-small: 768px;
+$break-medium: 1024px;
+$break-large: 1920px;
+$break-dialog: $dialog-width;
+
+// Font weights
+$light: 300;
+$regular: 400;
+$semi-bold: 600;
+$bold: 700;
+
+// Base Font
+$base-font-weight: $regular;
+$base-font-size: 16px;
+$base-line-height: normal;

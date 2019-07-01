@@ -1,0 +1,15 @@
+.wrapper {
+
+  &.gradient {
+    background: linear-gradient(60.64deg, #03BFE9 0%, #3B707B 100%);
+
+  }
+
+  &.centered {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    height: 100vh;
+  }
+}

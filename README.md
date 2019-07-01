@@ -30,6 +30,13 @@ Here you can see the features that are already implemented and which are left to
 
 ## Technologies Used
 
+jest
+cypress
+puppeteer
+faker.js
+factory_boy
+travis
+
 ## Database Model
 
 ## Installing Guide
