@@ -15,7 +15,9 @@ def login(request):
     if request.user.is_authenticated:
         return redirect(reverse('index'))
     if request.method == "POST":
+        print(request.POST)
         login_form = UserLoginForm(request.POST)
+        print(login_form)
 
         if login_form.is_valid():
             user = auth.authenticate(
@@ -30,7 +32,7 @@ def login(request):
                     None, 'You have entered an invalid username or password.')
     else:
         login_form = UserLoginForm()
-    return render(request, 'login.html', {'login_form': login_form})
+    return render(request, 'signin.html', {'login_form': login_form})
 
 
 @login_required
@@ -67,7 +69,7 @@ def registration(request):
     else:
         registration_form = UserRegistrationForm()
 
-    return render(request, 'registration.html', {"registration_form": registration_form})
+    return render(request, 'signup.html', {"registration_errors": registration_form.errors})
 
 
 def user_profile(request):

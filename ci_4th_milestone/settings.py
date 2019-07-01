@@ -34,7 +34,8 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = development
 
-ALLOWED_HOSTS = ['the-tasting-experience-dev.herokuapp.com', 'localhost']
+ALLOWED_HOSTS = ['the-tasting-experience-dev.herokuapp.com',
+                 'localhost', 'citest.eu.ngrok.io']
 
 
 # Application definition
@@ -121,7 +122,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
-    'accounts.backends.EmailAuth'
+    'accounts.backends.EmailAuth',
 ]
 
 
