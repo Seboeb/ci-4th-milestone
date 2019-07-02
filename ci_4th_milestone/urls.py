@@ -15,14 +15,15 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
-from accounts.views import index
-from accounts.views import about
+from accounts.views import index, about
 
 from accounts import urls as accounts_urls
+from tickets import urls as tickets_urls
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', index, name='index'),
     url(r'^about$', about, name='about'),
-    url(r'^accounts/', include(accounts_urls))
+    url(r'^accounts/', include(accounts_urls)),
+    url(r'^bug/', include(tickets_urls)),
 ]

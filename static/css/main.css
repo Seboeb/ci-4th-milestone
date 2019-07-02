@@ -82,6 +82,10 @@ html {
   transition-property: color, background-color;
 }
 
+.btn.comment {
+  background-color: #577E85;
+}
+
 .btn:hover {
   cursor: pointer;
   -webkit-transform: translate(0, -3px);
@@ -372,6 +376,273 @@ header nav ul li:last-child {
 
 .media-card .info p {
   margin: 0;
+}
+
+.ticket-card {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  position: relative;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  width: 100%;
+  padding-top: 3em;
+  z-index: 20;
+}
+
+@media only screen and (min-width: 1025px) {
+  .ticket-card {
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    padding-top: 0;
+    -webkit-box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+            box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  }
+}
+
+.ticket-card .label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  text-transform: uppercase;
+  font-weight: 600;
+  padding: 0.2em 0.5em;
+  color: white;
+}
+
+.ticket-card .label.progress {
+  background-color: #19BC64;
+}
+
+.ticket-card .return {
+  position: absolute;
+  top: 0;
+  right: 0;
+  text-transform: uppercase;
+  padding: 0.2em 1em;
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+@media only screen and (min-width: 1025px) {
+  .ticket-card .return {
+    display: none;
+  }
+}
+
+.ticket-card .main {
+  padding: 2em 0;
+}
+
+@media only screen and (min-width: 1025px) {
+  .ticket-card .main {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -ms-flex-preferred-size: 65%;
+        flex-basis: 65%;
+    background-color: white;
+    padding: 3em;
+  }
+}
+
+.ticket-card .main h2 {
+  text-transform: none;
+  text-align: left;
+  margin: 0 0 0.3em;
+  line-height: 1.3;
+}
+
+.ticket-card .main h4 {
+  margin: 2em 0 0;
+}
+
+.ticket-card .main p {
+  margin: 0;
+}
+
+.ticket-card .main .ticket-type {
+  text-transform: uppercase;
+  font-weight: 400;
+  font-size: 1.2em;
+  margin-bottom: 0.75em;
+  display: inline-block;
+}
+
+.ticket-card .main .ticket-type.red {
+  color: red;
+}
+
+.ticket-card .main .create-info {
+  font-size: 0.8em;
+}
+
+.ticket-card .detail {
+  background-color: #e6e6e6;
+  margin: 0 -1rem -2rem;
+  padding: 2rem 1rem;
+  text-align: left;
+  font-size: 0.9rem;
+}
+
+@media only screen and (min-width: 1025px) {
+  .ticket-card .detail {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -ms-flex-preferred-size: auto;
+        flex-basis: auto;
+    background-color: #f7f7f7;
+    margin: 0;
+    padding: 3em;
+  }
+}
+
+.ticket-card .detail .title {
+  font-weight: 600;
+}
+
+.ticket-card .detail .ruler {
+  height: 1px;
+  background-color: #03BFE9;
+  margin: 2em -0.5em;
+}
+
+.ticket-card .detail .upvotes {
+  font-size: 1.1em;
+  font-weight: 600;
+  padding-right: 0.5em;
+}
+
+.ticket-card .detail .expense {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.ticket-card .detail .expense .costs {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  text-align: center;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+}
+
+.ticket-card .detail .expense .visual {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+}
+
+.watermark {
+  display: none;
+}
+
+.comments {
+  background-color: rgba(59, 112, 123, 0.8);
+  margin: 0 -1em;
+  color: white;
+}
+
+@media only screen and (min-width: 1025px) {
+  .comments {
+    margin: -2em auto;
+    width: 90%;
+  }
+}
+
+.comments .comment {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+@media only screen and (min-width: 1025px) {
+  .comments .comment {
+    padding: 0 1em;
+  }
+}
+
+.comments .comment .avatar {
+  display: none;
+}
+
+@media only screen and (min-width: 1025px) {
+  .comments .comment .avatar {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    background-color: rgba(255, 255, 255, 0.35);
+    -ms-flex-preferred-size: 100px;
+        flex-basis: 100px;
+  }
+}
+
+.comments .comment .content {
+  padding: 1em;
+  font-size: 0.9rem;
+}
+
+.comments .comment .content p {
+  margin: 0;
+}
+
+.comments .comment .content .info > strong {
+  padding-right: 2em;
+}
+
+.comments .new-comment {
+  padding: 1em;
+}
+
+.comments .new-comment textarea {
+  width: calc(100% - 1em - 2px);
+  background-color: rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  padding: 0.5em;
+  color: white;
+  font-family: 'Montserrat', 'sans-serif';
+  font-size: 0.9rem;
+  font-weight: 300;
+}
+
+.comments .new-comment textarea::-webkit-input-placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.comments .new-comment textarea:-ms-input-placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.comments .new-comment textarea::-ms-input-placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.comments .new-comment textarea::placeholder {
+  color: rgba(255, 255, 255, 0.5);
 }
 
 .landing-page {

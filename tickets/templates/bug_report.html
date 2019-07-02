@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block page_title %}About - The Tasting Experience{% endblock %}
+
+{% block main_content %}
+<div class="container content">
+  <div class="watermark">
+    <img src="{% static 'img/bug-report.svg' %}" alt="bug report">
+  </div>
+
+  <!-- Bug report section -->
+  <section class="ticket">
+    <div class="ticket-card">
+      <div class="label progress">In progress</div>
+      <div class="return">Back</div>
+      <div class="main">
+        <span class="ticket-type red">Bug report</span>
+        <h2>On a Android Galaxy S6 mobile view I have slow loading time</h2>
+        <span class="create-info">Created at 17 Jul, 19 - 9:12 AM by <strong>Sebastiaan Hekner</strong></span>
+        <h4>Problem</h4>
+        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quo voluptas quae soluta modi error voluptate
+          cupiditate ea suscipit libero temporibus. Cumque pariatur deleniti fuga soluta consequatur ipsa eligendi nulla
+          modi.</p>
+      </div>
+      <div class="detail">
+        <span class="title">B-23 | FINDER APP</span>
+        <p>Medium priority</p>
+        <p>Estimated development time is 3 workdays.</p>
+        <p><span class="upvotes">19</span> Others have this problem too.</p>
+        <div class="ruler"></div>
+        <div class="expense">
+          <div class="costs">
+            <span>Costs</span>
+            <p>FREE</p>
+          </div>
+          <div class="visual">
+            <span class="donated">€ 0,00</span>
+            <div class="circle"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Comment section -->
+  <section class="comments">
+    <div class="comment">
+      <div class="avatar">
+        <img src="{% static 'img/sebastiaan.svg' %}" alt="Sebastiaan Hekner">
+      </div>
+      <div class="content">
+        <span class="info"><strong>Sebastiaan Hekner</strong> 18 Jul, 19 - 4:12 PM</span>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident doloremque laudantium et ab, aperiam
+          sapiente! Corrupti, ratione suscipit quas officiis cum, sint optio enim assumenda modi unde et, amet deleniti!
+        </p>
+      </div>
+    </div>
+    <div class="comment">
+      <div class="avatar">
+        <img src="{% static 'img/sebastiaan.svg' %}" alt="Sebastiaan Hekner">
+      </div>
+      <div class="content">
+        <span class="info"><strong>Pieter Jan</strong> 18 Jul, 19 - 4:12 PM</span>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident doloremque laudantium et ab, aperiam
+          sapiente! Corrupti, ratione suscipit quas officiis cum, sint optio enim assumenda modi unde et, amet deleniti!
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident doloremque laudantium et ab, aperiam
+          sapiente! Corrupti, ratione suscipit quas officiis cum, sint optio enim assumenda modi unde et, amet deleniti!
+        </p>
+      </div>
+    </div>
+    <div class="new-comment">
+      <textarea name="comment" cols="30" rows="10" placeholder="Type your new comment here..."></textarea>
+      <submit type="submit" class="btn comment">Post Comment</submit>
+    </div>
+
+  </section>
+</div>
+
+{% endblock %}

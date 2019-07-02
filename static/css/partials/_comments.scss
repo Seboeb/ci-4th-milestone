@@ -1,0 +1,61 @@
+.comments {
+  background-color: rgba(59,112,123,0.8);
+  margin: 0 -1em;
+  color: white;
+
+  @include respond-to(medium-screens){
+    margin: -2em auto;
+    width: 90%;
+  }
+
+  .comment {
+    display: flex;
+
+    @include respond-to(medium-screens){ padding: 0 1em }
+
+    .avatar {
+      display: none;
+
+      @include respond-to(medium-screens){ 
+        display: flex;
+        background-color: rgba(255,255,255,0.35);
+        // height: 100px;
+        flex-basis: 100px;
+      }
+    }
+
+    .content {
+      padding: 1em; 
+      font-size: 0.9rem;
+
+      p {
+        margin: 0;
+      }
+
+      .info > strong {
+        padding-right: 2em; 
+      }
+    }
+  }
+
+  .new-comment {
+    padding: 1em;
+
+    textarea {
+      width: calc(100% - 1em - 2px);
+      background-color: rgba(0,0,0,0.1);
+      border: 1px solid rgba(255,255,255,0.35);
+      padding: 0.5em;
+      color: white;
+      font-family: 'Montserrat', 'sans-serif';
+      font-size: 0.9rem;
+      font-weight: $light;
+    }
+
+    textarea::placeholder {
+      color: rgba(255,255,255,0.5);
+    }
+  }
+
+}
+
