@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "python3 manage.py runserver localhost:8080",
-    "build": "git push -u heroku master"
+    "build": "git push -u heroku master",
+    "start:win": "python.exe manage.py runserver localhost:8080"
   },
   "author": "Sebastiaan Hekner",
   "license": "ISC"
