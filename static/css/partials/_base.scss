@@ -1,9 +1,13 @@
+// Import all modules
+@import "../modules/all";
+
 body, html {
   margin: 0;
 }
 
 body {
   height: 100%;
+  background-color: $background-color;
 }
 
 h1, h2 {
@@ -24,5 +28,3 @@ h2 {
   margin-bottom: 2em !important;
 }
 
-// Import all modules
-@import "../modules/all";

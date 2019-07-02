@@ -2,7 +2,6 @@
 
   &.gradient {
     background: linear-gradient(60.64deg, #03BFE9 0%, #3B707B 100%);
-
   }
 
   &.centered {
@@ -13,3 +12,25 @@
     height: 100vh;
   }
 }
+
+.container {
+  max-width: 1920px;
+  margin: 0 auto;
+
+  &.content {
+    padding: 5em 1em;
+    max-width: 1000px;
+    text-align: justify;
+
+    @include respond-to(medium-screens) { padding: 8em 1em; }
+
+    section {
+      padding: 2em 0;
+    }
+  }
+
+  hr {
+    border-color: rgba(0,0,0,0.1);
+  }
+}
+

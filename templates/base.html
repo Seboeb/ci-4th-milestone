@@ -14,29 +14,35 @@
 
 <body>
 
-  <header>
+  <header class="{% if not index %}container{% endif %}">
     <!-- Logo -->
     <a href="{% url 'index' %}" class="logo">
+      {% if index %}
       <img src="{% static 'img/logo-black.png' %}" class="black" alt="tasting-experience">
       <img src="{% static 'img/logo-white.png' %}" class="white" alt="tasting-experience">
+      {% else %}
+      <img src="{% static 'img/logo-black.png' %}" alt="tasting-experience">
+      {% endif %}
     </a>
 
     <!-- Navigation bar -->
     <nav>
       <ul>
-        <li><a href="#">About</a></li>
-        <li><a href="#">Dev</a></li>
+        <li><a href="{% url 'about' %}" class="{% if index %}white{% endif %}">About</a></li>
+        <li><a href="#" class="{% if index %}white{% endif %}">Dev</a></li>
         {% if user.is_authenticated %}
-        <li><a href="{% url 'logout' %}">Logout</a></li>
+        <li><a href="{% url 'logout' %}" class="{% if index %}white{% endif %}">Sign out</a></li>
         {% else %}
-        <li><a href="{% url 'login' %}">Login</a></li>
+        <li><a href="{% url 'login' %}" class="{% if index %}white{% endif %}">Sign in</a></li>
         {% endif %}
       </ul>
     </nav>
   </header>
 
+
   {% block main_content %}
   {% endblock %}
+
 
   <div class="message-container">
     {% if messages %}

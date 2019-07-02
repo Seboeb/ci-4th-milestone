@@ -1,12 +1,17 @@
 header {
   position: absolute;
-  padding: 1.5em 2em;
+  padding: 1.5rem 1rem;
   z-index: 20;
+  top: 0;
+  left: 0;
+  right: 0;
   display: flex;
   justify-content: space-between;
-  width: calc(100% - 4em);
+  width: calc(100% - 2rem);
   background: white;
   align-items: center;
+  font-size: 14px;
+
 
   a {
     text-decoration: none;
@@ -24,6 +29,8 @@ header {
   nav ul {
     list-style-type: none;
     display: flex;
+    flex-direction: row;
+    align-items: center;
     justify-content: space-around;
     width: 100%;
     margin: 0;
@@ -34,9 +41,9 @@ header {
     }
 
     li:last-child {
-      a {
-        color:#1B6087;
-      }
+      background-color: rgba(0,0,0,0.1);
+      padding: 0.5em;
+      margin-left: 0.5em;
     }
   }
 }
@@ -46,8 +53,10 @@ header {
   header {
     background: none;
     font-size: 16px;
-    
-    a {
+    padding: 1.5em 2em;
+    width: calc(100% - 4em);
+
+    a.white {
       color: white;
     }
 

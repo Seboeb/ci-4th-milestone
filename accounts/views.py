@@ -7,7 +7,12 @@ from accounts.forms import UserLoginForm, UserRegistrationForm
 
 def index(request):
     """Returns the index page of the website"""
-    return render(request, 'index.html')
+    return render(request, 'index.html', {'index': True})
+
+
+def about(request):
+    """Returns the about page of the website"""
+    return render(request, 'about.html')
 
 
 def login(request):

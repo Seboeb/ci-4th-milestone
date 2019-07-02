@@ -1,0 +1,119 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block page_title %}About - The Tasting Experience{% endblock %}
+
+{% block main_content %}
+<div class="container">
+  <div class="container content">
+    <section>
+      <h2>About</h2>
+      <p>Welcome to The Tasting Experience development portal! If you are having trouble with the Finder App or the
+        Recipe
+        Community website, you are in the right place. Here you can report bugs that you have found and share it with
+        the
+        developers of the Tasting Experience group. The cool thing is, is that you can request new features as well!
+        Just
+        submit your idea and get it supported by other users.</p>
+      <p>We ask a donation for new feature request, starting at € 150,00, since our team is spending at least half of
+        its
+        time to these. However, bugs are fixed for free!</p>
+      <div class="profile-card">
+        <div class="avatar">
+          <img src="{% static 'img/sebastiaan.svg' %}" alt="Sebastiaan Hekner">
+        </div>
+        <div class="personal">
+          <span class="name">Sebastiaan Hekner</span>
+          <p>Developer</p>
+        </div>
+      </div>
+    </section>
+    <hr>
+    <section>
+      <h2>Websites</h2>
+      <div class="media-card">
+        <div class="media">
+          <img src="{% static 'img/map.svg' %}" alt="Finder App">
+        </div>
+        <div class="info">
+          <span class="info-title">The Tasting Experience - Finder App</span>
+          <p>Sometimes you just want to grab a nice drink - maybe with some delicious food - and still want a great
+            experience for, lets say, just the midday or evening. Where do you look for such a place? Look no further
+            and
+            start using this App!</p>
+        </div>
+      </div>
+      <div class="media-card">
+        <div class="media">
+          <img src="{% static 'img/users.svg' %}" alt="Recipe Community">
+        </div>
+        <div class="info">
+          <span class="info-title">The Tasting Experience - Recipe Community</span>
+          <p>This community platform gives opportunity for users to share their tasting experiences. You can find
+            recipes
+            for nice drinks or cocktails, but you could also create your own recipes and share them with the rest of the
+            userbase.</p>
+        </div>
+      </div>
+    </section>
+    <hr>
+    <section>
+      <h2>How does it work?</h2>
+      <p>You can start right away, even without having an account. You can see the reported bugs and feature requests on
+        the development page over <a href="">here</a>. However, if you want to contribute you will need to <a
+          href="">sign</a> in. This has several advantages, you can place comments and participate with other users and
+        place bug or feature request on your watchlist.</p>
+
+      <div class="media-card">
+        <div class="media">
+          <img src="{% static 'img/bug-report-red.svg' %}" alt="Bug Report">
+        </div>
+        <div class="info">
+          <span class="info-title">Bug Reports</span>
+          <p>When using the tasting experience services, it is possible that you encounter some functionallity that is
+            not behaving as you would expect. You can report these so called bugs over here. It is also possible to
+            upvote bug reports from other users. More upvotes results in a higher priority to solve by our development
+            team. We always fix bugs for free. </p>
+        </div>
+      </div>
+      <div class="media-card">
+        <div class="media">
+          <img src="{% static 'img/develop-feature2-blue.svg' %}" alt="Recipe Community">
+        </div>
+        <div class="info">
+          <span class="info-title">Feature Request</span>
+          <p>If you have great ideas about new functionallity for the tasting experience services or you think some
+            existing functionallity can be optimized, you can submit a feature request. Since feature requests require
+            intensive development time (more than 50% overall), we ask for a donation with a minimum amount of € 150,00.
+            Try to be as descriptive as possible and convience other users to support your feature request! When the
+            donation target is reached, the development begins.</p>
+        </div>
+      </div>
+      <div class="media-card">
+        <div class="media">
+          <img src="{% static 'img/comment3.svg' %}" alt="Recipe Community">
+        </div>
+        <div class="info">
+          <span class="info-title">Active Development</span>
+          <p>You can actively contribute to bug reports and feature request by joining the conversations. Comment or
+            reply on other users and provide them your thoughts about the subject.</p>
+        </div>
+      </div>
+      <div class="media-card">
+        <div class="media">
+          <img src="{% static 'img/baseline-dashboard-24px.svg' %}" alt="Recipe Community">
+        </div>
+        <div class="info">
+          <span class="info-title">Dashboard</span>
+          <p>On can create new bug reports and feature request in your personal dashboard. You can find it on the main
+            development page. It provides a summary of your submitted reports and requests and a general overview of all
+            (non)active development. If you are interested in some specific request, you can add them to your watchlist.
+          </p>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+
+{% endblock %}

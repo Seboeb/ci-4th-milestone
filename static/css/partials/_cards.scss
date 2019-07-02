@@ -38,6 +38,71 @@
     border: 1px solid $border-grey;
     margin: 0.25em 0;
   }
+}
 
+.profile-card {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 80px;
+  padding: 2em 0;
 
+  .avatar {
+    height: 100%;
+
+    img {
+      height: 100%;
+    }
+  }
+
+  .personal {
+    padding: 1em;
+
+    .name {
+      font-weight: $semi-bold;
+    }
+
+    p {
+      margin: 0;
+      font-size: 0.9em;
+    }
+  }
+}
+
+.media-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding: 1em 0;
+
+  @include respond-to(medium-screens) { 
+    flex-direction: row; 
+    padding: 2em 0;
+  }
+
+  .media {  
+    height: 75px;
+    padding: 2em 0;
+
+    @include respond-to(medium-screens) { padding: 0 1em; }
+
+    img {
+      height: 100%;
+    }
+  }
+
+  .info {
+
+    @include respond-to(medium-screens) { padding-left: 3em; }
+
+    .info-title {
+      text-align: left;
+      font-weight: $semi-bold;
+      display: inline-block;
+    }
+    p {
+      margin: 0;
+    }
+  }
 }
