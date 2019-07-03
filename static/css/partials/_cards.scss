@@ -152,7 +152,7 @@
     @include respond-to(medium-screens) {
       display: flex;
       flex-direction: column;
-      flex-basis: 65%;
+      flex-basis: 100%;
       background-color: white;
       padding: 3em;
     }
@@ -227,11 +227,21 @@
       display: flex;
       flex-direction: row;
       justify-content: space-between;
+      margin: 0 2em;
+
+      @include respond-to(medium-screens) { margin: unset };
 
       .costs {
         display: flex;
-        text-align: center;
-        flex: 1;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-around;
+        padding-left: 1em;
+
+        p {
+          font-weight: $semi-bold;
+          margin: 0.25em 0 ;
+        }
       }
 
       .visual {

@@ -18,11 +18,15 @@
   margin: 0 auto;
 
   &.content {
-    padding: 5em 1em;
+    padding: 5em 1em 0;
     max-width: 1000px;
     text-align: justify;
+    position: relative;
 
-    @include respond-to(medium-screens) { padding: 8em 1em; }
+    @include respond-to(medium-screens) { 
+      padding: 8em 1em; 
+      text-align: left;
+    }
 
     section {
       padding: 2em 0;

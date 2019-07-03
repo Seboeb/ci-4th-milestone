@@ -34,8 +34,13 @@
     transition-property: color, background-color;
   }
 
-  &.comment {
-    background-color: #577E85;
+  &.comment-btn {
+    background-color: #185679;
+  }
+
+  &.no-stretch {
+    width: auto;
+    padding: 0.5em 1.5em;
   }
 }
 

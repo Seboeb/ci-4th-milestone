@@ -25,5 +25,5 @@ urlpatterns = [
     url(r'^$', index, name='index'),
     url(r'^about$', about, name='about'),
     url(r'^accounts/', include(accounts_urls)),
-    url(r'^bug/', include(tickets_urls)),
+    url(r'^tickets/', include(tickets_urls)),
 ]

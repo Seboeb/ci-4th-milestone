@@ -1,7 +1,8 @@
 .comments {
-  background-color: rgba(59,112,123,0.8);
+  background-color: rgb(27,96,135);
   margin: 0 -1em;
   color: white;
+  z-index: 10;
 
   @include respond-to(medium-screens){
     margin: -2em auto;
@@ -11,22 +12,32 @@
   .comment {
     display: flex;
 
-    @include respond-to(medium-screens){ padding: 0 1em }
+    @include respond-to(medium-screens){ padding: 0 2em }
 
     .avatar {
       display: none;
+      flex-basis: 100px;
 
-      @include respond-to(medium-screens){ 
-        display: flex;
-        background-color: rgba(255,255,255,0.35);
-        // height: 100px;
-        flex-basis: 100px;
+      @include respond-to(medium-screens){ display: flex; }
+        
+      img {
+        height: 70px;
+        width: 70px;
+        background-color: rgba(255,255,255,0.35);;
+        padding: 5px;
       }
     }
 
     .content {
       padding: 1em; 
       font-size: 0.9rem;
+
+      @include respond-to(medium-screens){ 
+        display: flex;
+        flex-direction: column;
+        padding: 0 0 0 1em;
+        flex-basis: calc(100% - 100px - 1em);
+      }
 
       p {
         margin: 0;
@@ -41,6 +52,8 @@
   .new-comment {
     padding: 1em;
 
+    @include respond-to(medium-screens){ padding: 2em 2em 0 }
+
     textarea {
       width: calc(100% - 1em - 2px);
       background-color: rgba(0,0,0,0.1);
@@ -50,11 +63,19 @@
       font-family: 'Montserrat', 'sans-serif';
       font-size: 0.9rem;
       font-weight: $light;
+      resize: none;
     }
 
     textarea::placeholder {
       color: rgba(255,255,255,0.5);
     }
+  }
+
+  .ruler {
+    width: calc(100% - 4em);
+    height: 1px;
+    background-color: rgba(255,255,255,0.35);
+    margin: 2em;
   }
 
 }
