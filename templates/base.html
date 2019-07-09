@@ -29,7 +29,7 @@
     <nav>
       <ul>
         <li><a href="{% url 'about' %}" class="{% if index %}white{% endif %}">About</a></li>
-        <li><a href="#" class="{% if index %}white{% endif %}">Dev</a></li>
+        <li><a href="{% url 'dev_panel' %}" class="{% if index %}white{% endif %}">Dev</a></li>
         {% if user.is_authenticated %}
         <li><a href="{% url 'logout' %}" class="{% if index %}white{% endif %}">Logout</a></li>
         {% else %}

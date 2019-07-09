@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'django_forms_bootstrap',
     'accounts',
     'tickets',
+    'dev_panel',
 ]
 
 MIDDLEWARE = [

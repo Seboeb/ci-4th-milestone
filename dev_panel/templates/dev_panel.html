@@ -1,0 +1,126 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block page_title %}Dashboard - The Tasting Experience{% endblock %}
+
+{% block main_content %}
+<div class="container content dev-panel">
+
+  <!-- Main panel -->
+  <main>
+    <!-- Header with controls -->
+    <div class="controls">
+      <button>Finder app</button>
+      <button>Recipe community</button>
+      <input type="text" placeholder="Bugs, features, user...">
+    </div>
+
+    <!-- Ticket list -->
+    <div class="list">
+      <div class="ticket-list-item">
+        <img src="{% static 'img/bug-report-red.svg' %}" alt="bug_report">
+        <p class="title">When search for a new place, google maps passes an unexpected error</p>
+        <p class="subtitle">B-24 opened at 17 Jul, 19 by Sebastiaan Hekner</p>
+        <div class="icons">
+          <div class="icon">
+            <span>3</span>
+            <img src="{% static 'img/comment3.svg' %}" alt="comments">
+          </div>
+          <div class="icon">
+            <span>3</span>
+            <img src="{% static 'img/up-vote.svg' %}" alt="upvote">
+          </div>
+          <a href=""><img src="{% static 'img/eye-filled.svg' %}" alt="add to watchlist"></a>
+        </div>
+      </div>
+
+      <div class="ticket-list-item">
+        <img src="{% static 'img/bug-report-red.svg' %}" alt="bug_report">
+        <p class="title">When search for a new place, google maps passes an unexpected error</p>
+        <p class="subtitle">B-24 opened at 17 Jul, 19 by Sebastiaan Hekner</p>
+        <div class="icons">
+          <div class="icon">
+            <span>3</span>
+            <img src="{% static 'img/comment3.svg' %}" alt="comments">
+          </div>
+          <div class="icon">
+            <span>3</span>
+            <img src="{% static 'img/up-vote.svg' %}" alt="upvote">
+          </div>
+          <a href=""><img src="{% static 'img/eye-filled.svg' %}" alt="add to watchlist"></a>
+        </div>
+      </div>
+
+      <div class="ticket-list-item">
+        <img src="{% static 'img/bug-report-red.svg' %}" alt="bug_report">
+        <p class="title">When search for a new place, google maps passes an unexpected error</p>
+        <p class="subtitle">B-24 opened at 17 Jul, 19 by Sebastiaan Hekner</p>
+        <div class="icons">
+          <div class="icon">
+            <span>3</span>
+            <img src="{% static 'img/comment3.svg' %}" alt="comments">
+          </div>
+          <div class="icon">
+            <span>3</span>
+            <img src="{% static 'img/up-vote.svg' %}" alt="upvote">
+          </div>
+          <a href=""><img src="{% static 'img/eye-filled.svg' %}" alt="add to watchlist"></a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Extend list -->
+    <div class="load-more">
+      <img src="{% static 'img/arrow-down.svg' %}" alt="load more">
+      <span>show more</span>
+    </div>
+
+
+  </main>
+
+  <!-- Dashboard panel -->
+  <section class="dashboard-card">
+    <div class="main">
+      <div class="profile-card">
+        <div class="avatar">
+          <img src="{% static 'img/sebastiaan.svg' %}" alt="Sebastiaan Hekner">
+        </div>
+        <div class="personal">
+          <span class="name">Sebastiaan Hekner</span>
+          <p>Developer</p>
+        </div>
+      </div>
+      <div class="ruler"></div>
+      <button>New feature request</button>
+      <button>New bug report</button>
+      <button>Show reporting</button>
+    </div>
+    <div class="details"></div>
+    <div class="summary">
+      <p>2 Bugs</p>
+      <p>0 Features</p>
+      <p>0 Donations</p>
+    </div>
+    <div class="tickets-created-list">
+
+    </div>
+
+  </section>
+
+  <!-- Watchlist panel -->
+  <section class="watchlist-card">
+    <div class="watchlist-item">
+      <span>B-23</span>
+      <p>On an Android Galaxy s6 mobile vie...</p>
+    </div>
+    <div class="watchlist-item">
+      <span>B-23</span>
+      <p>On an Android Galaxy s6 mobile vie...</p>
+    </div>
+  </section>
+  <section> </section>
+
+</div>
+
+{% endblock %}

@@ -243,6 +243,58 @@ header nav ul li:last-child {
   padding: 2em 0;
 }
 
+.container.dev-panel {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 100%;
+      grid-template-columns: 100%;
+  -ms-grid-rows: auto;
+      grid-template-rows: auto;
+      grid-template-areas: "main";
+}
+
+@media only screen and (min-width: 1025px) {
+  .container.dev-panel {
+    -ms-grid-columns: 2fr 1fr;
+        grid-template-columns: 2fr 1fr;
+    -ms-grid-rows: minmax(50px, auto) minmax(50px, auto) minmax(0, auto);
+        grid-template-rows: minmax(50px, auto) minmax(50px, auto) minmax(0, auto);
+    gap: 1em;
+        grid-template-areas: "main dashboard" "main watchlist" "main empty";
+  }
+}
+
+.container.dev-panel main {
+  -ms-grid-row: 1;
+  -ms-grid-column: 1;
+  grid-area: main;
+  background: white;
+}
+
+.container.dev-panel section {
+  display: none;
+}
+
+@media only screen and (min-width: 1025px) {
+  .container.dev-panel section {
+    display: block;
+  }
+}
+
+.container.dev-panel section:nth-of-type(1) {
+  grid-area: dashboard;
+  background: white;
+}
+
+.container.dev-panel section:nth-of-type(2) {
+  grid-area: watchlist;
+  background: white;
+}
+
+.container.dev-panel section:nth-of-type(3) {
+  grid-area: empty;
+}
+
 .container hr {
   border-color: rgba(0, 0, 0, 0.1);
 }
