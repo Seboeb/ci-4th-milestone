@@ -37,7 +37,7 @@ def login(request):
                     None, 'You have entered an invalid email address or password.')
     else:
         login_form = UserLoginForm()
-    return render(request, 'signin.html', {'login_form': login_form})
+    return render(request, 'login.html', {'login_form': login_form})
 
 
 @login_required

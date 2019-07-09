@@ -26,11 +26,15 @@ def post_comment(request):
         form = CommentForm(request.POST)
         print(form.is_valid())
         print(form.errors)
-        comment = form.save(commit=False)
-        comment.user = request.user
-        ticket = get_object_or_404(Ticket, pk=request.POST["ticket_id"])
-        comment.ticket = ticket
-        comment.save()
+
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.user = request.user
+            ticket = get_object_or_404(Ticket, pk=request.POST["ticket_id"])
+            comment.ticket = ticket
+            comment.save()
+
+        return redirect(ticket_view, request.POST["ticket_id"])
 
         # comment = Comment.objects.create(
         #     comment="Dit is een test lol2", ticket=ticket)

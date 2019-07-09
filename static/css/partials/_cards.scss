@@ -132,6 +132,25 @@
     }
   }
 
+  .upvote-link {
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    text-decoration: none;
+    padding: 0.5em 1em;
+    color: rgba(0, 0, 0, 0.5);
+    transition: all 0.15s ease-in-out;
+    transition-property: color, background-color;
+  }
+
+  .upvote-link:hover {
+    color: black;
+    background-color: rgba(3, 191, 233, 0.33);
+  }
+
+
+
   .return {
     position: absolute;
     top: 0;

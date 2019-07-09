@@ -12,3 +12,11 @@ class CommentForm(forms.ModelForm):
         model = Comment
         exclude = ('user', 'ticket')
         fields = ['comment']
+
+    def clean_comment(self):
+        comment = self.cleaned_data.get('comment')
+
+        if not comment:
+            raise forms.ValidationError('Comment cannot be empty')
+
+        return comment
