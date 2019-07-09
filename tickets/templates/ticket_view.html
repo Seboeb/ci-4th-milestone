@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block page_title %}About - The Tasting Experience{% endblock %}
+
+{% block main_content %}
+<div class="container content">
+  <div class="watermark {% if ticket.ticket_type.name == 'feature_request' %}shift{% endif %}">
+    {% if ticket.ticket_type.name == "bug_report" %}
+    <img src="{% static 'img/bug-report-watermark.svg' %}" alt="bug report">
+    {% else %}
+    <img src="{% static 'img/develop-feature2-watermark.svg' %}" alt="feature request">
+    {% endif %}
+  </div>
+
+  <!-- Bug report section -->
+  <section class="ticket">
+    <div class="ticket-card">
+      <div class="label {{ ticket.status }}">
+        {% if ticket.status.label_name == "open" %}open{%elif ticket.status.label_name == "progress" %}in
+        progress{%elif ticket.status.label_name == "done" %}done{% endif %}</div>
+      <div class="return">Back</div>
+      <div class="main">
+        {% if ticket.ticket_type.name == "bug_report" %}
+        <span class="ticket-type red">Bug report</span>
+        {% else %}
+        <span class="ticket-type blue">Feature request</span>
+        {% endif %}
+
+        <h2>{{ ticket.title }}</h2>
+        <span class="create-info">Created at {{ ticket.date_created }} by
+          <strong>{{ ticket.user }}</strong></span>
+        <h4>Problem</h4>
+        <p>{{ ticket.description }}</p>
+      </div>
+      <div class="detail">
+        <span class="title">{{ ticket.ticket_id }} | {% if ticket.finder_app %}FINDER
+          APP{% elif ticket.recipe_community %}RECIPE COMMUNITY{% endif %}</span>
+        <p>{{ ticket.priority }} priority</p>
+        <p>Estimated development time is {{ ticket.estimate_devtime }}.</p>
+        {% if ticket.ticket_type.name == "bug_report" %}
+        <p><span class="upvotes">{{ ticket.upvotes }}</span> Others have this problem too.</p>
+        {% else %}
+        <p><span class="upvotes">{{ ticket.upvotes }}</span> Donations <a href="" class="btn donate">Donate</a></p>
+        {% endif %}
+        <div class="ruler"></div>
+        <div class="expense">
+          <div class="costs">
+            <div>
+              <span>Costs</span>
+              <p>{% if ticket.target_amount == 0%}
+                FREE
+                {% else %}
+                € {{ ticket.target_amount }}
+                {% endif %}</p>
+            </div>
+          </div>
+          <div class="progress-media">
+            <span class="donated">€ {{ ticket.donated_amount }}</span>
+            <div class="circle">
+              <svg class="progress-ring" width="100" height="100">
+                <circle class="progress-ring__stock" stroke="#03BFE9" stroke-width="6" fill="transparent" r="44" cx="50"
+                  cy="50" />
+                <circle class="progress-ring__circle" stroke="#C4C4C4" stroke-width="6" fill="transparent" r="44"
+                  cx="50" cy="50" />
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Comment section -->
+  <section class="comments">
+
+    {% for comment in comments %}
+    <div class="comment">
+      <div class="avatar">
+        <img src="{% static 'img/sebastiaan.svg' %}" alt="{{ comment.user.username }}">
+      </div>
+      <div class="content">
+        <span class="info"><strong>{{ comment.user }}</strong> {{ comment.date_created }}</span>
+        <p>{{ comment.comment }}
+        </p>
+      </div>
+    </div>
+
+    {% if not forloop.last %}
+    <div class="ruler"></div>
+    {% endif %}
+
+    {% endfor %}
+
+    <div class="new-comment">
+      {% if user.is_authenticated %}
+      <form action="{% url 'post_comment' %}" method="POST">
+        {% csrf_token %}
+        <input type="hidden" name="ticket_id" value="{{ ticket.id }}">
+        <textarea name="comment" cols="30" rows="6" placeholder="Type your new comment here..."></textarea>
+        <button type="submit" class="btn comment-btn no-stretch">Post Comment</button>
+      </form>
+      {% else %}
+      <p>You must login before you can place a comment. Login over <a href="{% url 'login' %}">here</a>.</p>
+      {% endif %}
+    </div>
+
+  </section>
+</div>
+
+{% endblock %}

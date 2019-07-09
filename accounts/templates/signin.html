@@ -18,7 +18,7 @@
       <p>Sign in or create an account</p>
       <form method="POST">
         {% csrf_token %}
-        <input type="text" name="username" placeholder="Email Address">
+        <input type="text" name="email" placeholder="Email Address">
         <input type="password" name="password" placeholder="Password">
         <button type="submit" class="btn outline-btn">Sign In</button>
       </form>

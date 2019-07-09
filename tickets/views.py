@@ -1,13 +1,37 @@
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import render, get_object_or_404, redirect, reverse
 from django.utils import timezone
-from .models import BugReport
+from .models import Ticket, Comment
+from .forms import CommentForm
+from django.contrib.auth.decorators import login_required
 
 
-def bug_report(request, id):
+def ticket_view(request, id):
     """
     Create a bug report ticket page
     view with details of that ticket
     """
-    bug_report = get_object_or_404(BugReport, pk=id)
+    ticket = get_object_or_404(Ticket, pk=id)
+    comments = Comment.objects.filter(ticket=id)
 
-    return render(request, 'bug_report.html', {'bug_report': bug_report})
+    return render(request, 'ticket_view.html', {'ticket': ticket, 'comments': comments})
+
+
+@login_required
+def post_comment(request):
+    """
+    Posts a comment for a given ticket view
+    """
+    if request.method == "POST":
+
+        form = CommentForm(request.POST)
+        print(form.is_valid())
+        print(form.errors)
+        comment = form.save(commit=False)
+        comment.user = request.user
+        ticket = get_object_or_404(Ticket, pk=request.POST["ticket_id"])
+        comment.ticket = ticket
+        comment.save()
+
+        # comment = Comment.objects.create(
+        #     comment="Dit is een test lol2", ticket=ticket)
+        # comment.save()

@@ -1,5 +1,5 @@
 from django import forms
-from django.contrib.auth.models import User
+from .models import User
 from django.contrib.auth.forms import UserCreationForm
 from django.core.exceptions import ValidationError
 
@@ -7,25 +7,20 @@ from django.core.exceptions import ValidationError
 class UserLoginForm(forms.Form):
     """Form used to login users """
 
-    username = forms.CharField()
+    email = forms.CharField()
     password = forms.CharField(widget=forms.PasswordInput)
 
 
 class UserRegistrationForm(UserCreationForm):
     """Form used to register a new user"""
 
-    password1 = forms.CharField(label='Password', widget=forms.PasswordInput)
-    password2 = forms.CharField(
-        label='Password confirmation', widget=forms.PasswordInput)
-
     class Meta:
         model = User
-        fields = ['email', 'username', 'password1', 'password2']
+        fields = ['email', 'first_name', 'last_name', 'password1', 'password2']
 
     def clean_email(self):
         email = self.cleaned_data.get('email')
-        username = self.cleaned_data.get('username')
-        if User.objects.filter(email=email).exclude(username=username):
+        if User.objects.filter(email=email):
             raise forms.ValidationError('Email address must be unique')
         return email
 
@@ -40,3 +35,19 @@ class UserRegistrationForm(UserCreationForm):
             raise forms.ValidationError('Your passwords are not matching')
 
         return password2
+
+    def clean_first_name(self):
+        first_name = self.cleaned_data.get('first_name')
+
+        if not first_name:
+            raise forms.ValidationError('Please enter a first name')
+
+        return first_name
+
+    def clean_last_name(self):
+        first_name = self.cleaned_data.get('last_name')
+
+        if not first_name:
+            raise forms.ValidationError('Please enter a last name')
+
+        return first_name

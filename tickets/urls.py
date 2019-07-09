@@ -1,6 +1,7 @@
 from django.conf.urls import url
-from tickets.views import bug_report
+from tickets.views import ticket_view, post_comment
 
 urlpatterns = [
-    url(r'bug/(?P<id>\d+)$', bug_report, name='bug_report'),
+    url(r'^(?P<id>\d+)/$', ticket_view, name='ticket_view'),
+    url(r'^comment$', post_comment, name='post_comment'),
 ]

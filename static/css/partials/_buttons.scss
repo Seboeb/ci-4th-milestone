@@ -42,6 +42,14 @@
     width: auto;
     padding: 0.5em 1.5em;
   }
+
+  &.donate {
+    display: inline-block;
+    width: auto;
+    float: right;
+    margin: 0;
+    padding: 0.25em 1em;
+  }
 }
 
 // HOVERS
@@ -54,4 +62,8 @@
   color: white;
   background-color: $submit-btn-bg-color;
   transform: none;
+}
+
+button {
+  border: 0px;
 }

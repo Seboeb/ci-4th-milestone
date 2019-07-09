@@ -91,6 +91,14 @@ html {
   padding: 0.5em 1.5em;
 }
 
+.btn.donate {
+  display: inline-block;
+  width: auto;
+  float: right;
+  margin: 0;
+  padding: 0.25em 1em;
+}
+
 .btn:hover {
   cursor: pointer;
   -webkit-transform: translate(0, -3px);
@@ -102,6 +110,10 @@ html {
   background-color: #4A4A4A;
   -webkit-transform: none;
           transform: none;
+}
+
+button {
+  border: 0px;
 }
 
 header {
@@ -282,17 +294,6 @@ header nav ul li:last-child {
   margin: 1em 0;
 }
 
-.dialog input {
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
-  width: 100%;
-  padding: 1em;
-  font-size: 0.9rem;
-  font-family: 'Montserrat';
-  border: 1px solid #A2A2A2;
-  margin: 0.25em 0;
-}
-
 .profile-card {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -417,12 +418,20 @@ header nav ul li:last-child {
   left: 0;
   text-transform: uppercase;
   font-weight: 600;
-  padding: 0.2em 0.5em;
+  padding: 0.25em 1.5em;
   color: white;
+}
+
+.ticket-card .label.open {
+  background-color: #03BFE9;
 }
 
 .ticket-card .label.progress {
   background-color: #19BC64;
+}
+
+.ticket-card .label.done {
+  background-color: #252C2F;
 }
 
 .ticket-card .return {
@@ -485,6 +494,10 @@ header nav ul li:last-child {
 
 .ticket-card .main .ticket-type.red {
   color: red;
+}
+
+.ticket-card .main .ticket-type.blue {
+  color: #1B6087;
 }
 
 .ticket-card .main .create-info {
@@ -598,6 +611,10 @@ header nav ul li:last-child {
 
 .watermark img {
   height: 1000px;
+}
+
+.watermark.shift {
+  left: -325px;
 }
 
 .progress-media {
@@ -742,11 +759,50 @@ header nav ul li:last-child {
   color: rgba(255, 255, 255, 0.5);
 }
 
+.comments .new-comment p {
+  text-align: center;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.comments .new-comment p a {
+  text-decoration: none;
+  color: #03BFE9;
+}
+
 .comments .ruler {
   width: calc(100% - 4em);
   height: 1px;
   background-color: rgba(255, 255, 255, 0.35);
   margin: 2em;
+}
+
+form .split {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+form .split input {
+  -ms-flex-preferred-size: 49%;
+      flex-basis: 49%;
+}
+
+form input {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  width: 100%;
+  padding: 1em;
+  font-size: 0.9rem;
+  font-family: 'Montserrat';
+  border: 1px solid #A2A2A2;
+  margin: 0.25em 0;
 }
 
 .landing-page {

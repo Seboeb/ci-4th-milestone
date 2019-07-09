@@ -15,12 +15,16 @@
     <div class="dialog">
       <a href="{% url 'index' %}" class="logo"><img src="{% static 'img/logo-black.png' %}"
           alt="The Tasting Experience"></a>
-      <p>Please fill in your information</p>
       <form method="POST">
         {{ registration_errors }}
         {% csrf_token %}
-        <input type="text" name="username" placeholder="Username">
+        <p>Personal Information</p>
+        <div class="split">
+          <input type="text" name="first_name" placeholder="First name">
+          <input type="text" name="last_name" placeholder="Last name">
+        </div>
         <input type="text" name="email" class="margin-down" placeholder="Email Address">
+        <p>Please choose a secure password</p>
         <input type="password" name="password1" placeholder="Password">
         <input type="password" name="password2" class="margin-down" placeholder="Repeat password">
         <button type="submit" class="btn">Create account</button>
