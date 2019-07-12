@@ -15,14 +15,13 @@
   </div>
 
   <!-- Bug report section -->
-  <section class="ticket">
+  <section class="ticket no-padding-top">
     <div class="ticket-card">
       <div class="label {{ ticket.status }}">
         {% if ticket.status.label_name == "open" %}open{%elif ticket.status.label_name == "progress" %}in
         progress{%elif ticket.status.label_name == "done" %}done{% endif %}
       </div>
       <a href="" class="upvote-link">+ Upvote</a>
-      <div class="return">Back</div>
       <div class="main">
         {% if ticket.ticket_type.name == "bug_report" %}
         <span class="ticket-type red">Bug report</span>

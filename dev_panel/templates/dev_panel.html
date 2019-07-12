@@ -11,7 +11,7 @@
   <main>
     <!-- Header with controls -->
     <div class="controls">
-      <button>Finder app</button>
+      <button class="active">Finder app</button>
       <button>Recipe community</button>
       <input type="text" placeholder="Bugs, features, user...">
     </div>
@@ -68,15 +68,14 @@
           <a href=""><img src="{% static 'img/eye-filled.svg' %}" alt="add to watchlist"></a>
         </div>
       </div>
+
+      <!-- Extend list -->
+      <div class="load-more">
+        <img src="{% static 'img/arrow-down.svg' %}" alt="load more">
+        <span>show more</span>
+      </div>
+
     </div>
-
-    <!-- Extend list -->
-    <div class="load-more">
-      <img src="{% static 'img/arrow-down.svg' %}" alt="load more">
-      <span>show more</span>
-    </div>
-
-
   </main>
 
   <!-- Dashboard panel -->
@@ -85,6 +84,7 @@
       <div class="profile-card">
         <div class="avatar">
           <img src="{% static 'img/sebastiaan.svg' %}" alt="Sebastiaan Hekner">
+          <a href="">Edit profile</a>
         </div>
         <div class="personal">
           <span class="name">Sebastiaan Hekner</span>
@@ -96,28 +96,44 @@
       <button>New bug report</button>
       <button>Show reporting</button>
     </div>
-    <div class="details"></div>
-    <div class="summary">
-      <p>2 Bugs</p>
-      <p>0 Features</p>
-      <p>0 Donations</p>
+    <div class="details">
+      <div class="summary">
+        <p>2 Bugs</p>
+        <p>0 Features</p>
+        <p>0 Donations</p>
+      </div>
+      <div class="ruler"></div>
+      <div class="tickets-created-list">
+        <a href="">
+          <div class="created-list-item">
+            <span>B-23</span>
+            <p>On an Android Galaxy s6 mobile vie...</p>
+          </div>
+        </a>
+        <a href="">
+          <div class="created-list-item">
+            <span>B-23</span>
+            <p>On an Android Galaxy s6 mobile vie...</p>
+          </div>
+        </a>
+      </div>
     </div>
-    <div class="tickets-created-list">
-
-    </div>
-
   </section>
 
   <!-- Watchlist panel -->
   <section class="watchlist-card">
-    <div class="watchlist-item">
-      <span>B-23</span>
-      <p>On an Android Galaxy s6 mobile vie...</p>
-    </div>
-    <div class="watchlist-item">
-      <span>B-23</span>
-      <p>On an Android Galaxy s6 mobile vie...</p>
-    </div>
+    <a href="">
+      <div class="watchlist-item">
+        <span>B-23</span>
+        <p>On an Android Galaxy s6 mobile vie...</p>
+      </div>
+    </a>
+    <a href="">
+      <div class="watchlist-item">
+        <span>B-23</span>
+        <p>On an Android Galaxy s6 mobile vie...</p>
+      </div>
+    </a>
   </section>
   <section> </section>
 
