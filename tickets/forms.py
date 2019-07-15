@@ -1,5 +1,5 @@
 from django import forms
-from .models import Comment
+from .models import Comment, Ticket
 
 
 class CommentForm(forms.ModelForm):
@@ -20,3 +20,38 @@ class CommentForm(forms.ModelForm):
             raise forms.ValidationError('Comment cannot be empty')
 
         return comment
+
+
+class TicketForm(forms.ModelForm):
+    """
+    This form is used to create a new ticket. 
+    """
+
+    class Meta:
+        model = Ticket
+        exclude = ('user',)
+        fields = ['title', 'description']
+
+    def clean_title(self):
+        title = self.cleaned_data.get('title')
+
+        if not title:
+            raise forms.ValidationError('Title cannot be empty')
+
+        return title
+
+    def clean_description(self):
+        description = self.cleaned_data.get('description')
+
+        # if not description:
+        #     raise forms.ValidationError('Description cannot be empty')
+
+        return description
+
+    def clean_ticket_type(self):
+        ticket_type = self.cleaned_data.get('ticket_type')
+
+        if not ticket_type:
+            raise forms.ValidationError('Please select a ticket type')
+
+        return ticket_type

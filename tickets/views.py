@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect, reverse
 from django.utils import timezone
 from .models import Ticket, Comment
-from .forms import CommentForm
+from .forms import CommentForm, TicketForm
 from django.contrib.auth.decorators import login_required
 
 
@@ -39,3 +39,21 @@ def post_comment(request):
         # comment = Comment.objects.create(
         #     comment="Dit is een test lol2", ticket=ticket)
         # comment.save()
+
+
+@login_required
+def post_bug_report(request):
+    """
+    Posts a new bug report
+    """
+
+    if request.method == "POST":
+
+        # Create new bug report
+        form = TicketForm(request.POST)
+        # form.save(commit=False)
+        print(form.is_valid())
+        print(form.errors)
+        print(request.POST)
+
+    return redirect(reverse('dev_panel'))

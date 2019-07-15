@@ -18,61 +18,37 @@
 
     <!-- Ticket list -->
     <div class="list">
-      <div class="ticket-list-item">
-        <img src="{% static 'img/bug-report-red.svg' %}" alt="bug_report">
-        <p class="title">When search for a new place, google maps passes an unexpected error</p>
-        <p class="subtitle">B-24 opened at 17 Jul, 19 by Sebastiaan Hekner</p>
-        <div class="icons">
-          <div class="icon">
-            <span>3</span>
-            <img src="{% static 'img/comment3.svg' %}" alt="comments">
-          </div>
-          <div class="icon">
-            <span>3</span>
-            <img src="{% static 'img/up-vote.svg' %}" alt="upvote">
-          </div>
-          <a href=""><img src="{% static 'img/eye-filled.svg' %}" alt="add to watchlist"></a>
-        </div>
-      </div>
 
-      <div class="ticket-list-item">
+      {% for ticket in tickets %}
+      <div class="ticket-list-item" onclick="location.href='{% url 'ticket_view' id=ticket.id %}';">
+        {% if ticket.ticket_type.name == "bug_report" %}
         <img src="{% static 'img/bug-report-red.svg' %}" alt="bug_report">
-        <p class="title">When search for a new place, google maps passes an unexpected error</p>
-        <p class="subtitle">B-24 opened at 17 Jul, 19 by Sebastiaan Hekner</p>
+        {% else %}
+        <img src="{% static 'img/develop-feature2-blue.svg' %}" alt="feature_request">
+        {% endif %}
+        <p class="title">{{ ticket.title }}</p>
+        <p class="subtitle">{{ ticket.ticket_id }} opened at {{ ticket.date_created|date:"M d, Y" }} by
+          {{ ticket.user }}</p>
         <div class="icons">
           <div class="icon">
-            <span>3</span>
+            <span>{{ ticket.nr_comments }}</span>
             <img src="{% static 'img/comment3.svg' %}" alt="comments">
           </div>
           <div class="icon">
-            <span>3</span>
+            <span>{{ ticket.upvotes }}</span>
             <img src="{% static 'img/up-vote.svg' %}" alt="upvote">
           </div>
-          <a href=""><img src="{% static 'img/eye-filled.svg' %}" alt="add to watchlist"></a>
+          <img src="{% static 'img/eye-filled.svg' %}" alt="add to watchlist">
         </div>
       </div>
-
-      <div class="ticket-list-item">
-        <img src="{% static 'img/bug-report-red.svg' %}" alt="bug_report">
-        <p class="title">When search for a new place, google maps passes an unexpected error</p>
-        <p class="subtitle">B-24 opened at 17 Jul, 19 by Sebastiaan Hekner</p>
-        <div class="icons">
-          <div class="icon">
-            <span>3</span>
-            <img src="{% static 'img/comment3.svg' %}" alt="comments">
-          </div>
-          <div class="icon">
-            <span>3</span>
-            <img src="{% static 'img/up-vote.svg' %}" alt="upvote">
-          </div>
-          <a href=""><img src="{% static 'img/eye-filled.svg' %}" alt="add to watchlist"></a>
-        </div>
-      </div>
+      {% endfor %}
 
       <!-- Extend list -->
       <div class="load-more">
-        <img src="{% static 'img/arrow-down.svg' %}" alt="load more">
-        <span>show more</span>
+        <div>
+          <img src="{% static 'img/arrow-down.svg' %}" alt="load more">
+          <span>show more</span>
+        </div>
       </div>
 
     </div>
@@ -137,6 +113,75 @@
   </section>
   <section> </section>
 
+</div>
+
+<!-- <div id="new_feature" class="modal-container">
+  <div class="modal">
+    <img src="{% static 'img/clear.svg' %}" alt="close" class="close-modal">
+    <h3>Request a new feature</h3>
+    <p>Requesting a new feature requires a donation. The minimum amount for a feature is €150,- but it may be altered.*
+    </p>
+    <form action="" method="POST">
+      <div class="radio-group">
+
+        <label for="finder_app" class="radio-container">
+          Finder App
+          <input type="radio" id="finder_app" name="ticket_type" value="finder_app" checked>
+          <span class="checkbox"></span>
+        </label>
+
+        <label for="recipe_community" class="radio-container">
+          Recipe Community
+          <input type="radio" id="recipe_community" name="ticket_type" value="recipe_community">
+          <span class="checkbox"></span>
+        </label>
+      </div>
+      <div class="input-field">
+        <input type="text" name="title" placeholder="Title / summary">
+        <span class="counter">0/75</span>
+      </div>
+      <div class="input-area">
+        <textarea name="description" cols="30" rows="10" placeholder="Feature description"></textarea>
+        <span class="counter">0/75</span>
+      </div>
+      <button type="submit" class="btn no-stretch">Submit</button>
+    </form>
+    <p class="footnote">* Depends on the estimated development time.</p>
+  </div>
+</div> -->
+
+<div id="new_bug_report" class="modal-container">
+  <div class="modal">
+    <img src="{% static 'img/clear.svg' %}" alt="close" class="close-modal">
+    <h3>Report a new bug</h3>
+    <p>Reporting a bug is free of charge! Try to be as descriptive as possible.
+    </p>
+    <form action="{% url 'post_bug_report' %}" method="POST">
+      {% csrf_token %}
+      <div class="radio-group">
+        <label for="finder_app" class="radio-container">
+          Finder App
+          <input type="radio" id="finder_app" name="ticket_type" value="finder_app" checked>
+          <span class="checkbox"></span>
+        </label>
+
+        <label for="recipe_community" class="radio-container">
+          Recipe Community
+          <input type="radio" id="recipe_community" name="ticket_type" value="recipe_community">
+          <span class="checkbox"></span>
+        </label>
+      </div>
+      <div class="input-field">
+        <input type="text" name="title" placeholder="Title / summary">
+        <span class="counter">0/75</span>
+      </div>
+      <div class="input-area">
+        <textarea name="description" cols="30" rows="10" placeholder="Bug description"></textarea>
+        <span class="counter">0/75</span>
+      </div>
+      <button type="submit" class="btn no-stretch">Submit</button>
+    </form>
+  </div>
 </div>
 
 {% endblock %}

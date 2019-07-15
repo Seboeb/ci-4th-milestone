@@ -52,9 +52,10 @@
   .list {
     background: white;
 
+
     .ticket-list-item {
       display: grid;
-      grid-template-columns: 0.35fr 2fr 1.25fr;
+      grid-template-columns: 0.35fr 3fr 1fr;
       grid-template-areas: 
         "icon item-title item-title"
         "icon item-subtitle item-icons";
@@ -96,7 +97,7 @@
           width:18px;
         }
 
-        a {
+        div {
           display: flex;
           align-items: center;
           margin-left: 0.5em;
@@ -114,6 +115,11 @@
       }
     }
 
+    .ticket-list-item:hover {
+      cursor: pointer;
+      background-color: rgba(3,191,233,0.15);
+    }
+
     >div:nth-last-child(2) {
       border: 0;
     }
@@ -128,6 +134,16 @@
       text-transform: uppercase;
       border-top: 1px solid $border-grey-2;
       padding: 1em 0;
+
+      >div {
+        display: flex;
+        align-items: center;
+      }
+
+      >div:hover {
+        cursor: pointer;
+        color: black;
+      }
 
     }
     

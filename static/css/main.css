@@ -880,11 +880,177 @@ form input {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   width: 100%;
-  padding: 1em;
+  padding: 0.75em;
   font-size: 0.9rem;
   font-family: 'Montserrat';
   border: 1px solid #A2A2A2;
   margin: 0.25em 0;
+}
+
+form .radio-group {
+  margin: 1.25em 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  font-size: 0.9rem;
+}
+
+form .radio-group .radio-container {
+  display: inline-block;
+  position: relative;
+  padding-left: 40px;
+  margin: 0.35em 0;
+}
+
+form .radio-group .radio-container > input {
+  display: none;
+}
+
+form .radio-group .radio-container .checkbox {
+  position: absolute;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  left: 0;
+  top: 0;
+  background: white;
+  border: 1px solid #A2A2A2;
+}
+
+form .radio-group .radio-container:hover .checkbox {
+  background: #E5E5E5;
+}
+
+form .radio-group .radio-container:hover {
+  cursor: pointer;
+}
+
+form .radio-group .radio-container input:checked + .checkbox::after {
+  content: "";
+  position: absolute;
+  height: 3px;
+  width: 16px;
+  background-color: #9adef4;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%) rotate(45deg);
+          transform: translate(-50%, -50%) rotate(45deg);
+}
+
+form .radio-group .radio-container input:checked + .checkbox::before {
+  content: "";
+  position: absolute;
+  height: 3px;
+  width: 16px;
+  background-color: #9adef4;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%) rotate(-45deg);
+          transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+form .input-field {
+  position: relative;
+  margin-bottom: 2em;
+}
+
+form .input-field .counter {
+  display: block;
+  float: right;
+  font-size: 0.8rem;
+  color: #868686;
+}
+
+form .input-area {
+  position: relative;
+  margin-bottom: 2em;
+}
+
+form .input-area textarea {
+  width: calc(100% - 1.5em);
+  padding: 0.75em;
+  resize: none;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.9rem;
+  border: 1px solid #A2A2A2;
+}
+
+form .input-area .counter {
+  display: block;
+  float: right;
+  font-size: 0.8rem;
+  color: #868686;
+}
+
+.modal-container {
+  position: absolute;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  top: 5em;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+}
+
+@media only screen and (min-width: 1025px) {
+  .modal-container {
+    top: 0;
+    background-color: rgba(0, 0, 0, 0.2);
+  }
+}
+
+.modal-container .modal {
+  position: relative;
+  width: 100%;
+  padding: 4em 2em;
+  background-color: #F9F9F9;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+@media only screen and (min-width: 1025px) {
+  .modal-container .modal {
+    border-radius: 50px;
+    max-width: 450px;
+    padding: 4em 3.5em;
+  }
+}
+
+.modal-container .modal h3 {
+  padding: 0;
+  margin: 0;
+  margin-bottom: 0.5em;
+}
+
+.modal-container .modal p {
+  margin: 0;
+  font-size: 0.9rem;
+  font-style: italic;
+}
+
+.modal-container .modal .close-modal {
+  position: absolute;
+  top: 25px;
+  right: 35px;
+}
+
+.modal-container .modal .close-modal:hover {
+  cursor: pointer;
+}
+
+.modal-container .modal .footnote {
+  margin-top: 1.5em;
 }
 
 .landing-page {
@@ -1054,8 +1220,8 @@ form input {
 .dev-panel .list .ticket-list-item {
   display: -ms-grid;
   display: grid;
-  -ms-grid-columns: 0.35fr 2fr 1.25fr;
-      grid-template-columns: 0.35fr 2fr 1.25fr;
+  -ms-grid-columns: 0.35fr 3fr 1fr;
+      grid-template-columns: 0.35fr 3fr 1fr;
       grid-template-areas: "icon item-title item-title" "icon item-subtitle item-icons";
   padding: 1em;
   border-bottom: 1px solid #E5E5E5;
@@ -1115,7 +1281,7 @@ form input {
   width: 18px;
 }
 
-.dev-panel .list .ticket-list-item .icons a {
+.dev-panel .list .ticket-list-item .icons div {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -1139,6 +1305,11 @@ form input {
   margin-right: 0.2em;
 }
 
+.dev-panel .list .ticket-list-item:hover {
+  cursor: pointer;
+  background-color: rgba(3, 191, 233, 0.15);
+}
+
 .dev-panel .list > div:nth-last-child(2) {
   border: 0;
 }
@@ -1159,6 +1330,20 @@ form input {
   text-transform: uppercase;
   border-top: 1px solid #E5E5E5;
   padding: 1em 0;
+}
+
+.dev-panel .list .load-more > div {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.dev-panel .list .load-more > div:hover {
+  cursor: pointer;
+  color: black;
 }
 
 .dev-panel .dashboard-card::before,
