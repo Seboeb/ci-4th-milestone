@@ -33,6 +33,7 @@ class TicketForm(forms.ModelForm):
         fields = ['title', 'description']
 
     def clean_title(self):
+        # Not working
         title = self.cleaned_data.get('title')
 
         if not title:
@@ -41,17 +42,10 @@ class TicketForm(forms.ModelForm):
         return title
 
     def clean_description(self):
+        # Not working
         description = self.cleaned_data.get('description')
 
-        # if not description:
-        #     raise forms.ValidationError('Description cannot be empty')
+        if not description:
+            raise forms.ValidationError('Description cannot be empty')
 
         return description
-
-    def clean_ticket_type(self):
-        ticket_type = self.cleaned_data.get('ticket_type')
-
-        if not ticket_type:
-            raise forms.ValidationError('Please select a ticket type')
-
-        return ticket_type

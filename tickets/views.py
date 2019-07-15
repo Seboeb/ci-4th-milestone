@@ -49,11 +49,57 @@ def post_bug_report(request):
 
     if request.method == "POST":
 
-        # Create new bug report
+        # Create new ticket
         form = TicketForm(request.POST)
-        # form.save(commit=False)
-        print(form.is_valid())
-        print(form.errors)
-        print(request.POST)
+
+        if form.is_valid():
+            ticket = form.save(commit=False)
+            ticket.user = request.user
+            ticket.ticket_type_id = 1
+
+            # Set app type
+            if request.POST['app_type'] == 'finder_app':
+                ticket.finder_app = True
+                ticket.recipe_community = False
+            elif request.POST['app_type'] == 'recipe_community':
+                ticket.finder_app = False
+                ticket.recipe_community = True
+
+            # Create ticket id
+            number = Ticket.objects.filter(ticket_type=1).count()
+            ticket.ticket_id = "B-" + str(number + 1)
+            ticket.save()
+
+    return redirect(reverse('dev_panel'))
+
+
+@login_required
+def post_feature_request(request):
+    """
+    Posts a new feature request
+    """
+
+    if request.method == "POST":
+
+        # Create new ticket
+        form = TicketForm(request.POST)
+
+        if form.is_valid():
+            ticket = form.save(commit=False)
+            ticket.user = request.user
+            ticket.ticket_type_id = 2
+
+            # Set app type
+            if request.POST['app_type'] == 'finder_app':
+                ticket.finder_app = True
+                ticket.recipe_community = False
+            elif request.POST['app_type'] == 'recipe_community':
+                ticket.finder_app = False
+                ticket.recipe_community = True
+
+            # Create ticket id
+            number = Ticket.objects.filter(ticket_type=2).count()
+            ticket.ticket_id = "F-" + str(number + 1)
+            ticket.save()
 
     return redirect(reverse('dev_panel'))

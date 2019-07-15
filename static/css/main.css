@@ -988,9 +988,7 @@ form .input-area .counter {
 
 .modal-container {
   position: absolute;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
+  display: none;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
@@ -1001,6 +999,7 @@ form .input-area .counter {
   left: 0;
   width: 100vw;
   height: 100vh;
+  z-index: 20;
 }
 
 @media only screen and (min-width: 1025px) {
@@ -1017,6 +1016,7 @@ form .input-area .counter {
   background-color: #F9F9F9;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
+  z-index: 100;
 }
 
 @media only screen and (min-width: 1025px) {

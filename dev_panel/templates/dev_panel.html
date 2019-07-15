@@ -68,8 +68,8 @@
         </div>
       </div>
       <div class="ruler"></div>
-      <button>New feature request</button>
-      <button>New bug report</button>
+      <button onclick="TE.openModal('new_feature')">New feature request</button>
+      <button onclick="TE.openModal('new_bug_report')">New bug report</button>
       <button>Show reporting</button>
     </div>
     <div class="details">
@@ -115,24 +115,24 @@
 
 </div>
 
-<!-- <div id="new_feature" class="modal-container">
+<div id="new_feature" class="modal-container">
   <div class="modal">
-    <img src="{% static 'img/clear.svg' %}" alt="close" class="close-modal">
+    <img src="{% static 'img/clear.svg' %}" alt="close" class="close-modal" onclick="TE.closeModal('new_feature')">
     <h3>Request a new feature</h3>
     <p>Requesting a new feature requires a donation. The minimum amount for a feature is €150,- but it may be altered.*
     </p>
-    <form action="" method="POST">
+    <form action="{% url 'post_feature_request' %}" method="POST">
+      {% csrf_token %}
       <div class="radio-group">
-
         <label for="finder_app" class="radio-container">
           Finder App
-          <input type="radio" id="finder_app" name="ticket_type" value="finder_app" checked>
+          <input type="radio" id="finder_app" name="app_type" value="finder_app" checked>
           <span class="checkbox"></span>
         </label>
 
         <label for="recipe_community" class="radio-container">
           Recipe Community
-          <input type="radio" id="recipe_community" name="ticket_type" value="recipe_community">
+          <input type="radio" id="recipe_community" name="app_type" value="recipe_community">
           <span class="checkbox"></span>
         </label>
       </div>
@@ -148,11 +148,11 @@
     </form>
     <p class="footnote">* Depends on the estimated development time.</p>
   </div>
-</div> -->
+</div>
 
 <div id="new_bug_report" class="modal-container">
   <div class="modal">
-    <img src="{% static 'img/clear.svg' %}" alt="close" class="close-modal">
+    <img src="{% static 'img/clear.svg' %}" alt="close" class="close-modal" onclick="TE.closeModal('new_bug_report')">
     <h3>Report a new bug</h3>
     <p>Reporting a bug is free of charge! Try to be as descriptive as possible.
     </p>
@@ -161,13 +161,13 @@
       <div class="radio-group">
         <label for="finder_app" class="radio-container">
           Finder App
-          <input type="radio" id="finder_app" name="ticket_type" value="finder_app" checked>
+          <input type="radio" id="finder_app" name="app_type" value="finder_app" checked>
           <span class="checkbox"></span>
         </label>
 
         <label for="recipe_community" class="radio-container">
           Recipe Community
-          <input type="radio" id="recipe_community" name="ticket_type" value="recipe_community">
+          <input type="radio" id="recipe_community" name="app_type" value="recipe_community">
           <span class="checkbox"></span>
         </label>
       </div>
