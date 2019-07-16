@@ -263,8 +263,8 @@ header nav ul li:last-child {
   .container.dev-panel {
     -ms-grid-columns: 2fr 1fr;
         grid-template-columns: 2fr 1fr;
-    -ms-grid-rows: minmax(50px, auto) minmax(50px, auto) auto;
-        grid-template-rows: minmax(50px, auto) minmax(50px, auto) auto;
+    -ms-grid-rows: minmax(0px, auto) minmax(0px, auto) auto;
+        grid-template-rows: minmax(0px, auto) minmax(0px, auto) auto;
     grid-row-gap: 2em;
     grid-column-gap: 3em;
         grid-template-areas: "main dashboard" "main watchlist" "main empty";
@@ -929,7 +929,7 @@ form .radio-group .radio-container:hover {
   cursor: pointer;
 }
 
-form .radio-group .radio-container input:checked + .checkbox::after {
+form .radio-group .radio-container input:checked ~ .checkbox::after {
   content: "";
   position: absolute;
   height: 3px;
@@ -941,7 +941,7 @@ form .radio-group .radio-container input:checked + .checkbox::after {
           transform: translate(-50%, -50%) rotate(45deg);
 }
 
-form .radio-group .radio-container input:checked + .checkbox::before {
+form .radio-group .radio-container input:checked ~ .checkbox::before {
   content: "";
   position: absolute;
   height: 3px;
@@ -1190,6 +1190,10 @@ form .input-area .counter {
 .dev-panel .controls button.active {
   background-color: #4A4A4A;
   color: white;
+}
+
+.dev-panel .controls button:hover {
+  cursor: pointer;
 }
 
 .dev-panel .controls input {

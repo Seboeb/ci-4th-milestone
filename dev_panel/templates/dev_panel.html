@@ -11,8 +11,10 @@
   <main>
     <!-- Header with controls -->
     <div class="controls">
-      <button class="active">Finder app</button>
-      <button>Recipe community</button>
+      <button {% if app_type == 'finder_app' %}class="active" {% endif %}
+        onclick="location.href='{% url 'dev_panel' %}'">Finder app</button>
+      <button {% if app_type == 'recipe_community' %}class="active" {% endif %}
+        onclick="location.href='{% url 'dev_panel' %}?app=recipe_community'">Recipe community</button>
       <input type="text" placeholder="Bugs, features, user...">
     </div>
 
@@ -44,8 +46,8 @@
       {% endfor %}
 
       <!-- Extend list -->
-      <div class="load-more">
-        <div>
+      <div class="load-more" {% if not load_more %}style="display:none;" {% endif %}>
+        <div onclick='TE.loadMoreTickets(0, "finder_app");'>
           <img src="{% static 'img/arrow-down.svg' %}" alt="load more">
           <span>show more</span>
         </div>
@@ -127,7 +129,7 @@
       <div class="radio-group">
         <label for="finder_app" class="radio-container">
           Finder App
-          <input type="radio" id="finder_app" name="app_type" value="finder_app" checked>
+          <input type="radio" id="finder_app" name="app_type" value="finder_app">
           <span class="checkbox"></span>
         </label>
         <label for="recipe_community" class="radio-container">
@@ -159,14 +161,14 @@
     <form action="{% url 'post_bug_report' %}" method="POST">
       {% csrf_token %}
       <div class="radio-group">
-        <label for="finder_app" class="radio-container">
+        <label for="finder_app2" class="radio-container">
           Finder App
-          <input type="radio" id="finder_app" name="app_type" value="finder_app" checked>
+          <input type="radio" id="finder_app2" name="app_type" value="finder_app">
           <span class="checkbox"></span>
         </label>
         <label for="recipe_community" class="radio-container">
           Recipe Community
-          <input type="radio" id="recipe_community" name="app_type" value="recipe_community">
+          <input type="radio" id="recipe_community2" name="app_type" value="recipe_community">
           <span class="checkbox"></span>
         </label>
       </div>
