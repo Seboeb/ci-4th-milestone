@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser, BaseUserManager
 from django.utils.translation import ugettext_lazy as _
+
 # from django.db.models.signals import post_save
 # from django.dispatch import receiver
 
@@ -44,6 +45,11 @@ class User(AbstractUser):
 
     username = None
     email = models.EmailField(_('email address'), unique=True)
+    role = models.ForeignKey('UserRole', on_delete=models.CASCADE, default=2)
+    watchlist = models.ManyToManyField(
+        'tickets.Ticket', related_name="%(class)s_watchlist")
+    created_tickets = models.ManyToManyField(
+        'tickets.Ticket', related_name="%(class)s_created_tickets")
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
@@ -52,6 +58,13 @@ class User(AbstractUser):
 
     def __str__(self):
         return self.first_name + ' ' + self.last_name
+
+
+class UserRole(models.Model):
+    label_name = models.CharField(max_length=20, null=False)
+
+    def __str__(self):
+        return self.label_name
 
 
 # class Profile(models.Model):

@@ -38,7 +38,7 @@
             <span>{{ ticket.upvotes }}</span>
             <img src="{% static 'img/up-vote.svg' %}" alt="upvote">
           </div>
-          <img src="{% static 'img/eye-filled.svg' %}" alt="add to watchlist">
+          <!-- <img src="{% static 'img/eye-filled.svg' %}" alt="add to watchlist"> -->
         </div>
       </div>
       {% endfor %}
@@ -57,60 +57,61 @@
   <!-- Dashboard panel -->
   <section class="dashboard-card">
     <div class="main">
+      {% if not user.is_authenticated %}
+      <p style="font-size:0.8rem;"><a href="{% url 'login' %}">Login</a> to activated your dashboard.</p>
+      {% else %}
       <div class="profile-card">
         <div class="avatar">
           <img src="{% static 'img/sebastiaan.svg' %}" alt="Sebastiaan Hekner">
           <a href="">Edit profile</a>
         </div>
         <div class="personal">
-          <span class="name">Sebastiaan Hekner</span>
-          <p>Developer</p>
+          <span class="name">{{ user }}</span>
+          <p>{{ user.role }}</p>
         </div>
       </div>
       <div class="ruler"></div>
       <button onclick="TE.openModal('new_feature')">New feature request</button>
       <button onclick="TE.openModal('new_bug_report')">New bug report</button>
       <button>Show reporting</button>
+      {% endif %}
     </div>
+
+    {% if user.is_authenticated %}
     <div class="details">
       <div class="summary">
-        <p>2 Bugs</p>
-        <p>0 Features</p>
-        <p>0 Donations</p>
+        <p>{{ user_summary.nr_bugs }} Bugs</p>
+        <p>{{ user_summary.nr_features }} Features</p>
+        <p>!!! Donations</p>
       </div>
       <div class="ruler"></div>
       <div class="tickets-created-list">
-        <a href="">
+        {% for ticket in created_tickets %}
+        <a href="{% url 'ticket_view' id=ticket.id %}">
           <div class="created-list-item">
-            <span>B-23</span>
-            <p>On an Android Galaxy s6 mobile vie...</p>
+            <span>{{ ticket.ticket_id }}</span>
+            <p>{{ ticket.description|truncatechars:35 }}</p>
           </div>
         </a>
-        <a href="">
-          <div class="created-list-item">
-            <span>B-23</span>
-            <p>On an Android Galaxy s6 mobile vie...</p>
-          </div>
-        </a>
+        {% endfor %}
       </div>
     </div>
+    {% endif %}
   </section>
 
   <!-- Watchlist panel -->
+  {% if user.is_authenticated %}
   <section class="watchlist-card">
-    <a href="">
+    {% for ticket in watchlist %}
+    <a href="{% url 'ticket_view' id=ticket.id %}">
       <div class="watchlist-item">
-        <span>B-23</span>
-        <p>On an Android Galaxy s6 mobile vie...</p>
+        <span>{{ ticket.ticket_id }}</span>
+        <p>{{ ticket.description|truncatechars:40 }}</p>
       </div>
     </a>
-    <a href="">
-      <div class="watchlist-item">
-        <span>B-23</span>
-        <p>On an Android Galaxy s6 mobile vie...</p>
-      </div>
-    </a>
+    {% endfor %}
   </section>
+  {% endif %}
   <section> </section>
 
 </div>
@@ -129,7 +130,6 @@
           <input type="radio" id="finder_app" name="app_type" value="finder_app" checked>
           <span class="checkbox"></span>
         </label>
-
         <label for="recipe_community" class="radio-container">
           Recipe Community
           <input type="radio" id="recipe_community" name="app_type" value="recipe_community">
@@ -164,7 +164,6 @@
           <input type="radio" id="finder_app" name="app_type" value="finder_app" checked>
           <span class="checkbox"></span>
         </label>
-
         <label for="recipe_community" class="radio-container">
           Recipe Community
           <input type="radio" id="recipe_community" name="app_type" value="recipe_community">

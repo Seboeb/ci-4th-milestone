@@ -46,7 +46,7 @@
     
     @include respond-to(medium-screens) {
       grid-template-columns: 2fr 1fr;
-      grid-template-rows: minmax(50px, auto) minmax(50px, auto) minmax(0, auto);
+      grid-template-rows: minmax(50px, auto) minmax(50px, auto) auto;
       grid-row-gap: 2em;
       grid-column-gap: 3em;
       grid-template-areas: 

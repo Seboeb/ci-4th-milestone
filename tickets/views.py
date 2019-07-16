@@ -69,6 +69,7 @@ def post_bug_report(request):
             number = Ticket.objects.filter(ticket_type=1).count()
             ticket.ticket_id = "B-" + str(number + 1)
             ticket.save()
+            request.user.created_tickets.add(ticket)
 
     return redirect(reverse('dev_panel'))
 
@@ -101,5 +102,6 @@ def post_feature_request(request):
             number = Ticket.objects.filter(ticket_type=2).count()
             ticket.ticket_id = "F-" + str(number + 1)
             ticket.save()
+            request.user.created_tickets.add(ticket)
 
     return redirect(reverse('dev_panel'))

@@ -263,8 +263,8 @@ header nav ul li:last-child {
   .container.dev-panel {
     -ms-grid-columns: 2fr 1fr;
         grid-template-columns: 2fr 1fr;
-    -ms-grid-rows: minmax(50px, auto) minmax(50px, auto) minmax(0, auto);
-        grid-template-rows: minmax(50px, auto) minmax(50px, auto) minmax(0, auto);
+    -ms-grid-rows: minmax(50px, auto) minmax(50px, auto) auto;
+        grid-template-rows: minmax(50px, auto) minmax(50px, auto) auto;
     grid-row-gap: 2em;
     grid-column-gap: 3em;
         grid-template-areas: "main dashboard" "main watchlist" "main empty";
@@ -1396,6 +1396,7 @@ form .input-area .counter {
   padding: 0.5em;
   -webkit-transition: 0.1s ease-in-out;
   transition: 0.1s ease-in-out;
+  background-color: transparent;
   -webkit-transition-property: background-color;
   transition-property: background-color;
 }
