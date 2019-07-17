@@ -1,20 +1,20 @@
 {{#each this}}
-<div class="ticket-list-item" onclick="location.href='/tickets/{{pk}}';">
+<div class="ticket-list-item" onclick="location.href='/tickets/{{id}}';">
   {{#if bug}}
   <img src="/static/img/bug-report-red.svg" alt="bug_report">
   {{else}}
   <img src="/static/img/develop-feature2-blue.svg" alt="feature_request">
   {{/if}}
-  <p class="title">{{ fields.title }}</p>
-  <p class="subtitle">{{ fields.ticket_id }} opened at {{ fields.date_created }} by
-    {{ fields.user }}</p>
+  <p class="title">{{ title }}</p>
+  <p class="subtitle">{{ ticket_id }} opened at {{ date_created }} by
+    {{ user_name }}</p>
   <div class="icons">
     <div class="icon">
-      <span>{{ fields.nr_comments }}</span>
+      <span>{{ nr_comments }}</span>
       <img src="/static/img/comment3.svg" alt="comments">
     </div>
     <div class="icon">
-      <span>{{ fields.upvotes }}</span>
+      <span>{{ upvotes }}</span>
       <img src="/static/img/up-vote.svg" alt="upvote">
     </div>
   </div>

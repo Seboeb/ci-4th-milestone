@@ -3,6 +3,7 @@ from django.utils import timezone
 from .models import Ticket, Comment
 from .forms import CommentForm, TicketForm
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseRedirect
 
 
 def ticket_view(request, id):
@@ -36,10 +37,6 @@ def post_comment(request):
 
         return redirect(ticket_view, request.POST["ticket_id"])
 
-        # comment = Comment.objects.create(
-        #     comment="Dit is een test lol2", ticket=ticket)
-        # comment.save()
-
 
 @login_required
 def post_bug_report(request):
@@ -71,7 +68,7 @@ def post_bug_report(request):
             ticket.save()
             request.user.created_tickets.add(ticket)
 
-    return redirect(reverse('dev_panel'))
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER', reverse('dev_panel')))
 
 
 @login_required
@@ -104,4 +101,4 @@ def post_feature_request(request):
             ticket.save()
             request.user.created_tickets.add(ticket)
 
-    return redirect(reverse('dev_panel'))
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER', reverse('dev_panel')))
