@@ -1,16 +1,18 @@
 .modal-container {
-  position: absolute;
+  position: fixed;
   display: none;
-  align-items: center;
-  justify-content: center;
-  top: 5em;
+  top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
-  z-index: 20;
+  z-index: 500;
+  background-color: $background-color-modal;
+  overflow-y: scroll;
 
   @include respond-to(medium-screens) {
     position:fixed;
+    align-items: center;
+    justify-content: center;
     top: 0;
     background-color: rgba(0,0,0,0.2);
   }
@@ -21,7 +23,7 @@
     padding: 4em 2em;
     background-color: $background-color-modal;
     box-sizing: border-box;
-    z-index: 100;
+    z-index: 500;
 
     @include respond-to(medium-screens) {
       border-radius: 50px;

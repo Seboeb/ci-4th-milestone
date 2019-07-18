@@ -72,3 +72,27 @@ exports.searchInitialTickets = (start, appType, query = '') => {
       history.replaceState({}, "query", `?app=${appType}&limit=${start + 9}&query=${query}`);
     });
 }
+
+exports.showMenu = () => {
+  // Show menu
+  $('.mobile-menu').toggleClass('opened');
+  $('.mobile-menu > .inner').toggleClass('opened');
+
+  $('body').addClass('no-scroll');
+
+  // Change button
+  $('.mobile-menu-btn').find('img').attr('src', '/static/img/clear-white.svg');
+  $('.mobile-menu-btn').attr('onclick', 'TE.closeMenu();');
+}
+
+exports.closeMenu = () => {
+  // Close menu
+  $('.mobile-menu').toggleClass('opened');
+  $('.mobile-menu > .inner').toggleClass('opened');
+
+  $('body').removeClass('no-scroll');
+
+  // Change button
+  $('.mobile-menu-btn').find('img').attr('src', '/static/img/menu.svg');
+  $('.mobile-menu-btn').attr('onclick', 'TE.showMenu();');
+}

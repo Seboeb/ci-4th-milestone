@@ -30,6 +30,10 @@ h2 {
   padding-top: 0px !important;
 }
 
+.no-scroll {
+  overflow: hidden;
+}
+
 body {
   font-family: 'Montserrat', 'sans-serif';
   font-weight: 300;
@@ -248,23 +252,20 @@ header nav ul li:last-child {
 }
 
 .container.dev-panel {
-  display: -ms-grid;
-  display: grid;
-  -ms-grid-columns: 100%;
-      grid-template-columns: 100%;
-  -ms-grid-rows: auto;
-      grid-template-rows: auto;
-      grid-template-areas: "main";
+  display: block;
+  position: relative;
   padding-left: 0;
   padding-right: 0;
 }
 
 @media only screen and (min-width: 1025px) {
   .container.dev-panel {
+    display: -ms-grid;
+    display: grid;
     -ms-grid-columns: 2fr 1fr;
         grid-template-columns: 2fr 1fr;
-    -ms-grid-rows: minmax(0px, auto) minmax(0px, auto) auto;
-        grid-template-rows: minmax(0px, auto) minmax(0px, auto) auto;
+    -ms-grid-rows: auto auto 1fr;
+        grid-template-rows: auto auto 1fr;
     grid-row-gap: 2em;
     grid-column-gap: 3em;
         grid-template-areas: "main dashboard" "main watchlist" "main empty";
@@ -272,8 +273,6 @@ header nav ul li:last-child {
 }
 
 .container.dev-panel main {
-  -ms-grid-row: 1;
-  -ms-grid-column: 1;
   grid-area: main;
 }
 
@@ -288,15 +287,15 @@ header nav ul li:last-child {
   }
 }
 
-.container.dev-panel section:nth-of-type(1) {
+.container.dev-panel > section:nth-of-type(1) {
   grid-area: dashboard;
 }
 
-.container.dev-panel section:nth-of-type(2) {
+.container.dev-panel > section:nth-of-type(2) {
   grid-area: watchlist;
 }
 
-.container.dev-panel section:nth-of-type(3) {
+.container.dev-panel > section:nth-of-type(3) {
   grid-area: empty;
 }
 
@@ -987,24 +986,26 @@ form .input-area .counter {
 }
 
 .modal-container {
-  position: absolute;
+  position: fixed;
   display: none;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  top: 5em;
+  top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
-  z-index: 20;
+  z-index: 500;
+  background-color: #F9F9F9;
+  overflow-y: scroll;
 }
 
 @media only screen and (min-width: 1025px) {
   .modal-container {
     position: fixed;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
     top: 0;
     background-color: rgba(0, 0, 0, 0.2);
   }
@@ -1017,7 +1018,7 @@ form .input-area .counter {
   background-color: #F9F9F9;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
-  z-index: 100;
+  z-index: 500;
 }
 
 @media only screen and (min-width: 1025px) {
@@ -1170,20 +1171,20 @@ form .input-area .counter {
 }
 
 .dev-panel .controls button {
-  -ms-flex-preferred-size: 100%;
-      flex-basis: 100%;
+  width: auto;
   height: 100%;
   font-family: 'Montserrat', sans-serif;
   background: transparent;
   color: #868686;
   text-transform: uppercase;
+  font-size: 0.65rem;
+  padding: 0.25em 1.25em;
 }
 
 @media only screen and (min-width: 1025px) {
   .dev-panel .controls button {
     -ms-flex-preferred-size: auto;
         flex-basis: auto;
-    padding: 0.25em 1.25em;
     font-size: 0.8rem;
   }
 }
@@ -1199,7 +1200,9 @@ form .input-area .counter {
 
 .dev-panel .controls input {
   margin-right: 1em;
+  margin-left: auto;
   height: 80%;
+  width: 100px;
   border: 1px solid #E5E5E5;
   padding: 0 1em;
   font-family: 'Montserrat', sans-serif;
@@ -1517,5 +1520,88 @@ form .input-area .counter {
 
 .dev-panel .watchlist-card .watchlist-item:hover {
   background-color: #ebebeb;
+}
+
+.dev-panel .mobile-menu-btn {
+  position: fixed;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  width: 50px;
+  height: 50px;
+  bottom: 5vw;
+  right: 5vw;
+  background-color: #03BFE9;
+  border-radius: 50%;
+  z-index: 500;
+}
+
+@media only screen and (min-width: 1025px) {
+  .dev-panel .mobile-menu-btn {
+    display: none;
+  }
+}
+
+.dev-panel .mobile-menu-btn img {
+  width: 30px;
+}
+
+.dev-panel .mobile-menu-btn:hover {
+  cursor: pointer;
+}
+
+.dev-panel .mobile-menu {
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 0;
+  z-index: 200;
+  background-color: rgba(0, 0, 0, 0.2);
+  overflow-y: scroll;
+  opacity: 0;
+  -webkit-transition: height 0.1s ease, opacity 0.05s 0.15s ease;
+  transition: height 0.1s ease, opacity 0.05s 0.15s ease;
+}
+
+.dev-panel .mobile-menu.opened {
+  opacity: 1;
+  height: 100%;
+}
+
+.dev-panel .mobile-menu > .inner {
+  position: absolute;
+  top: 0;
+  z-index: 200;
+  left: calc((100% - 60px - 8vw)*-1);
+  width: calc(100% - 60px - 8vw);
+  background-color: white;
+  -webkit-transition: left 0.3s 0.4s ease;
+  transition: left 0.3s 0.4s ease;
+}
+
+.dev-panel .mobile-menu > .inner.opened {
+  left: 0;
+}
+
+.dev-panel .mobile-menu > .inner > section {
+  -webkit-box-shadow: none;
+          box-shadow: none;
+}
+
+.dev-panel .mobile-menu > .inner > section::before {
+  padding-left: 1em;
+}
+
+@media only screen and (min-width: 1025px) {
+  .dev-panel .mobile-menu {
+    display: none;
+  }
 }
 /*# sourceMappingURL=main.css.map */
