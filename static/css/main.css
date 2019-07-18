@@ -1004,6 +1004,7 @@ form .input-area .counter {
 
 @media only screen and (min-width: 1025px) {
   .modal-container {
+    position: fixed;
     top: 0;
     background-color: rgba(0, 0, 0, 0.2);
   }

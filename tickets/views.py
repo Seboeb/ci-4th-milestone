@@ -25,15 +25,18 @@ def post_comment(request):
     if request.method == "POST":
 
         form = CommentForm(request.POST)
-        print(form.is_valid())
-        print(form.errors)
 
         if form.is_valid():
+            # Create comment
             comment = form.save(commit=False)
             comment.user = request.user
             ticket = get_object_or_404(Ticket, pk=request.POST["ticket_id"])
             comment.ticket = ticket
             comment.save()
+
+            # Update ticket
+            ticket.nr_comments = ticket.nr_comments + 1
+            ticket.save()
 
         return redirect(ticket_view, request.POST["ticket_id"])
 
@@ -65,6 +68,12 @@ def post_bug_report(request):
             # Create ticket id
             number = Ticket.objects.filter(ticket_type=1).count()
             ticket.ticket_id = "B-" + str(number + 1)
+
+            # Create search text
+            search_field = 'bugs ' + ticket.ticket_id + ' ' + ticket.user.first_name + \
+                ' ' + ticket.user.last_name + ' ' + ticket.title
+            ticket.search_field = search_field.lower()
+
             ticket.save()
             request.user.created_tickets.add(ticket)
 
@@ -98,6 +107,12 @@ def post_feature_request(request):
             # Create ticket id
             number = Ticket.objects.filter(ticket_type=2).count()
             ticket.ticket_id = "F-" + str(number + 1)
+
+            # Create search text
+            search_field = 'features ' + ticket.ticket_id + ' ' + ticket.user.first_name + \
+                ' ' + ticket.user.last_name + ' ' + ticket.title
+            ticket.search_field = search_field.lower()
+
             ticket.save()
             request.user.created_tickets.add(ticket)
 

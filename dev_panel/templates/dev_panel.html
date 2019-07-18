@@ -15,12 +15,12 @@
         onclick="location.href='{% url 'dev_panel' %}?app=finder_app'">Finder app</button>
       <button {% if app_type == 'recipe_community' %}class="active" {% endif %}
         onclick="location.href='{% url 'dev_panel' %}?app=recipe_community'">Recipe community</button>
-      <input type="text" placeholder="Bugs, features, user...">
+      <input type="text" oninput='TE.searchInitialTickets(1, "{{ app_type }}", this.value);'
+        placeholder="Bugs, features, user...">
     </div>
 
     <!-- Ticket list -->
     <div class="list">
-
       {% for ticket in tickets %}
       <div class="ticket-list-item" onclick="location.href='{% url 'ticket_view' id=ticket.id %}';">
         {% if ticket.ticket_type.name == "bug_report" %}
@@ -47,12 +47,11 @@
 
       <!-- Extend list -->
       <div class="load-more" {% if not load_more %}style="display:none;" {% endif %}>
-        <div onclick='TE.loadMoreTickets(11, "{{ app_type }}");'>
+        <div onclick='TE.loadMoreTickets(11, "{{ app_type }}", "");'>
           <img src="{% static 'img/arrow-down.svg' %}" alt="load more">
           <span>show more</span>
         </div>
       </div>
-
     </div>
   </main>
 
@@ -129,7 +128,7 @@
       <div class="radio-group">
         <label for="finder_app" class="radio-container">
           Finder App
-          <input type="radio" id="finder_app" name="app_type" value="finder_app">
+          <input type="radio" id="finder_app" name="app_type" value="finder_app" checked>
           <span class="checkbox"></span>
         </label>
         <label for="recipe_community" class="radio-container">
@@ -163,7 +162,7 @@
       <div class="radio-group">
         <label for="finder_app2" class="radio-container">
           Finder App
-          <input type="radio" id="finder_app2" name="app_type" value="finder_app">
+          <input type="radio" id="finder_app2" name="app_type" value="finder_app" checked>
           <span class="checkbox"></span>
         </label>
         <label for="recipe_community2" class="radio-container">

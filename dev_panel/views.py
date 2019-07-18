@@ -17,6 +17,7 @@ def dev_panel(request):
     # Get request parameters
     try:
         app_type = request.GET.get('app', 'finder_app')
+        query = request.GET.get('query', '')
         start_range = int(request.GET.get('start', '1')) - 1
         limit_range = int(request.GET.get('limit', '10'))
     except:
@@ -28,9 +29,12 @@ def dev_panel(request):
             finder_app=True, recipe_community=False).order_by('-date_created')
     elif app_type == 'recipe_community':
         tickets = Ticket.objects.filter(
-            finder_app=False, recipe_community=True).order_by('-date_created')[:10]
+            finder_app=False, recipe_community=True).order_by('-date_created')
     else:
         raise Http404
+
+    if query != '':
+        tickets = tickets.filter(search_field__contains=query.lower())
 
     # Select range of the tickets
     if tickets.count() > start_range + limit_range:
@@ -59,10 +63,6 @@ def dev_panel(request):
                                                   'user_summary': summary, 'created_tickets': created_tickets, 'app_type': app_type, 'load_more': load_more})
     if request.method == 'POST':
         ticket_data = [get_ticket_data(ticket) for ticket in tickets]
-
-        print(ticket_data)
-        # data = serializers.serialize("json", ticket_data)
-        # return JsonResponse({'data': data})
         return HttpResponse(json.dumps({'load_more': load_more, 'data': ticket_data}), content_type='application/json')
 
 

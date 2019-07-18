@@ -7,6 +7,7 @@ class Ticket(models.Model):
     ticket_id = models.CharField(max_length=10, default='')
     title = models.CharField(max_length=75, default='')
     description = models.TextField()
+    search_field = models.CharField(max_length=200, default='')
     finder_app = models.BooleanField(blank=False, default=False)
     recipe_community = models.BooleanField(blank=False, default=False)
     estimate_devtime = models.CharField(
