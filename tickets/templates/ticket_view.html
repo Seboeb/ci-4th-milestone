@@ -21,7 +21,27 @@
         {% if ticket.status.label_name == "open" %}open{%elif ticket.status.label_name == "progress" %}in
         progress{%elif ticket.status.label_name == "done" %}done{% endif %}
       </div>
-      <a href="" class="upvote-link">+ Upvote</a>
+      {% if user.is_authenticated %}
+      <div class="icons">
+        {% if actions.owner %}
+        <button class="edit" onclick="TE.openModal('edit_ticket')">
+          <span class="tooltip">Edit ticket</span>
+          <img src="{% static 'img/edit.svg' %}" alt="edit">
+        </button>
+        {% endif %}
+        <button class="watchlist {% if actions.watchlist %}active{% endif %}"
+          onclick="TE.toggleWatchlist({{ ticket.pk }})">
+          <span class="tooltip">Add watchlist</span>
+          <img src="{% static 'img/eye.svg' %}" alt="watchlist">
+        </button>
+        {% if ticket.ticket_type.name == "bug_report" %}
+        <button class="upvote {% if actions.upvoted %}active{% endif %}" onclick="TE.toggleUpvote({{ ticket.pk }})">
+          <span class="tooltip">Upvote</span>
+          <img src="{% static 'img/up-vote.svg' %}" alt="upvote">
+        </button>
+        {% endif %}
+      </div>
+      {% endif %}
       <div class="main">
         {% if ticket.ticket_type.name == "bug_report" %}
         <span class="ticket-type red">Bug report</span>
@@ -113,6 +133,34 @@
     </div>
 
   </section>
+</div>
+
+<div id="edit_ticket" class="modal-container">
+  <div class="modal">
+    <img src="{% static 'img/clear.svg' %}" alt="close" class="close-modal" onclick="TE.closeModal('edit_ticket')">
+    {% if ticket.ticket_type.name == "bug_report" %}
+    <h3>Edit bug report</h3>
+    <p>Please adjust your bug report and submit when you are done.</p>
+    {% else %}
+    <h3>Edit feature request</h3>
+    <p>Please adjust your feature and submit when you are done.</p>
+    {% endif %}
+    <form action="{% url 'edit_ticket' %}" method="POST" class="margin-upper">
+      {% csrf_token %}
+      <input type="hidden" name="ticket_id" value={{ticket.id}}>
+      <div class="input-field">
+        <label for="title">Title</label>
+        <input type="text" id="title" name="title" value="{{ ticket.title }}">
+        <span class="counter">0/75</span>
+      </div>
+      <div class="input-area">
+        <label for="description">Description</label>
+        <textarea name="description" id="description" cols="30" rows="10">{{ ticket.description }}</textarea>
+        <span class="counter">0/75</span>
+      </div>
+      <button type="submit" class="btn no-stretch">Submit</button>
+    </form>
+  </div>
 </div>
 
 {% endblock %}

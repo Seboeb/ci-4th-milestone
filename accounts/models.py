@@ -47,9 +47,11 @@ class User(AbstractUser):
     email = models.EmailField(_('email address'), unique=True)
     role = models.ForeignKey('UserRole', on_delete=models.CASCADE, default=2)
     watchlist = models.ManyToManyField(
-        'tickets.Ticket', related_name="%(class)s_watchlist", null=True, blank=True)
+        'tickets.Ticket', related_name="%(class)s_watchlist", blank=True)
     created_tickets = models.ManyToManyField(
-        'tickets.Ticket', related_name="%(class)s_created_tickets", null=True, blank=True)
+        'tickets.Ticket', related_name="%(class)s_created_tickets", blank=True)
+    upvotes = models.ManyToManyField(
+        'tickets.Ticket', related_name="%(class)s_upvoted_tickets", blank=True)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []

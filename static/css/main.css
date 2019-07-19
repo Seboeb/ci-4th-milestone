@@ -26,6 +26,10 @@ h2 {
   margin-bottom: 2em !important;
 }
 
+.margin-upper {
+  margin-top: 2em !important;
+}
+
 .no-padding-top {
   padding-top: 0px !important;
 }
@@ -497,23 +501,82 @@ header nav ul li:last-child {
   background-color: #252C2F;
 }
 
-.ticket-card .upvote-link {
-  display: inline-block;
+.ticket-card .icons {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
   position: absolute;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   top: 0;
   right: 0;
-  text-decoration: none;
-  padding: 0.5em 1em;
-  color: rgba(0, 0, 0, 0.5);
-  -webkit-transition: all 0.15s ease-in-out;
-  transition: all 0.15s ease-in-out;
-  -webkit-transition-property: color, background-color;
-  transition-property: color, background-color;
 }
 
-.ticket-card .upvote-link:hover {
-  color: black;
-  background-color: rgba(3, 191, 233, 0.33);
+.ticket-card .icons button {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  position: relative;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background: transparent;
+  padding: 0.5em;
+  -webkit-transition: background-color 0.2s ease;
+  transition: background-color 0.2s ease;
+}
+
+.ticket-card .icons button.active {
+  background-color: #7cd0ff;
+}
+
+.ticket-card .icons button img {
+  width: 25px;
+  height: 25px;
+}
+
+.ticket-card .icons button span {
+  position: absolute;
+  display: inline-block;
+  width: auto;
+  white-space: nowrap;
+  padding: 0.5em;
+  background: grey;
+  color: white;
+  top: -30px;
+  left: 50%;
+  -webkit-transform: translateX(-10px);
+          transform: translateX(-10px);
+  visibility: hidden;
+}
+
+.ticket-card .icons button span::after {
+  content: '';
+  background: grey;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  position: absolute;
+  bottom: 0;
+  width: 10px;
+  height: 10px;
+  margin: 0 auto;
+  -webkit-transform: translateY(50%) rotate(45deg);
+          transform: translateY(50%) rotate(45deg);
+}
+
+.ticket-card .icons button:hover {
+  cursor: pointer;
+  background-color: #E5E5E5;
+}
+
+.ticket-card .icons button:focus {
+  outline: none;
+}
+
+.ticket-card .icons button:hover span {
+  visibility: visible;
 }
 
 .ticket-card .return {
@@ -533,6 +596,7 @@ header nav ul li:last-child {
 
 .ticket-card .main {
   padding: 2em 0;
+  text-align: left;
 }
 
 @media only screen and (min-width: 1025px) {

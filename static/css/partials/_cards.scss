@@ -139,22 +139,72 @@
     }
   }
 
-  .upvote-link {
-    display: inline-block;
+  .icons {
+    display: flex;
     position: absolute;
+    align-items: center;
     top: 0;
     right: 0;
-    text-decoration: none;
-    padding: 0.5em 1em;
-    color: rgba(0, 0, 0, 0.5);
-    transition: all 0.15s ease-in-out;
-    transition-property: color, background-color;
+
+    button {
+      display: flex;
+      position: relative;
+      align-items: center;
+      background: transparent;
+      padding: 0.5em;
+      transition: background-color 0.2s ease;
+
+      &.active {
+        background-color: #7cd0ff;
+      }
+
+      img {
+        width: 25px;
+        height: 25px;
+      }
+
+      span {
+        position: absolute;
+        display: inline-block;
+        width: auto;
+        white-space: nowrap;
+        padding: 0.5em;
+        background: grey;
+        color: white;
+        top: -30px;
+        left: 50%;
+        transform: translateX(-10px);
+        visibility: hidden;
+      }
+
+
+      span::after {
+        content:'';
+        background:grey;
+        display: flex;
+        position: absolute;
+        bottom: 0;
+        width: 10px;
+        height: 10px;
+        margin: 0 auto;
+        transform: translateY(50%) rotate(45deg);
+      }
+    }
+
+    button:hover {
+      cursor: pointer;
+      background-color: $border-grey-2;
+    }
+
+    button:focus {
+      outline: none;
+    }
+
+    button:hover span {
+      visibility: visible;
+    }
   }
 
-  .upvote-link:hover {
-    color: black;
-    background-color: rgba(3, 191, 233, 0.33);
-  }
 
 
 
@@ -171,6 +221,7 @@
 
   .main {
     padding: 2em 0;
+    text-align: left;
     
     @include respond-to(medium-screens) {
       display: flex;

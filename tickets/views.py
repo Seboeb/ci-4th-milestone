@@ -3,7 +3,9 @@ from django.utils import timezone
 from .models import Ticket, Comment
 from .forms import CommentForm, TicketForm
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
+from django.views.decorators.csrf import csrf_exempt
+import json
 
 
 def ticket_view(request, id):
@@ -14,7 +16,16 @@ def ticket_view(request, id):
     ticket = get_object_or_404(Ticket, pk=id)
     comments = Comment.objects.filter(ticket=id)
 
-    return render(request, 'ticket_view.html', {'ticket': ticket, 'comments': comments})
+    if request.user.is_authenticated:
+        actions = {
+            'upvoted': True if request.user.upvotes.all().filter(pk=id) else False,
+            'watchlist': True if request.user.watchlist.all().filter(pk=id) else False,
+            'owner': True if ticket.user == request.user else False
+        }
+    else:
+        actions = None
+
+    return render(request, 'ticket_view.html', {'ticket': ticket, 'comments': comments, 'actions': actions})
 
 
 @login_required
@@ -117,3 +128,68 @@ def post_feature_request(request):
             request.user.created_tickets.add(ticket)
 
     return HttpResponseRedirect(request.META.get('HTTP_REFERER', reverse('dev_panel')))
+
+
+@login_required
+def edit_ticket(request):
+    """
+    Updates the ticket
+    """
+    if request.method == 'POST':
+        # Create new ticket
+        form = TicketForm(request.POST)
+
+        if form.is_valid():
+            ticket = get_object_or_404(Ticket, pk=request.POST['ticket_id'])
+            ticket.title = request.POST['title']
+            ticket.description = request.POST['description']
+            ticket.save()
+
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER', reverse('dev_panel')))
+
+
+@login_required
+@csrf_exempt
+def post_upvote(request, id):
+    """
+    Update the upvote from a user for a specific
+    ticket
+    """
+    if request.method == 'POST':
+        ticket = get_object_or_404(Ticket, pk=id)
+        ticket_in_list = request.user.upvotes.all().filter(pk=id)
+
+        if ticket_in_list:
+            request.user.upvotes.remove(ticket)
+            ticket.upvotes = ticket.upvotes - 1
+            state = 'off'
+        else:
+            request.user.upvotes.add(ticket)
+            ticket.upvotes = ticket.upvotes + 1
+            state = 'on'
+
+        ticket.save()
+
+        return HttpResponse(json.dumps({'status': 'ok', 'state': state, 'upvotes': ticket.upvotes}), content_type='application/json')
+
+
+@login_required
+@csrf_exempt
+def post_watchlist(request, id):
+    """
+    Sets or unsets a ticket from the watchlist
+    of a user
+    """
+
+    if request.method == 'POST':
+        ticket = get_object_or_404(Ticket, pk=id)
+        ticket_in_list = request.user.watchlist.all().filter(pk=id)
+
+        if ticket_in_list:
+            request.user.watchlist.remove(ticket)
+            state = 'off'
+        else:
+            request.user.watchlist.add(ticket)
+            state = 'on'
+
+        return HttpResponse(json.dumps({'status': 'ok', 'state': state}), content_type='application/json')

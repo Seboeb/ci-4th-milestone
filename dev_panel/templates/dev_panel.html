@@ -95,7 +95,7 @@
         <a href="{% url 'ticket_view' id=ticket.id %}">
           <div class="created-list-item">
             <span>{{ ticket.ticket_id }}</span>
-            <p>{{ ticket.description|truncatechars:35 }}</p>
+            <p>{{ ticket.title|truncatechars:35 }}</p>
           </div>
         </a>
         {% endfor %}
@@ -107,11 +107,18 @@
   <!-- Watchlist panel -->
   {% if user.is_authenticated %}
   <section class="watchlist-card">
+    {% if not watchlist %}
+    <a href="#!">
+      <div class="watchlist-item">
+        <p>No tickets</p>
+      </div>
+    </a>
+    {% endif %}
     {% for ticket in watchlist %}
     <a href="{% url 'ticket_view' id=ticket.id %}">
       <div class="watchlist-item">
         <span>{{ ticket.ticket_id }}</span>
-        <p>{{ ticket.description|truncatechars:40 }}</p>
+        <p>{{ ticket.title|truncatechars:40 }}</p>
       </div>
     </a>
     {% endfor %}
@@ -157,7 +164,7 @@
             <a href="{% url 'ticket_view' id=ticket.id %}">
               <div class="created-list-item">
                 <span>{{ ticket.ticket_id }}</span>
-                <p>{{ ticket.description|truncatechars:35 }}</p>
+                <p>{{ ticket.title|truncatechars:35 }}</p>
               </div>
             </a>
             {% endfor %}
@@ -169,11 +176,18 @@
       <!-- Watchlist panel -->
       {% if user.is_authenticated %}
       <section class="watchlist-card">
+        {% if not watchlist %}
+        <a href="#!">
+          <div class="watchlist-item">
+            <p>No tickets</p>
+          </div>
+        </a>
+        {% endif %}
         {% for ticket in watchlist %}
         <a href="{% url 'ticket_view' id=ticket.id %}">
           <div class="watchlist-item">
             <span>{{ ticket.ticket_id }}</span>
-            <p>{{ ticket.description|truncatechars:40 }}</p>
+            <p>{{ ticket.title|truncatechars:40 }}</p>
           </div>
         </a>
         {% endfor %}
