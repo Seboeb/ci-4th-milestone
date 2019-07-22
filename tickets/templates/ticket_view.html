@@ -4,6 +4,18 @@
 
 {% block page_title %}About - The Tasting Experience{% endblock %}
 
+{% block head_js %}
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+<script type="text/javascript">
+  //<![CDATA[
+  Stripe.publishableKey = '{{ publishable }}';
+    //]]>
+</script>
+<script type="text/javascript" src="{% static 'js/stripe.js' %}"></script>
+{% endblock %}
+
 {% block main_content %}
 <div class="container content">
   <div class="watermark {% if ticket.ticket_type.name == 'feature_request' %}shift{% endif %}">
@@ -63,7 +75,8 @@
         {% if ticket.ticket_type.name == "bug_report" %}
         <p><span class="upvotes">{{ ticket.upvotes }}</span> Others have this problem too.</p>
         {% else %}
-        <p><span class="upvotes">{{ ticket.upvotes }}</span> Donations <a href="" class="btn donate">Donate</a></p>
+        <p><span class="upvotes">{{ ticket.upvotes }}</span> Donations <button class="btn donate"
+            onclick="TE.openModal('make_donation');">Donate</button></p>
         {% endif %}
         <div class="ruler"></div>
         <div class="expense">
@@ -104,10 +117,11 @@
     {% for comment in comments %}
     <div class="comment">
       <div class="avatar">
-        <img src="{% static user.profile_picture %}" alt="{{ comment.user.username }}">
+        <img src="{% static comment.user.profile_picture %}" alt="{{ comment.user.username }}">
       </div>
       <div class="content">
-        <span class="info"><strong>{{ comment.user }}</strong> {{ comment.date_created }}</span>
+        <span class="info"><strong>{{ comment.user }}</strong> <span
+            class="time">{{ comment.date_created }}</span></span>
         <p>{{ comment.comment }}
         </p>
       </div>
@@ -159,6 +173,52 @@
         <span class="counter">0/75</span>
       </div>
       <button type="submit" class="btn no-stretch">Submit</button>
+    </form>
+  </div>
+</div>
+
+<div id="make_donation" class="modal-container">
+  <div class="modal">
+    <img src="{% static 'img/clear.svg' %}" alt="close" class="close-modal" onclick="TE.closeModal('make_donation')">
+    {% if ticket.ticket_type.name == "bug_report" %}
+    <h3>Edit bug report</h3>
+    <p>Please adjust your bug report and submit when you are done.</p>
+    {% else %}
+    <h3>Edit feature request</h3>
+    <p>Please adjust your feature and submit when you are done.</p>
+    {% endif %}
+    <form action="{% url 'make_payment' %}" id="payment-form" method="POST" class="margin-upper">
+      <div id="credit-card-errors" style="display: none;">
+        <div id="stripe-error-message"></div>
+      </div>
+      {% csrf_token %}
+      <input type="hidden" id="stripe_id" name="stripe_id">
+      <div class="input-field">
+        <label for="title">Credit card number</label>
+        <input type="text" id="credit_card_number" name="credit_card_number">
+      </div>
+      <div class="input-field">
+        <label for="title">Month</label>
+        <select name="expiry_month" id="expiry_month">
+          {% for i in i|rjust:12 %}
+          <option value="{{ forloop.counter }}">{{ forloop.counter }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="input-field">
+        <label for="title">Year</label>
+        <select name="expiry_year" id="expiry_year">
+          {% for i in year_range %}
+          <option value="{{ i }}">{{ i }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="input-field">
+        <label for="title">Cvv number</label>
+        <input type="text" id="cvv" name="cvv">
+      </div>
+
+      <input type="submit" class="btn no-stretch" value="Make donation">
     </form>
   </div>
 </div>

@@ -6,6 +6,7 @@ from .utils import create_search_label
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect, HttpResponse
 from django.views.decorators.csrf import csrf_exempt
+from django.conf import settings
 import json
 
 
@@ -26,7 +27,9 @@ def ticket_view(request, id):
     else:
         actions = None
 
-    return render(request, 'ticket_view.html', {'ticket': ticket, 'comments': comments, 'actions': actions})
+    year_range = range(2019, 2039)
+
+    return render(request, 'ticket_view.html', {'ticket': ticket, 'comments': comments, 'actions': actions, 'year_range': year_range, 'publishable': settings.STRIPE_PUBLISHABLE})
 
 
 @login_required

@@ -875,6 +875,9 @@ header nav ul li:last-child {
     -webkit-box-direction: normal;
         -ms-flex-direction: column;
             flex-direction: column;
+    -webkit-box-align: start;
+        -ms-flex-align: start;
+            align-items: flex-start;
     padding: 0 0 0 1em;
     -ms-flex-preferred-size: calc(100% - 100px - 1em);
         flex-basis: calc(100% - 100px - 1em);
@@ -885,8 +888,20 @@ header nav ul li:last-child {
   margin: 0;
 }
 
+.comments .comment .content .info {
+  margin-bottom: 0.35em;
+  padding-bottom: 0.15em;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.35);
+}
+
 .comments .comment .content .info > strong {
-  padding-right: 2em;
+  padding-right: 1em;
+}
+
+.comments .comment .content .time {
+  font-size: 0.8rem;
+  opacity: 0.5;
+  margin-bottom: 1em;
 }
 
 .comments .new-comment {
@@ -939,8 +954,7 @@ header nav ul li:last-child {
 .comments .ruler {
   width: calc(100% - 4em);
   height: 1px;
-  background-color: rgba(255, 255, 255, 0.35);
-  margin: 2em;
+  margin: 1em;
 }
 
 form .split {

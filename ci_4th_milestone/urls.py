@@ -20,6 +20,7 @@ from accounts.views import index, about
 from accounts import urls as accounts_urls
 from tickets import urls as tickets_urls
 from dev_panel import urls as dashboard_urls
+from donations import urls as donations_urls
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -28,4 +29,5 @@ urlpatterns = [
     url(r'^accounts/', include(accounts_urls)),
     url(r'^tickets/', include(tickets_urls)),
     url(r'^dashboard/', include(dashboard_urls)),
+    url(r'^payment/', include(donations_urls)),
 ]
