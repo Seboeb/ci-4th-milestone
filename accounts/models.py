@@ -46,6 +46,8 @@ class User(AbstractUser):
     username = None
     email = models.EmailField(_('email address'), unique=True)
     role = models.ForeignKey('UserRole', on_delete=models.CASCADE, default=2)
+    profile_picture = models.CharField(
+        max_length=20, default='img/non-user.png')
     watchlist = models.ManyToManyField(
         'tickets.Ticket', related_name="%(class)s_watchlist", blank=True)
     created_tickets = models.ManyToManyField(

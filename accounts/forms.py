@@ -51,3 +51,30 @@ class UserRegistrationForm(UserCreationForm):
             raise forms.ValidationError('Please enter a last name')
 
         return first_name
+
+
+class UserProfileForm(forms.ModelForm):
+    """
+    This form is used to update the user profile
+    information
+    """
+
+    class Meta:
+        model = User
+        fields = ['profile_picture', 'first_name', 'last_name']
+
+    def clean_first_name(self):
+        first_name = self.cleaned_data.get('first_name')
+
+        if not first_name:
+            raise forms.ValidationError('Please enter a first name')
+
+        return first_name
+
+    def clean_last_name(self):
+        first_name = self.cleaned_data.get('last_name')
+
+        if not first_name:
+            raise forms.ValidationError('Please enter a last name')
+
+        return first_name

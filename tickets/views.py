@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect, reverse
 from django.utils import timezone
 from .models import Ticket, Comment
 from .forms import CommentForm, TicketForm
+from .utils import create_search_label
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect, HttpResponse
 from django.views.decorators.csrf import csrf_exempt
@@ -81,9 +82,7 @@ def post_bug_report(request):
             ticket.ticket_id = "B-" + str(number + 1)
 
             # Create search text
-            search_field = 'bugs ' + ticket.ticket_id + ' ' + ticket.user.first_name + \
-                ' ' + ticket.user.last_name + ' ' + ticket.title
-            ticket.search_field = search_field.lower()
+            ticket.search_field = create_search_label(ticket)
 
             ticket.save()
             request.user.created_tickets.add(ticket)
@@ -120,9 +119,7 @@ def post_feature_request(request):
             ticket.ticket_id = "F-" + str(number + 1)
 
             # Create search text
-            search_field = 'features ' + ticket.ticket_id + ' ' + ticket.user.first_name + \
-                ' ' + ticket.user.last_name + ' ' + ticket.title
-            ticket.search_field = search_field.lower()
+            ticket.search_field = create_search_label(ticket)
 
             ticket.save()
             request.user.created_tickets.add(ticket)
@@ -143,6 +140,7 @@ def edit_ticket(request):
             ticket = get_object_or_404(Ticket, pk=request.POST['ticket_id'])
             ticket.title = request.POST['title']
             ticket.description = request.POST['description']
+            ticket.search_field = create_search_label(ticket)
             ticket.save()
 
     return HttpResponseRedirect(request.META.get('HTTP_REFERER', reverse('dev_panel')))

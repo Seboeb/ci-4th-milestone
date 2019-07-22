@@ -98,13 +98,13 @@
 
     {% if not comments %}
     <div class="new-comment">
-      <p>There are no comments placed.</p>
+      <p style="color:white; margin:0;">There are no comments placed.</p>
     </div>
     {% endif %}
     {% for comment in comments %}
     <div class="comment">
       <div class="avatar">
-        <img src="{% static 'img/sebastiaan.svg' %}" alt="{{ comment.user.username }}">
+        <img src="{% static user.profile_picture %}" alt="{{ comment.user.username }}">
       </div>
       <div class="content">
         <span class="info"><strong>{{ comment.user }}</strong> {{ comment.date_created }}</span>

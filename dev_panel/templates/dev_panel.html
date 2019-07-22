@@ -67,8 +67,8 @@
       {% else %}
       <div class="profile-card">
         <div class="avatar">
-          <img src="{% static 'img/sebastiaan.svg' %}" alt="Sebastiaan Hekner">
-          <a href="">Edit profile</a>
+          <img src="{% static user.profile_picture %}" alt="{{ user }}">
+          <button onclick="TE.openModal('user_profile')">Edit profile</button>
         </div>
         <div class="personal">
           <span class="name">{{ user }}</span>
@@ -260,6 +260,64 @@
       <div class="input-area">
         <textarea name="description" cols="30" rows="10" placeholder="Bug description"></textarea>
         <span class="counter">0/75</span>
+      </div>
+      <button type="submit" class="btn no-stretch">Submit</button>
+    </form>
+  </div>
+</div>
+
+<div id="user_profile" class="modal-container">
+  <div class="modal">
+    <img src="{% static 'img/clear.svg' %}" alt="close" class="close-modal" onclick="TE.closeModal('user_profile')">
+    <h3>Adjust your user profile</h3>
+    <p>Feel free to personalize your user profile.</p>
+    <form action="{% url 'update_user_profile' %}" method="POST">
+      {% csrf_token %}
+      <h4>Choose your avater</h4>
+      <div class="radio-group-pictures">
+        <label for="non_user" class="radio-container">
+          <input type="radio" id="non_user" name="profile_picture" value="img/non-user.png"
+            {% if user.profile_picture == 'img/non-user.png' %}checked {% endif %}>
+          <img src="{% static 'img/non-user.png' %}" alt="non_user">
+        </label>
+        <label for="user_1" class="radio-container">
+          <input type="radio" id="user_1" name="profile_picture" value="img/user-1.svg"
+            {% if user.profile_picture == 'img/user-1.svg' %}checked {% endif %}>
+          <img src="{% static 'img/user-1.svg' %}" alt="user_1">
+        </label>
+        <label for="user_2" class="radio-container">
+          <input type="radio" id="user_2" name="profile_picture" value="img/user-2.svg"
+            {% if user.profile_picture == 'img/user-2.svg' %}checked {% endif %}>
+          <img src="{% static 'img/user-2.svg' %}" alt="user_2">
+        </label>
+        <label for="user_3" class="radio-container">
+          <input type="radio" id="user_3" name="profile_picture" value="img/user-3.svg"
+            {% if user.profile_picture == 'img/user-3.svg' %}checked {% endif %}>
+          <img src="{% static 'img/user-3.svg' %}" alt="user_3">
+        </label>
+        <label for="user_4" class="radio-container">
+          <input type="radio" id="user_4" name="profile_picture" value="img/user-4.svg"
+            {% if user.profile_picture == 'img/user-4.svg' %}checked {% endif %}>
+          <img src="{% static 'img/user-4.svg' %}" alt="user_4">
+        </label>
+        <label for="user_5" class="radio-container">
+          <input type="radio" id="user_5" name="profile_picture" value="img/user-5.svg"
+            {% if user.profile_picture == 'img/user-5.svg' %}checked {% endif %}>
+          <img src="{% static 'img/user-5.svg' %}" alt="user_5">
+        </label>
+        <label for="user_6" class="radio-container">
+          <input type="radio" id="user_6" name="profile_picture" value="img/user-6.svg"
+            {% if user.profile_picture == 'img/user-6.svg' %}checked {% endif %}>
+          <img src="{% static 'img/user-6.svg' %}" alt="user_6">
+        </label>
+      </div>
+      <div class="input-field margin-upper">
+        <label for="first_name">First name</label>
+        <input type="text" id="first_name" name="first_name" value="{{user.first_name}}">
+      </div>
+      <div class="input-field">
+        <label for="last_name">Last name</label>
+        <input type="text" id="last_name" name="last_name" value="{{user.last_name}}">
       </div>
       <button type="submit" class="btn no-stretch">Submit</button>
     </form>

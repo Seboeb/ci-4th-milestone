@@ -1,22 +1,29 @@
-from django.shortcuts import render, redirect, reverse
+from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib import auth, messages
 from django.contrib.auth.decorators import login_required
 from .models import User
-from accounts.forms import UserLoginForm, UserRegistrationForm
+from accounts.forms import UserLoginForm, UserRegistrationForm, UserProfileForm
+from django.http import HttpResponseRedirect
 
 
 def index(request):
-    """Returns the index page of the website"""
+    """
+    Returns the index page of the website
+    """
     return render(request, 'index.html', {'index': True})
 
 
 def about(request):
-    """Returns the about page of the website"""
+    """
+    Returns the about page of the website
+    """
     return render(request, 'about.html')
 
 
 def login(request):
-    """Return the user login page"""
+    """
+    Return the user login page
+    """
     if request.user.is_authenticated:
         return redirect(reverse('index'))
     if request.method == "POST":
@@ -42,14 +49,18 @@ def login(request):
 
 @login_required
 def logout(request):
-    """The user will be logged out"""
+    """
+    The user will be logged out
+    """
     auth.logout(request)
     messages.success(request, 'You are logged out!')
     return redirect(reverse('index'))
 
 
 def registration(request):
-    """Render and return the user registration page"""
+    """
+    Render and return the user registration page
+    """
     if request.user.is_authenticated:
         return redirect(reverse('index'))
 
@@ -77,7 +88,25 @@ def registration(request):
     return render(request, 'signup.html', {"registration_errors": registration_form.errors})
 
 
-def user_profile(request):
-    """Return the users profile page"""
-    user = User.objects.get(email=request.user.email)
-    return render(request, 'profile_page.html', {"profile": user})
+@login_required
+def update_user_profile(request):
+    """
+    Update the user profile information posted 
+    by the user_profile diaglog
+    """
+    if request.method == 'POST':
+        print(request.POST)
+        form = UserProfileForm(request.POST)
+
+        if form.is_valid():
+            user = get_object_or_404(User, pk=request.user.pk)
+            user.first_name = request.POST['first_name']
+            user.last_name = request.POST['last_name']
+            user.profile_picture = request.POST['profile_picture']
+            user.save()
+            messages.success(request, 'Your profile has been updated!')
+        else:
+            messages.error(
+                request, 'Unable to update your profile. Please try again later.')
+
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER', reverse('dev_panel')))

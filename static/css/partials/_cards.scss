@@ -47,9 +47,24 @@
 
   .avatar {
     height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 
     img {
-      height: 80px;
+      width: 60px;
+      padding: 0.5em;
+      border-radius: 50%;
+    }
+
+    button {
+      background: transparent;
+      color: $text-grey;
+      padding: 0.5em;
+    }
+
+    button:hover {
+      cursor: pointer;
     }
   }
 

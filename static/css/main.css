@@ -378,10 +378,32 @@ header nav ul li:last-child {
 
 .profile-card .avatar {
   height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 .profile-card .avatar img {
-  height: 80px;
+  width: 60px;
+  padding: 0.5em;
+  border-radius: 50%;
+}
+
+.profile-card .avatar button {
+  background: transparent;
+  color: #868686;
+  padding: 0.5em;
+}
+
+.profile-card .avatar button:hover {
+  cursor: pointer;
 }
 
 .profile-card .personal {
@@ -1014,6 +1036,47 @@ form .radio-group .radio-container input:checked ~ .checkbox::before {
   left: 50%;
   -webkit-transform: translate(-50%, -50%) rotate(-45deg);
           transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+form .radio-group-pictures {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  width: 100%;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+form .radio-group-pictures .radio-container {
+  display: inline-block;
+  position: relative;
+  width: calc(25% - 0.5em);
+  margin: 0.25em;
+}
+
+form .radio-group-pictures .radio-container > input {
+  display: none;
+}
+
+form .radio-group-pictures .radio-container > img {
+  padding: 0.5em;
+  width: 100%;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  border-radius: 50%;
+}
+
+form .radio-group-pictures .radio-container:hover > img {
+  cursor: pointer;
+  background-color: #E5E5E5;
+}
+
+form .radio-group-pictures .radio-container input:checked ~ img {
+  background: #03BFE9;
 }
 
 form .input-field {

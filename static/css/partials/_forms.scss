@@ -81,6 +81,43 @@ form {
     }
   }
 
+  .radio-group-pictures {
+    display: flex;
+    flex-direction: row;
+    // justify-content: space-between;
+    width: 100%;
+    flex-wrap: wrap;
+
+    .radio-container {
+      display: inline-block;
+      position: relative;
+      width: calc(25% - 0.5em);      
+      margin: 0.25em;
+
+      >input {
+        display: none;
+      }
+
+      >img {
+        padding: 0.5em;
+        width: 100%;
+        box-sizing: border-box;
+        border-radius: 50%;
+      }
+    }
+
+    .radio-container:hover >img {
+      cursor: pointer;
+      background-color: $border-grey-2;
+    }
+
+    .radio-container input:checked ~ img{
+      background: $primary-blue;
+    }
+
+
+  }
+
   .input-field {
     position: relative;
     margin-bottom: 2em;
