@@ -13,3 +13,8 @@ class MakeDonationForm(forms.Form):
     expiry_year = forms.ChoiceField(
         label='Year', choices=YEAR_CHOICES, required=False)
     stripe_id = forms.CharField(widget=forms.HiddenInput)
+    amount = forms.CharField(label='Choose your amount', required=True)
+    custom_amount = forms.CharField(
+        label='Choose your custom amount', required=False)
+    ticket_id = forms.CharField(
+        label='Ticket id', required=True)

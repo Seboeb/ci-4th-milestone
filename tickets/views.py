@@ -29,7 +29,18 @@ def ticket_view(request, id):
 
     year_range = range(2019, 2039)
 
-    return render(request, 'ticket_view.html', {'ticket': ticket, 'comments': comments, 'actions': actions, 'year_range': year_range, 'publishable': settings.STRIPE_PUBLISHABLE})
+    # Calculate domation percentage of ticket
+
+    target_perc = ticket.donated_amount / ticket.target_amount
+    if target_perc >= 1:
+        target_perc = 1
+    donate_info = {
+        'circle_offset': round(276 * target_perc),
+        'complete': True if target_perc >= 1 else False
+    }
+
+    return render(request, 'ticket_view.html', {'ticket': ticket, 'comments': comments, 'actions': actions,
+                                                'year_range': year_range, 'publishable': settings.STRIPE_PUBLISHABLE, 'donate_info': donate_info})
 
 
 @login_required
@@ -108,6 +119,7 @@ def post_feature_request(request):
             ticket = form.save(commit=False)
             ticket.user = request.user
             ticket.ticket_type_id = 2
+            ticket.target_amount = 150.00
 
             # Set app type
             if request.POST['app_type'] == 'finder_app':

@@ -32,3 +32,24 @@ $(function () {
     return false;
   });
 });
+
+// Custom amount donation eventlistener
+$(document).ready(function () {
+  $('input[id=custom]').change(
+    function () {
+      if (this.checked) {
+        $('#custom_amount_container').show();
+      }
+    });
+
+  $('input[type=radio]').change(
+    function () {
+      if ($(this).attr('id') != 'custom' && $('#custom_amount_container').is(':visible')) {
+        $('#custom_amount_container').hide();
+      }
+    });
+
+})
+
+
+

@@ -235,6 +235,7 @@ header nav ul li:last-child {
 .container {
   max-width: 1920px;
   margin: 0 auto;
+  overflow-x: hidden;
 }
 
 .container.content {
@@ -808,10 +809,51 @@ header nav ul li:last-child {
 }
 
 .progress-ring__circle {
-  stroke-dasharray: 327 327;
-  stroke-dashoffset: 327;
+  stroke-dasharray: 276 276;
+  stroke-dashoffset: 276;
   -webkit-transition: stroke-dashoffset 0.35s;
   transition: stroke-dashoffset 0.35s;
+}
+
+.progress-ring__stock.complete {
+  -webkit-animation: test 4s infinite;
+          animation: test 4s infinite;
+}
+
+@-webkit-keyframes test {
+  0% {
+    stroke: #03BFE9;
+  }
+  10% {
+    stroke: #03e97e;
+  }
+  20% {
+    stroke: #03BFE9;
+  }
+  30% {
+    stroke: #03e97e;
+  }
+  40% {
+    stroke: #03BFE9;
+  }
+}
+
+@keyframes test {
+  0% {
+    stroke: #03BFE9;
+  }
+  10% {
+    stroke: #03e97e;
+  }
+  20% {
+    stroke: #03BFE9;
+  }
+  30% {
+    stroke: #03e97e;
+  }
+  40% {
+    stroke: #03BFE9;
+  }
 }
 
 .comments {
@@ -975,6 +1017,29 @@ form .split input {
       flex-basis: 49%;
 }
 
+form .split.unequal > div:nth-child(1) {
+  width: 70%;
+}
+
+form .split.unequal > div:nth-child(2) {
+  width: calc(30% - 1em);
+  margin-left: 1em;
+}
+
+form .split.left-align {
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+}
+
+form .split.left-align > div:nth-child(2) {
+  margin-left: 1em;
+}
+
+form label {
+  font-size: 0.9rem;
+}
+
 form input {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
@@ -984,6 +1049,14 @@ form input {
   font-family: 'Montserrat';
   border: 1px solid #A2A2A2;
   margin: 0.25em 0;
+}
+
+form select {
+  display: block;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.9rem;
+  padding: 0.25em 0.35em;
+  width: 100%;
 }
 
 form .radio-group {
@@ -1093,6 +1166,58 @@ form .radio-group-pictures .radio-container input:checked ~ img {
   background: #03BFE9;
 }
 
+form .radio-group-donation {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  width: 100%;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+form .radio-group-donation .radio-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin: 1em 0;
+  width: auto;
+}
+
+form .radio-group-donation .radio-container > input {
+  display: none;
+}
+
+form .radio-group-donation .radio-container .selector {
+  display: inline-block;
+  padding: 0.5em;
+  background: #DADADA;
+  z-index: -1;
+  text-align: center;
+  -webkit-transition: -webkit-transform 0.2s ease;
+  transition: -webkit-transform 0.2s ease;
+  transition: transform 0.2s ease;
+  transition: transform 0.2s ease, -webkit-transform 0.2s ease;
+}
+
+form .radio-group-donation .radio-container:hover {
+  cursor: pointer;
+}
+
+form .radio-group-donation .radio-container:hover .selector {
+  -webkit-transform: translateY(-5px);
+          transform: translateY(-5px);
+}
+
+form .radio-group-donation .radio-container input:checked ~ .selector {
+  background-color: #03BFE9;
+  color: white;
+}
+
 form .input-field {
   position: relative;
   margin-bottom: 2em;
@@ -1179,7 +1304,6 @@ form .input-area .counter {
 .modal-container .modal p {
   margin: 0;
   font-size: 0.9rem;
-  font-style: italic;
 }
 
 .modal-container .modal .close-modal {

@@ -73,10 +73,10 @@
         <p>{{ ticket.priority }} priority</p>
         <p>Estimated development time is {{ ticket.estimate_devtime }}.</p>
         {% if ticket.ticket_type.name == "bug_report" %}
-        <p><span class="upvotes">{{ ticket.upvotes }}</span> Others have this problem too.</p>
+        <p><span class="upvotes">{{ ticket.upvotes }}</span> Other{{ ticket.upvotes|pluralize }} with this problem.</p>
         {% else %}
-        <p><span class="upvotes">{{ ticket.upvotes }}</span> Donations <button class="btn donate"
-            onclick="TE.openModal('make_donation');">Donate</button></p>
+        <p><span class="upvotes">{{ ticket.upvotes }}</span> Donation{{ ticket.upvotes|pluralize }} <button
+            class="btn donate" onclick="TE.openModal('make_donation');">Donate</button></p>
         {% endif %}
         <div class="ruler"></div>
         <div class="expense">
@@ -94,10 +94,10 @@
             <span class="donated">€ {{ ticket.donated_amount }}</span>
             <div class="circle">
               <svg class="progress-ring" width="100" height="100">
-                <circle class="progress-ring__stock" stroke="#03BFE9" stroke-width="6" fill="transparent" r="44" cx="50"
-                  cy="50" />
+                <circle class="progress-ring__stock {% if donate_info.complete %}complete
+                {% endif %}" stroke="#03BFE9" stroke-width="6" fill="transparent" r="44" cx="50" cy="50" />
                 <circle class="progress-ring__circle" stroke="#C4C4C4" stroke-width="6" fill="transparent" r="44"
-                  cx="50" cy="50" />
+                  cx="50" cy="50" style="stroke-dashoffset: {{donate_info.circle_offset}}" />
               </svg>
             </div>
           </div>
@@ -180,45 +180,66 @@
 <div id="make_donation" class="modal-container">
   <div class="modal">
     <img src="{% static 'img/clear.svg' %}" alt="close" class="close-modal" onclick="TE.closeModal('make_donation')">
-    {% if ticket.ticket_type.name == "bug_report" %}
-    <h3>Edit bug report</h3>
-    <p>Please adjust your bug report and submit when you are done.</p>
-    {% else %}
-    <h3>Edit feature request</h3>
-    <p>Please adjust your feature and submit when you are done.</p>
-    {% endif %}
+    <h3>Make a donation</h3>
+    <p>Thank you for considering a donation! When the target is reached we will start developing for this feature.</p>
     <form action="{% url 'make_payment' %}" id="payment-form" method="POST" class="margin-upper">
       <div id="credit-card-errors" style="display: none;">
         <div id="stripe-error-message"></div>
       </div>
-      {% csrf_token %}
+      <p>Select the amount you would like to donate.</p>
+      <div class="radio-group-donation">
+        <label for="amount1" class="radio-container">
+          <input type="radio" id="amount1" name="amount" value="1">
+          <span class="selector">€ 1,-</span>
+        </label>
+        <label for="amount2" class="radio-container">
+          <input type="radio" id="amount2" name="amount" value="5">
+          <span class="selector">€ 5,-</span>
+        </label>
+        <label for="amount3" class="radio-container">
+          <input type="radio" id="amount3" name="amount" value="10">
+          <span class="selector">€ 10,-</span>
+        </label>
+        <label for="custom" class="radio-container">
+          <input type="radio" id="custom" name="amount" value="custom">
+          <span class="selector">Custom</span>
+        </label>
+      </div>
+      <div class="input-field" id="custom_amount_container" style="display:none">
+        <input type="number" step="0.01" min="0.5" id="custom_amount" name="custom_amount" placeholder="Custom amount">
+      </div>
+      <div class="split unequal margin-upper">
+        <div class="input-field">
+          <label for="title">Credit card number</label>
+          <input type="text" id="credit_card_number" name="credit_card_number" placeholder="4242 4242 4242 4242">
+        </div>
+        <div class="input-field">
+          <label for="title">CVC/CVV</label>
+          <input type="text" id="cvv" name="cvv" placeholder="111">
+        </div>
+      </div>
+      <div class="split left-align">
+        <div class="input-field">
+          <label for="title">Expiry month</label>
+          <select name="expiry_month" id="expiry_month">
+            {% for i in i|rjust:12 %}
+            <option value="{{ forloop.counter }}">{{ forloop.counter }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="input-field">
+          <label for="title">Expiry year</label>
+          <select name="expiry_year" id="expiry_year">
+            {% for i in year_range %}
+            <option value="{{ i }}">{{ i }}</option>
+            {% endfor %}
+          </select>
+        </div>
+      </div>
       <input type="hidden" id="stripe_id" name="stripe_id">
-      <div class="input-field">
-        <label for="title">Credit card number</label>
-        <input type="text" id="credit_card_number" name="credit_card_number">
-      </div>
-      <div class="input-field">
-        <label for="title">Month</label>
-        <select name="expiry_month" id="expiry_month">
-          {% for i in i|rjust:12 %}
-          <option value="{{ forloop.counter }}">{{ forloop.counter }}</option>
-          {% endfor %}
-        </select>
-      </div>
-      <div class="input-field">
-        <label for="title">Year</label>
-        <select name="expiry_year" id="expiry_year">
-          {% for i in year_range %}
-          <option value="{{ i }}">{{ i }}</option>
-          {% endfor %}
-        </select>
-      </div>
-      <div class="input-field">
-        <label for="title">Cvv number</label>
-        <input type="text" id="cvv" name="cvv">
-      </div>
-
-      <input type="submit" class="btn no-stretch" value="Make donation">
+      <input type="hidden" id="ticket_id" name="ticket_id" value="{{ticket.pk}}">
+      {% csrf_token %}
+      <button type="submit" class="btn no-stretch">Make donation</button>
     </form>
   </div>
 </div>

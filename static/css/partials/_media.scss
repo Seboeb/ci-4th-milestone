@@ -37,7 +37,23 @@
 }
 
 .progress-ring__circle {
-  stroke-dasharray: 327 327;
-  stroke-dashoffset: 327;
+  stroke-dasharray: 276 276;
+  stroke-dashoffset: 276;
   transition: stroke-dashoffset 0.35s;
+}
+
+.progress-ring__stock.complete {
+  animation: test 4s infinite;
+}
+
+@keyframes test {
+  0% {stroke: #03BFE9;}
+
+  10% {stroke: #03e97e;}
+
+  20% {stroke: #03BFE9;}
+
+  30% {stroke: #03e97e;}
+
+  40% {stroke: #03BFE9;}
 }

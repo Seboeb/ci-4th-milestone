@@ -8,6 +8,28 @@ form {
     input {
       flex-basis: 49%;
     }
+
+
+    &.unequal > div:nth-child(1) {
+      width: 70%;
+    }
+
+    &.unequal > div:nth-child(2) {
+      width: calc(30% - 1em);
+      margin-left:1em;
+    }
+
+    &.left-align {
+      justify-content: flex-start;
+
+      >div:nth-child(2) {
+        margin-left: 1em;
+      }
+    }
+  }
+
+  label {
+    font-size: 0.9rem;
   }
 
   input {
@@ -18,6 +40,14 @@ form {
     font-family: 'Montserrat';
     border: 1px solid $border-grey;
     margin: 0.25em 0;
+  }
+
+  select {
+    display: block;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.9rem;
+    padding: 0.25em 0.35em;
+    width: 100%;
   }
 
 
@@ -84,7 +114,6 @@ form {
   .radio-group-pictures {
     display: flex;
     flex-direction: row;
-    // justify-content: space-between;
     width: 100%;
     flex-wrap: wrap;
 
@@ -114,9 +143,51 @@ form {
     .radio-container input:checked ~ img{
       background: $primary-blue;
     }
+  }
+
+
+  .radio-group-donation {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-between;
+
+    .radio-container {
+      display: flex;
+      margin: 1em 0;
+      width: auto;
+
+      >input {
+        display: none;
+      }
+
+      .selector {
+        display: inline-block;
+        padding: 0.5em;
+        background: #DADADA;
+        z-index: -1;
+        text-align: center;
+        transition: transform 0.2s ease;
+      }
+    }
+
+
+    .radio-container:hover {
+      cursor: pointer;
+    }
+
+    .radio-container:hover .selector {
+      transform: translateY(-5px);
+    }
+
+    .radio-container input:checked ~ .selector {
+      background-color: $primary-blue;
+      color: white;
+    }
 
 
   }
+
 
   .input-field {
     position: relative;

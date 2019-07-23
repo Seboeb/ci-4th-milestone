@@ -1,9 +1,13 @@
-from django.shortcuts import render, reverse
+from django.shortcuts import render, reverse, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.http import HttpResponseRedirect
-from .forms import MakeDonationForm
 from django.conf import settings
+from .forms import MakeDonationForm
+from .models import Donation
+from tickets.models import Ticket
+from accounts.models import User
+from decimal import Decimal
 import stripe
 
 
@@ -20,7 +24,14 @@ def make_payment(request):
         form = MakeDonationForm(request.POST)
 
         if form.is_valid():
-            total = 10
+
+            if form.cleaned_data['amount'] != 'custom':
+                total = Decimal(form.cleaned_data['amount']).quantize(
+                    Decimal("1.00"))
+            else:
+                total = Decimal(form.cleaned_data['custom_amount']).quantize(
+                    Decimal("1.00"))
+
             try:
                 customer = stripe.Charge.create(
                     amount=int(total*100),
@@ -32,7 +43,18 @@ def make_payment(request):
                 messages.error(request, "Your card was incorrect or declined.")
 
             if customer.paid:
-                print('customer paid!')
+                # Update ticket
+                ticket = get_object_or_404(
+                    Ticket, pk=form.cleaned_data['ticket_id'])
+                ticket.donated_amount += total
+                ticket.upvotes += 1
+                ticket.save()
+
+                # Create donation record
+                user = get_object_or_404(User, pk=request.user.pk)
+                donation = Donation(amount=total, user=user, ticket=ticket)
+                donation.save()
+
                 messages.success(request, "You have successfully paid!")
                 return HttpResponseRedirect(request.META.get('HTTP_REFERER', reverse('dev_panel')))
             else:

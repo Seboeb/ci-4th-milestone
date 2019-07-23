@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from tickets.models import Ticket
+from donations.models import Donation
 from django.http import Http404, JsonResponse, HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.core import serializers
@@ -50,7 +51,8 @@ def dev_panel(request):
         created_tickets = request.user.created_tickets.all()
         summary = {
             'nr_bugs': Ticket.objects.filter(user=request.user, ticket_type=1).count(),
-            'nr_features': Ticket.objects.filter(user=request.user, ticket_type=2).count()
+            'nr_features': Ticket.objects.filter(user=request.user, ticket_type=2).count(),
+            'nr_donations': Donation.objects.filter(user=request.user).count()
         }
     else:
         watchlist = None
