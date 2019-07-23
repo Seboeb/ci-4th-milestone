@@ -1,7 +1,10 @@
 const modal = require('./modal');
 const devPanel = require('./devPanel');
 const ticket = require('./ticket');
+const forms = require('./forms');
 
+// Initialize input and textarea counters
+forms.initCounter();
 
 // ----------------------------------------------------------------------------- EXPORTS
 exports.openModal = modal.openModal;

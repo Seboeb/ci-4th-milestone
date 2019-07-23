@@ -50,6 +50,22 @@ form {
     width: 100%;
   }
 
+  textarea, input {
+    &.red {
+      border-color: red !important;
+    }
+
+    &.red:focus {
+      outline-color: red !important;
+    }
+  }
+
+  .counter {
+    &.red {
+      color: red !important;
+    }
+  }
+
 
   .radio-group {
     margin: 1.25em 0;

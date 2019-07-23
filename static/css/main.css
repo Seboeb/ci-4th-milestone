@@ -1059,6 +1059,18 @@ form select {
   width: 100%;
 }
 
+form textarea.red, form input.red {
+  border-color: red !important;
+}
+
+form textarea.red:focus, form input.red:focus {
+  outline-color: red !important;
+}
+
+form .counter.red {
+  color: red !important;
+}
+
 form .radio-group {
   margin: 1.25em 0;
   display: -webkit-box;

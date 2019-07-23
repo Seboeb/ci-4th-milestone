@@ -30,13 +30,19 @@ def ticket_view(request, id):
     year_range = range(2019, 2039)
 
     # Calculate domation percentage of ticket
-
-    target_perc = ticket.donated_amount / ticket.target_amount
-    if target_perc >= 1:
+    if ticket.ticket_type.name == 'bug_report':
         target_perc = 1
+    elif ticket.ticket_type.name == 'feature_request':
+        if ticket.target_amount <= 0:
+            target_perc = 0
+        else:
+            target_perc = ticket.donated_amount / ticket.target_amount
+            if target_perc >= 1:
+                target_perc = 1
+
     donate_info = {
         'circle_offset': round(276 * target_perc),
-        'complete': True if target_perc >= 1 else False
+        'complete': True if target_perc >= 1 and ticket.ticket_type.name == 'feature_request' else False
     }
 
     return render(request, 'ticket_view.html', {'ticket': ticket, 'comments': comments, 'actions': actions,

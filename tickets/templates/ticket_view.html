@@ -138,7 +138,11 @@
       <form action="{% url 'post_comment' %}" method="POST">
         {% csrf_token %}
         <input type="hidden" name="ticket_id" value="{{ ticket.id }}">
-        <textarea name="comment" cols="30" rows="6" placeholder="Type your new comment here..."></textarea>
+        <div class="input-field">
+          <textarea name="comment" data-length="500" cols="30" rows="6"
+            placeholder="Type your new comment here..."></textarea>
+          <span class="counter" style="color:white"></span>
+        </div>
         <button type="submit" class="btn comment-btn no-stretch">Post Comment</button>
       </form>
       {% else %}
@@ -164,13 +168,14 @@
       <input type="hidden" name="ticket_id" value={{ticket.id}}>
       <div class="input-field">
         <label for="title">Title</label>
-        <input type="text" id="title" name="title" value="{{ ticket.title }}">
-        <span class="counter">0/75</span>
+        <input type="text" id="title" name="title" data-length="75" value="{{ ticket.title }}">
+        <span class="counter"></span>
       </div>
       <div class="input-area">
         <label for="description">Description</label>
-        <textarea name="description" id="description" cols="30" rows="10">{{ ticket.description }}</textarea>
-        <span class="counter">0/75</span>
+        <textarea name="description" data-length="350" id="description" cols="30"
+          rows="10">{{ ticket.description }}</textarea>
+        <span class="counter"></span>
       </div>
       <button type="submit" class="btn no-stretch">Submit</button>
     </form>
