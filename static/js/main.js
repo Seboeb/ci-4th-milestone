@@ -5,6 +5,7 @@ const forms = require('./forms');
 
 // Initialize input and textarea counters
 forms.initCounter();
+forms.initFormChecks();
 
 // ----------------------------------------------------------------------------- EXPORTS
 exports.openModal = modal.openModal;

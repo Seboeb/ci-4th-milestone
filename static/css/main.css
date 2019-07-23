@@ -999,6 +999,13 @@ header nav ul li:last-child {
   margin: 1em;
 }
 
+#comment-error-container {
+  background-color: rgba(255, 0, 0, 0.5);
+  padding: 0.5em;
+  margin-bottom: 1em;
+  font-size: 0.9rem;
+}
+
 form .split {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -1261,6 +1268,14 @@ form .input-area .counter {
   float: right;
   font-size: 0.8rem;
   color: #868686;
+}
+
+form #form-error-container {
+  background-color: rgba(255, 0, 0, 0.5);
+  padding: 0.5em;
+  color: white;
+  margin-bottom: 1em;
+  font-size: 0.9rem;
 }
 
 .modal-container {

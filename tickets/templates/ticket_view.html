@@ -135,13 +135,16 @@
 
     <div class="new-comment">
       {% if user.is_authenticated %}
-      <form action="{% url 'post_comment' %}" method="POST">
+      <form action="{% url 'post_comment' %}" method="POST" id="comment-form">
         {% csrf_token %}
         <input type="hidden" name="ticket_id" value="{{ ticket.id }}">
         <div class="input-field">
           <textarea name="comment" data-length="500" cols="30" rows="6"
             placeholder="Type your new comment here..."></textarea>
           <span class="counter" style="color:white"></span>
+        </div>
+        <div id="comment-error-container" style="display:none;">
+          <div id="comment-error-message"></div>
         </div>
         <button type="submit" class="btn comment-btn no-stretch">Post Comment</button>
       </form>
@@ -163,7 +166,7 @@
     <h3>Edit feature request</h3>
     <p>Please adjust your feature and submit when you are done.</p>
     {% endif %}
-    <form action="{% url 'edit_ticket' %}" method="POST" class="margin-upper">
+    <form action="{% url 'edit_ticket' %}" method="POST" class="margin-upper" id="edit-ticket-form">
       {% csrf_token %}
       <input type="hidden" name="ticket_id" value={{ticket.id}}>
       <div class="input-field">
@@ -176,6 +179,8 @@
         <textarea name="description" data-length="350" id="description" cols="30"
           rows="10">{{ ticket.description }}</textarea>
         <span class="counter"></span>
+      </div>
+      <div id="form-error-container" style="display:none;">
       </div>
       <button type="submit" class="btn no-stretch">Submit</button>
     </form>

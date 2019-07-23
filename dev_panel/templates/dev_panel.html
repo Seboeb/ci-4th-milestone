@@ -205,7 +205,7 @@
     <h3>Request a new feature</h3>
     <p>Requesting a new feature requires a donation. The minimum amount for a feature is €150,- but it may be altered.*
     </p>
-    <form action="{% url 'post_feature_request' %}" method="POST">
+    <form action="{% url 'post_feature_request' %}" method="POST" id="feature-request-form">
       {% csrf_token %}
       <div class="radio-group">
         <label for="finder_app" class="radio-container">
@@ -227,6 +227,8 @@
         <textarea name="description" data-length="350" cols="30" rows="10" placeholder="Feature description"></textarea>
         <span class="counter"></span>
       </div>
+      <div id="form-error-container" style="display:none;">
+      </div>
       <button type="submit" class="btn no-stretch">Submit</button>
     </form>
     <p class="footnote">* Depends on the estimated development time.</p>
@@ -239,7 +241,7 @@
     <h3>Report a new bug</h3>
     <p>Reporting a bug is free of charge! Try to be as descriptive as possible.
     </p>
-    <form action="{% url 'post_bug_report' %}" method="POST">
+    <form action="{% url 'post_bug_report' %}" method="POST" id="bug-report-form">
       {% csrf_token %}
       <div class="radio-group">
         <label for="finder_app2" class="radio-container">
@@ -260,6 +262,8 @@
       <div class="input-area">
         <textarea name="description" data-length="350" cols="30" rows="10" placeholder="Bug description"></textarea>
         <span class="counter"></span>
+      </div>
+      <div id="form-error-container" style="display:none;">
       </div>
       <button type="submit" class="btn no-stretch">Submit</button>
     </form>
