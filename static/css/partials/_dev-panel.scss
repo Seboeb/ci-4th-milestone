@@ -351,6 +351,7 @@
     >.inner {
       position: absolute;
       top: 0;
+      min-height: 100vh;
       z-index: 200;
       left: calc((100% - 60px - 8vw)*-1);
       width: calc(100% - 60px - 8vw);

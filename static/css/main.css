@@ -308,6 +308,72 @@ header nav ul li:last-child {
   border-color: rgba(0, 0, 0, 0.1);
 }
 
+.message-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  text-align: center;
+  -webkit-transform: translateY(-100%);
+          transform: translateY(-100%);
+  z-index: 2000;
+  -webkit-animation: test 4s;
+          animation: test 4s;
+  -webkit-animation-delay: 1s;
+          animation-delay: 1s;
+}
+
+.message-container p {
+  margin: 0;
+  color: white;
+  font-weight: 400;
+  padding: 0.5em 1em;
+  background-color: #309e48;
+}
+
+.message-container p.error {
+  background-color: red;
+}
+
+@-webkit-keyframes test {
+  0% {
+    -webkit-transform: translateY(-100%);
+            transform: translateY(-100%);
+  }
+  10% {
+    -webkit-transform: translateY(0%);
+            transform: translateY(0%);
+  }
+  90% {
+    -webkit-transform: translateY(0%);
+            transform: translateY(0%);
+  }
+  100% {
+    -webkit-transform: translateY(-100%);
+            transform: translateY(-100%);
+  }
+}
+
+@keyframes test {
+  0% {
+    -webkit-transform: translateY(-100%);
+            transform: translateY(-100%);
+  }
+  10% {
+    -webkit-transform: translateY(0%);
+            transform: translateY(0%);
+  }
+  90% {
+    -webkit-transform: translateY(0%);
+            transform: translateY(0%);
+  }
+  100% {
+    -webkit-transform: translateY(-100%);
+            transform: translateY(-100%);
+  }
+}
+
 .dialog {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -816,11 +882,11 @@ header nav ul li:last-child {
 }
 
 .progress-ring__stock.complete {
-  -webkit-animation: test 4s infinite;
-          animation: test 4s infinite;
+  -webkit-animation: complete 4s infinite;
+          animation: complete 4s infinite;
 }
 
-@-webkit-keyframes test {
+@-webkit-keyframes complete {
   0% {
     stroke: #03BFE9;
   }
@@ -838,7 +904,7 @@ header nav ul li:last-child {
   }
 }
 
-@keyframes test {
+@keyframes complete {
   0% {
     stroke: #03BFE9;
   }
@@ -1270,7 +1336,8 @@ form .input-area .counter {
   color: #868686;
 }
 
-form #form-error-container {
+form #form-error-container,
+form #credit-card-errors {
   background-color: rgba(255, 0, 0, 0.5);
   padding: 0.5em;
   color: white;
@@ -1870,6 +1937,7 @@ form #form-error-container {
 .dev-panel .mobile-menu > .inner {
   position: absolute;
   top: 0;
+  min-height: 100vh;
   z-index: 200;
   left: calc((100% - 60px - 8vw)*-1);
   width: calc(100% - 60px - 8vw);

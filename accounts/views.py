@@ -27,9 +27,7 @@ def login(request):
     if request.user.is_authenticated:
         return redirect(reverse('index'))
     if request.method == "POST":
-        print(request.POST)
         login_form = UserLoginForm(request.POST)
-        print(login_form)
 
         if login_form.is_valid():
             user = auth.authenticate(
@@ -37,7 +35,6 @@ def login(request):
 
             if user:
                 auth.login(user=user, request=request)
-                messages.success(request, 'You are logged in!')
                 return redirect(reverse('index'))
             else:
                 login_form.add_error(
@@ -95,7 +92,6 @@ def update_user_profile(request):
     by the user_profile diaglog
     """
     if request.method == 'POST':
-        print(request.POST)
         form = UserProfileForm(request.POST)
 
         if form.is_valid():

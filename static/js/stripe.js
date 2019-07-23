@@ -1,7 +1,29 @@
 $(function () {
   $("#payment-form").submit(function () {
     var form = this;
-    console.log(this)
+    let submit = true;
+
+    // Clear error box
+    $('#credit-card-errors').empty().hide();
+
+    // Check if an amount is selected
+    if ($(form).find('input:checked').length == 0) {
+      $("#credit-card-errors").append(`<div id="payment-error-message">Please select an amount.</div>`);
+      $("#credit-card-errors").show();
+      submit = false;
+    }
+
+    if ($(form).find('input:checked').attr('id') === 'custom' && $('#custom_amount').val().length == 0) {
+      $("#credit-card-errors").append(`<div id="payment-error-message">Please provide a custom amount.</div>`);
+      $("#credit-card-errors").show();
+      submit = false;
+    }
+
+    if (!submit) {
+      return false;
+    }
+
+
     var card = {
       number: $("#credit_card_number").val(),
       expMonth: $("#expiry_month").val(),
@@ -21,12 +43,11 @@ $(function () {
         $("#expiry_month").removeAttr('name');
         $("#expiry_year").removeAttr('name');
 
+        $(form).find(':submit').attr('disabled', 'disabled');
         form.submit();
-        console.log('submitting!!')
       } else {
-        $("#stripe-error-message").text(response.error.message);
+        $("#credit-card-errors").append(`<div id="payment-error-message">${response.error.message}</div>`);
         $("#credit-card-errors").show();
-        $("#validate_card_btn").attr("disabled", false);
       }
     });
     return false;

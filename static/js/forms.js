@@ -61,7 +61,7 @@ exports.initFormChecks = () => {
   });
 
 
-  // --------------------------------------------------------------------------- NEW TICKET
+  // --------------------------------------------------------------------------- TICKET
   function ticketFormValidation() {
     const form = this;
     const inputs = $(form).find('[data-length]');
@@ -112,5 +112,11 @@ exports.initFormChecks = () => {
   $("#bug-report-form").submit(ticketFormValidation);
   $("#feature-request-form").submit(ticketFormValidation);
   $("#edit-ticket-form").submit(ticketFormValidation);
+
+
+  // --------------------------------------------------------------------------- PAYMENT
+  /*
+  * THIS FORM VALIDATION CAN BE FOUND IN THE STRIPE.JS FILE
+  */
 
 }

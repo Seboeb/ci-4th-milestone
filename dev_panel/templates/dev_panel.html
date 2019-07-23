@@ -136,8 +136,8 @@
           {% else %}
           <div class="profile-card">
             <div class="avatar">
-              <img src="{% static 'img/sebastiaan.svg' %}" alt="Sebastiaan Hekner">
-              <a href="">Edit profile</a>
+              <img src="{% static user.profile_picture %}" alt="{{ user }}">
+              <button onclick="TE.openModal('user_profile')">Edit profile</button>
             </div>
             <div class="personal">
               <span class="name">{{ user }}</span>
@@ -154,9 +154,9 @@
         {% if user.is_authenticated %}
         <div class="details">
           <div class="summary">
-            <p>{{ user_summary.nr_bugs }} Bugs</p>
-            <p>{{ user_summary.nr_features }} Features</p>
-            <p>!!! Donations</p>
+            <p>{{ user_summary.nr_bugs }} Bug{{ user_summary.nr_bugs|pluralize }}</p>
+            <p>{{ user_summary.nr_features }} Feature{{ user_summary.nr_features|pluralize }}</p>
+            <p>{{ user_summary.nr_donations }} Donation{{ user_summary.nr_donations|pluralize }}</p>
           </div>
           <div class="ruler"></div>
           <div class="tickets-created-list">
@@ -164,7 +164,7 @@
             <a href="{% url 'ticket_view' id=ticket.id %}">
               <div class="created-list-item">
                 <span>{{ ticket.ticket_id }}</span>
-                <p>{{ ticket.title|truncatechars:35 }}</p>
+                <p>{{ ticket.title|truncatechars:30 }}</p>
               </div>
             </a>
             {% endfor %}

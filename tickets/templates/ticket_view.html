@@ -193,9 +193,6 @@
     <h3>Make a donation</h3>
     <p>Thank you for considering a donation! When the target is reached we will start developing for this feature.</p>
     <form action="{% url 'make_payment' %}" id="payment-form" method="POST" class="margin-upper">
-      <div id="credit-card-errors" style="display: none;">
-        <div id="stripe-error-message"></div>
-      </div>
       <p>Select the amount you would like to donate.</p>
       <div class="radio-group-donation">
         <label for="amount1" class="radio-container">
@@ -249,6 +246,9 @@
       <input type="hidden" id="stripe_id" name="stripe_id">
       <input type="hidden" id="ticket_id" name="ticket_id" value="{{ticket.pk}}">
       {% csrf_token %}
+      <div id="credit-card-errors" style="display: none;">
+        <div id="stripe-error-message"></div>
+      </div>
       <button type="submit" class="btn no-stretch">Make donation</button>
     </form>
   </div>

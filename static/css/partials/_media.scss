@@ -43,10 +43,10 @@
 }
 
 .progress-ring__stock.complete {
-  animation: test 4s infinite;
+  animation: complete 4s infinite;
 }
 
-@keyframes test {
+@keyframes complete {
   0% {stroke: #03BFE9;}
 
   10% {stroke: #03e97e;}

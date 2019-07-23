@@ -46,14 +46,13 @@
   {% block main_content %}
   {% endblock %}
 
-
+  {% if messages %}
   <div class="message-container">
-    {% if messages %}
     {% for message in messages %}
-    <p>{{ message }}</p>
+    <p {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}class="error" {% endif %}>{{ message }}</p>
     {% endfor %}
-    {% endif %}
   </div>
+  {% endif %}
 
 
   <script src="https://code.jquery.com/jquery-3.3.1.min.js"

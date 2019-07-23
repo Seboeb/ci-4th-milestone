@@ -4,6 +4,7 @@ from .models import Ticket, Comment
 from .forms import CommentForm, TicketForm
 from .utils import create_search_label
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 from django.http import HttpResponseRedirect, HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.conf import settings
@@ -69,6 +70,8 @@ def post_comment(request):
             # Update ticket
             ticket.nr_comments = ticket.nr_comments + 1
             ticket.save()
+        else:
+            messages.error(request, "Something went wrong. Please try again.")
 
         return redirect(ticket_view, request.POST["ticket_id"])
 
@@ -106,6 +109,9 @@ def post_bug_report(request):
 
             ticket.save()
             request.user.created_tickets.add(ticket)
+            messages.success(request, "Your bug report has been created!")
+        else:
+            messages.error(request, "Your bug report was not created")
 
     return HttpResponseRedirect(request.META.get('HTTP_REFERER', reverse('dev_panel')))
 
@@ -144,6 +150,9 @@ def post_feature_request(request):
 
             ticket.save()
             request.user.created_tickets.add(ticket)
+            messages.success(request, "Your feature request has been created!")
+        else:
+            messages.error(request, "Your feature request was not created")
 
     return HttpResponseRedirect(request.META.get('HTTP_REFERER', reverse('dev_panel')))
 
@@ -163,6 +172,9 @@ def edit_ticket(request):
             ticket.description = request.POST['description']
             ticket.search_field = create_search_label(ticket)
             ticket.save()
+            messages.success(request, "Ticket was successfully updated!")
+        else:
+            messages.error(request, "Oops... Something went wrong")
 
     return HttpResponseRedirect(request.META.get('HTTP_REFERER', reverse('dev_panel')))
 
