@@ -111,6 +111,10 @@ html {
   padding: 0.25em 1em;
 }
 
+.btn.black {
+  background-color: #4A4A4A;
+}
+
 .btn:hover {
   cursor: pointer;
   -webkit-transform: translate(0, -3px);
@@ -236,6 +240,12 @@ header nav ul li:last-child {
   max-width: 1920px;
   margin: 0 auto;
   overflow-x: hidden;
+}
+
+@media only screen and (min-width: 1025px) {
+  .container {
+    overflow-x: visible;
+  }
 }
 
 .container.content {
@@ -540,6 +550,11 @@ header nav ul li:last-child {
 
 .media-card .info p {
   margin: 0;
+}
+
+.media-card.link:hover {
+  cursor: pointer;
+  background-color: rgba(3, 191, 233, 0.15);
 }
 
 .ticket-card {
@@ -1454,24 +1469,6 @@ form #credit-card-errors {
 .landing-page section.sidebar {
   background: #03BFE9;
   color: white;
-}
-
-.landing-page section.subscribe input {
-  font-size: 0.8rem;
-  width: calc(100% - 2em);
-  padding: 1em;
-  font-family: 'Montserrat';
-  margin-bottom: 1em;
-  border: 1px solid rgba(128, 128, 128, 0.5);
-}
-
-.landing-page section.subscribe button {
-  width: 100%;
-  background: #4A4A4A;
-  color: white;
-  padding: 1em;
-  border: none;
-  font-family: 'Montserrat';
 }
 
 @media only screen and (min-width: 1020px) {

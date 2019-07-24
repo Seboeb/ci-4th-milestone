@@ -9,7 +9,10 @@ from django.http import HttpResponseRedirect
 def index(request):
     """
     Returns the index page of the website
+    or 'subscribes' person for emailing
     """
+    if request.method == "POST":
+        messages.success(request, 'Thank you for your email subscription')
     return render(request, 'index.html', {'index': True})
 
 

@@ -37,25 +37,6 @@
     color: white;
   }
 
-  section.subscribe {
-    input {
-      font-size: 0.8rem;
-      width: calc(100% - 2em);
-      padding: 1em;
-      font-family: 'Montserrat';
-      margin-bottom: 1em;
-      border: 1px solid rgba(grey,0.5);
-    }
-
-    button {
-      width: 100%;
-      background: $submit-btn-bg-color;
-      color: white;
-      padding: 1em;
-      border: none;
-      font-family: 'Montserrat';
-    }
-  }
 }
 
 // Meda Queries

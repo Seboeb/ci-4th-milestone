@@ -8,7 +8,7 @@
     <div class="inner">
       <h1>The Tasting Experience</h1>
       <p>Follow the latest development for the finder app and the online recipe community</p>
-      <a href="#" class="btn arrow-btn start-btn">Get started</a>
+      <a href="{% url 'dev_panel' %}" class="btn arrow-btn start-btn">Get started</a>
     </div>
   </section>
   <section class="sidebar">
@@ -18,15 +18,20 @@
         Recipe Community website, you are in the right place. Here you can report bugs that you have found and share it
         with the developers of the Tasting Experience group. The cool thing is, is that you can request new features as
         well! Just submit your idea and get it supported by other users. </p>
-      <a href="#" class="btn arrow-btn">Read more</a>
+      <a href="{% url 'about' %}" class="btn arrow-btn">Read more</a>
     </div>
   </section>
   <section class="subscribe">
     <div class="inner">
       <h2>Subscribe</h2>
       <p>Get the lastest updates and feature requests!</p>
-      <input type="text" name="email" placeholder="Email Address">
-      <button class="btn black">Subscribe Now</button>
+      <form action="{% url 'index' %}" method="POST">
+        <div class="input-field">
+          <input type="text" name="email" placeholder="Email Address">
+        </div>
+        {% csrf_token %}
+        <button class="btn black">Subscribe Now</button>
+      </form>
     </div>
   </section>
 </div>
