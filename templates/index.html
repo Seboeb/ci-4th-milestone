@@ -30,6 +30,19 @@
           <input type="text" name="email" placeholder="Email Address">
         </div>
         {% csrf_token %}
+        <!-- {{subscribe_form.errors}} -->
+        {% if subscribe_form.errors %}
+        <div id="form-error-container">
+          {% for field in subscribe_form %}
+          {% for error in field.errors %}
+          <div id="form-error-message">{{ error|escape }}</div>
+          {% endfor %}
+          {% endfor %}
+          {% for error in subscribe_form.non_field_errors %}
+          <div id="form-error-message">{{ error|escape }}</div>
+          {% endfor %}
+        </div>
+        {% endif %}
         <button class="btn black">Subscribe Now</button>
       </form>
     </div>

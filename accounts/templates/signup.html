@@ -16,7 +16,6 @@
       <a href="{% url 'index' %}" class="logo"><img src="{% static 'img/logo-black.png' %}"
           alt="The Tasting Experience"></a>
       <form method="POST">
-        {{ registration_errors }}
         {% csrf_token %}
         <p>Personal Information</p>
         <div class="split">
@@ -28,6 +27,18 @@
         <input type="password" name="password1" placeholder="Password">
         <input type="password" name="password2" class="margin-down" placeholder="Repeat password">
         <button type="submit" class="btn">Create account</button>
+        {% if registration_form.errors %}
+        <div id="form-error-container">
+          {% for field in registration_form %}
+          {% for error in field.errors %}
+          <div id="form-error-message">{{ error|escape }}</div>
+          {% endfor %}
+          {% endfor %}
+          {% for error in registration_form.non_field_errors %}
+          <div id="form-error-message">{{ error|escape }}</div>
+          {% endfor %}
+        </div>
+        {% endif %}
       </form>
     </div>
   </div>

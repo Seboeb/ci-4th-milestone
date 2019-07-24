@@ -19,7 +19,6 @@ def make_payment(request):
     """
     Make the donation payment possible
     """
-    print('incomming!!')
     if request.method == 'POST':
         form = MakeDonationForm(request.POST)
 
@@ -36,7 +35,7 @@ def make_payment(request):
                 customer = stripe.Charge.create(
                     amount=int(total*100),
                     currency="EUR",
-                    description="hallo dit is mijn test",
+                    description="Donation for feature request",
                     card=form.cleaned_data['stripe_id']
                 )
             except stripe.error.CardError:
@@ -61,7 +60,6 @@ def make_payment(request):
                 messages.error(request, "Unable to take payment")
 
         else:
-            print(form.errors)
             messages.error(request, "Payment failed unfortunately")
 
     return HttpResponseRedirect(request.META.get('HTTP_REFERER', reverse('dev_panel')))

@@ -21,9 +21,17 @@
         <input type="text" name="email" placeholder="Email Address">
         <input type="password" name="password" placeholder="Password">
         <button type="submit" class="btn outline-btn">Log In</button>
+        {% if login_form.errors %}
+        <div id="form-error-container">
+          {% for error in login_form.non_field_errors %}
+          <div id="form-error-message">{{ error|escape }}</div>
+          {% endfor %}
+        </div>
+        {% endif %}
       </form>
       <p>or</p>
       <a href="{% url 'registration' %}" class="btn">Create account</a>
+      <a href="{% url 'password_reset' %}">Forgot your password?</a>
     </div>
   </div>
 </body>

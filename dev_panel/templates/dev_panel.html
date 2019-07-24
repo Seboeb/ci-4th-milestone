@@ -275,7 +275,7 @@
     <img src="{% static 'img/clear.svg' %}" alt="close" class="close-modal" onclick="TE.closeModal('user_profile')">
     <h3>Adjust your user profile</h3>
     <p>Feel free to personalize your user profile.</p>
-    <form action="{% url 'update_user_profile' %}" method="POST">
+    <form action="{% url 'update_user_profile' %}" method="POST" id="profile-form">
       {% csrf_token %}
       <h4>Choose your avater</h4>
       <div class="radio-group-pictures">
@@ -317,11 +317,13 @@
       </div>
       <div class="input-field margin-upper">
         <label for="first_name">First name</label>
-        <input type="text" id="first_name" name="first_name" value="{{user.first_name}}">
+        <input type="text" id="first_name" data-length="30" name="first_name" value="{{user.first_name}}">
       </div>
       <div class="input-field">
         <label for="last_name">Last name</label>
-        <input type="text" id="last_name" name="last_name" value="{{user.last_name}}">
+        <input type="text" id="last_name" data-length="30" name="last_name" value="{{user.last_name}}">
+      </div>
+      <div id="form-error-container" style="display:none;">
       </div>
       <button type="submit" class="btn no-stretch">Submit</button>
     </form>

@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib import auth, messages
 from django.contrib.auth.decorators import login_required
 from .models import User
-from accounts.forms import UserLoginForm, UserRegistrationForm, UserProfileForm
+from accounts.forms import UserLoginForm, UserRegistrationForm, UserProfileForm, UserSubscribeForm
 from django.http import HttpResponseRedirect
 
 
@@ -12,8 +12,14 @@ def index(request):
     or 'subscribes' person for emailing
     """
     if request.method == "POST":
-        messages.success(request, 'Thank you for your email subscription')
-    return render(request, 'index.html', {'index': True})
+        subscribe_form = UserSubscribeForm(request.POST)
+
+        if subscribe_form.is_valid():
+            messages.success(request, 'Thank you for your email subscription')
+
+    else:
+        subscribe_form = UserSubscribeForm()
+    return render(request, 'index.html', {'index': True, 'subscribe_form': subscribe_form})
 
 
 def about(request):
@@ -40,6 +46,7 @@ def login(request):
                 auth.login(user=user, request=request)
                 return redirect(reverse('index'))
             else:
+                print('error')
                 login_form.add_error(
                     None, 'You have entered an invalid email address or password.')
     else:
@@ -80,12 +87,10 @@ def registration(request):
             else:
                 messages.error(
                     request, 'Unable to register. Please try again later.')
-        else:
-            print(registration_form.errors)
     else:
         registration_form = UserRegistrationForm()
 
-    return render(request, 'signup.html', {"registration_errors": registration_form.errors})
+    return render(request, 'signup.html', {"registration_form": registration_form})
 
 
 @login_required

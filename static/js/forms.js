@@ -119,4 +119,7 @@ exports.initFormChecks = () => {
   * THIS FORM VALIDATION CAN BE FOUND IN THE STRIPE.JS FILE
   */
 
+  // --------------------------------------------------------------------------- USER PROFILE
+  $("#profile-form").submit(ticketFormValidation);
+
 }
