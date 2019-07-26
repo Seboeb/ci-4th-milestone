@@ -7,6 +7,10 @@ from tickets.models import Ticket
 
 
 class TestPaymentForms(TestCase):
+    """
+    Testing payment form for donations
+    """
+
     def test_payment_form(self):
         form = MakeDonationForm(
             {'amount': 100.00, 'stripe_id': 'afoiwjfoianvoin', 'ticket_id': '1'})
@@ -35,6 +39,10 @@ class TestPaymentForms(TestCase):
 
 
 class TestDonationModel(TestCase):
+    """
+    Testing donation model
+    """
+
     def test_create_donation(self):
         user = User(email='test@test.com')
         user.save()

@@ -947,7 +947,7 @@ header nav ul li:last-child {
 @media only screen and (min-width: 1025px) {
   .comments {
     margin: -2em auto;
-    width: 90%;
+    width: 100%;
   }
 }
 
@@ -1423,6 +1423,8 @@ form #credit-card-errors {
 
 .modal-container .modal .close-modal:hover {
   cursor: pointer;
+  background-color: lightgrey;
+  border-radius: 50%;
 }
 
 .modal-container .modal .footnote {

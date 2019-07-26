@@ -5,6 +5,11 @@ from .models import User
 
 
 class TestForms(TestCase):
+    """
+    Testing login, subscribe and 
+    registration form
+    """
+
     def test_login_form(self):
         form = UserLoginForm(
             {'email': 'test@test.com', 'password': 'mypassword'})
@@ -74,6 +79,12 @@ class TestForms(TestCase):
 
 
 class TestViews(TestCase):
+    """
+    Testing user views regarding
+    login, registration, password reset
+    and actual login functionality
+    """
+
     def test_get_index_page(self):
         page = self.client.get(reverse('index'))
         self.assertEqual(page.status_code, 200)
@@ -105,6 +116,11 @@ class TestViews(TestCase):
 
 
 class TestUserModel(TestCase):
+    """
+    Testing the creation of an user
+    object
+    """
+
     def test_create_new_user(self):
         user = User(email='test@test.com')
         user.save()
