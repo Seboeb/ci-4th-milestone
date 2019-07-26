@@ -33,7 +33,6 @@ class TicketForm(forms.ModelForm):
         fields = ['title', 'description']
 
     def clean_title(self):
-        # Not working
         title = self.cleaned_data.get('title')
 
         if not title:
@@ -42,7 +41,6 @@ class TicketForm(forms.ModelForm):
         return title
 
     def clean_description(self):
-        # Not working
         description = self.cleaned_data.get('description')
 
         if not description:
