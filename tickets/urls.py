@@ -1,6 +1,6 @@
 from django.conf.urls import url
 from tickets.views import ticket_view, post_comment, post_bug_report, post_feature_request, \
-    post_upvote, post_watchlist, edit_ticket
+    post_upvote, post_watchlist, edit_ticket, reporting
 
 urlpatterns = [
     url(r'^(?P<id>\d+)/$', ticket_view, name='ticket_view'),
@@ -10,4 +10,5 @@ urlpatterns = [
     url(r'^upvote/(?P<id>\d+)$', post_upvote, name='post_upvote'),
     url(r'^watchlist/(?P<id>\d+)$', post_watchlist, name='post_watchlist'),
     url(r'^edit$', edit_ticket, name='edit_ticket'),
+    url(r'^reporting$', reporting, name='reporting'),
 ]

@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect, reverse
 from django.utils import timezone
 from .models import Ticket, Comment
+from donations.models import Donation
 from .forms import CommentForm, TicketForm
 from .utils import create_search_label
 from django.contrib.auth.decorators import login_required
@@ -8,6 +9,7 @@ from django.contrib import messages
 from django.http import HttpResponseRedirect, HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.conf import settings
+from django.db.models import Sum
 import json
 
 
@@ -224,3 +226,43 @@ def post_watchlist(request, id):
             state = 'on'
 
         return HttpResponse(json.dumps({'status': 'ok', 'state': state}), content_type='application/json')
+
+
+@login_required
+def reporting(request):
+    """
+    Opens the reporting of the tickets
+    and donations created by the user
+    """
+
+    user = request.user
+
+    # Get bug report data
+    bug_report_data = {
+        'bug_reports': Ticket.objects.filter(ticket_type=1, user=user),
+        'nr_open': Ticket.objects.filter(ticket_type=1, user=user, status=1).count(),
+        'nr_progress': Ticket.objects.filter(ticket_type=1, user=user, status=2).count(),
+        'nr_done': Ticket.objects.filter(ticket_type=1, user=user, status=3).count(),
+        'nr_open_g': Ticket.objects.filter(ticket_type=1, status=1).count(),
+        'nr_progress_g': Ticket.objects.filter(ticket_type=1, status=2).count(),
+        'nr_done_g': Ticket.objects.filter(ticket_type=1, status=3).count()
+    }
+
+    # Get feature request data
+    feature_request_data = {
+        'bug_reports': Ticket.objects.filter(ticket_type=2, user=user),
+        'nr_open': Ticket.objects.filter(ticket_type=2, user=user, status=1).count(),
+        'nr_progress': Ticket.objects.filter(ticket_type=2, user=user, status=2).count(),
+        'nr_done': Ticket.objects.filter(ticket_type=2, user=user, status=3).count(),
+        'nr_open_g': Ticket.objects.filter(ticket_type=2, status=1).count(),
+        'nr_progress_g': Ticket.objects.filter(ticket_type=2, status=2).count(),
+        'nr_done_g': Ticket.objects.filter(ticket_type=2, status=3).count()
+    }
+
+    # Get donation data
+    donation_data = {
+        'donations': Donation.objects.filter(user=user),
+        'total': Donation.objects.filter(user=user).aggregate(Sum('amount')),
+        'total_g': Donation.objects.filter().aggregate(Sum('amount'))
+    }
+    return render(request, 'reporting.html', {'bug_report_data': bug_report_data, 'feature_request_data': feature_request_data, 'donation_data': donation_data})

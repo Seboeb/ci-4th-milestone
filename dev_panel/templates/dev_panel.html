@@ -40,7 +40,6 @@
             <span>{{ ticket.upvotes }}</span>
             <img src="{% static 'img/up-vote.svg' %}" alt="upvote">
           </div>
-          <!-- <img src="{% static 'img/eye-filled.svg' %}" alt="add to watchlist"> -->
         </div>
       </div>
       {% endfor %}
@@ -78,7 +77,7 @@
       <div class="ruler"></div>
       <button onclick="TE.openModal('new_feature')">New feature request</button>
       <button onclick="TE.openModal('new_bug_report')">New bug report</button>
-      <button>Show reporting</button>
+      <button onclick="location.href='{% url 'reporting' %}';">Show reporting</button>
       {% endif %}
     </div>
 
@@ -91,7 +90,7 @@
       </div>
       <div class="ruler"></div>
       <div class="tickets-created-list">
-        {% for ticket in created_tickets %}
+        {% for ticket in created_tickets|slice:":4" %}
         <a href="{% url 'ticket_view' id=ticket.id %}">
           <div class="created-list-item">
             <span>{{ ticket.ticket_id }}</span>
@@ -147,7 +146,7 @@
           <div class="ruler"></div>
           <button onclick="TE.openModal('new_feature')">New feature request</button>
           <button onclick="TE.openModal('new_bug_report')">New bug report</button>
-          <button>Show reporting</button>
+          <button onclick="location.href='{% url 'reporting' %}';">Show reporting</button>
           {% endif %}
         </div>
 
@@ -160,7 +159,7 @@
           </div>
           <div class="ruler"></div>
           <div class="tickets-created-list">
-            {% for ticket in created_tickets %}
+            {% for ticket in created_tickets|slice:":4" %}
             <a href="{% url 'ticket_view' id=ticket.id %}">
               <div class="created-list-item">
                 <span>{{ ticket.ticket_id }}</span>

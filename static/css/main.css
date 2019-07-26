@@ -754,6 +754,63 @@ header nav ul li:last-child {
   font-size: 0.8em;
 }
 
+.ticket-card .main .item-line {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.ticket-card .main .item-line strong {
+  display: inline-block;
+  min-width: 4em;
+}
+
+.ticket-card .main .item-line .amount {
+  display: inline-block;
+  min-width: 7em;
+  color: black;
+}
+
+.ticket-card .main .item-line p {
+  padding: 0.5em;
+}
+
+.ticket-card .main .item-line .label {
+  position: static;
+  display: inline-block;
+  text-transform: uppercase;
+  font-weight: 600;
+  padding: 0.25em 1.5em;
+  color: white;
+  font-size: 0.8rem;
+  margin-right: 3em;
+}
+
+.ticket-card .main .item-line .label.open {
+  background-color: #03BFE9;
+}
+
+.ticket-card .main .item-line .label.progress {
+  background-color: #19BC64;
+}
+
+.ticket-card .main .item-line .label.done {
+  background-color: #252C2F;
+}
+
+.ticket-card .main .item-line:hover {
+  cursor: pointer;
+  background: #03BFE9;
+  color: white;
+}
+
 .ticket-card .detail {
   background-color: #e6e6e6;
   margin: 0 -1rem -2rem;
@@ -771,8 +828,8 @@ header nav ul li:last-child {
     -webkit-box-direction: normal;
         -ms-flex-direction: column;
             flex-direction: column;
-    -ms-flex-preferred-size: auto;
-        flex-basis: auto;
+    -ms-flex-preferred-size: 40%;
+        flex-basis: 40%;
     background-color: #f7f7f7;
     margin: 0;
     padding: 3em;
@@ -843,6 +900,20 @@ header nav ul li:last-child {
   -webkit-box-flex: 1;
       -ms-flex: 1;
           flex: 1;
+}
+
+.ticket-card .detail.reporting p {
+  margin: 0.35em 0;
+  font-size: 1rem;
+}
+
+.ticket-card .detail.reporting strong {
+  display: inline-block;
+  min-width: 2em;
+}
+
+.ticket-card .detail.reporting.donation strong {
+  margin-right: 1em;
 }
 
 .watermark {

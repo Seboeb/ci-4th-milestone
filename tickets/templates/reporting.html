@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block page_title %}Reporting - The Tasting Experience{% endblock %}
+
+{% block main_content %}
+<div class="container content">
+
+  <!-- Bug report section -->
+  <section class="ticket no-padding-top">
+    <div class="ticket-card">
+      <div class="main">
+        <h2>Bug Reports</h2>
+        <span class="create-info margin-down">Created by <strong>{{ user }}</strong></span>
+        {% for ticket in bug_report_data.bug_reports %}
+        <div class="item-line" onclick="location.href='{% url 'ticket_view' id=ticket.id %}';">
+          <div class="label {{ ticket.status }}">
+            {% if ticket.status.label_name == "open" %}open{%elif ticket.status.label_name == "progress" %}
+            prog{%elif ticket.status.label_name == "done" %}done{% endif %}
+          </div>
+          <p><strong>{{ticket.ticket_id}}</strong>{{ticket.title}}</p>
+        </div>
+        {% endfor %}
+      </div>
+      <div class="detail reporting">
+        <span class="title margin-down">YOUR STATS</span>
+        <p><strong>{{bug_report_data.nr_open}}</strong> Open</p>
+        <p><strong>{{bug_report_data.nr_progress}}</strong> In progress</p>
+        <p><strong>{{bug_report_data.nr_done}}</strong> Done</p>
+        <div class="ruler"></div>
+        <span class="title margin-down">GLOBAL STATS</span>
+        <p><strong>{{bug_report_data.nr_open_g}}</strong> Open</p>
+        <p><strong>{{bug_report_data.nr_progress_g}}</strong> In progress</p>
+        <p><strong>{{bug_report_data.nr_done_g}}</strong> Done</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Feature request section -->
+  <section class="ticket no-padding-top">
+    <div class="ticket-card">
+      <div class="main">
+        <h2>Feature Requests</h2>
+        <span class="create-info margin-down">Created by <strong>{{ user }}</strong></span>
+        {% for ticket in feature_request_data.bug_reports %}
+        <div class="item-line" onclick="location.href='{% url 'ticket_view' id=ticket.id %}';">
+          <div class="label {{ ticket.status }}">
+            {% if ticket.status.label_name == "open" %}open{%elif ticket.status.label_name == "progress" %}
+            prog{%elif ticket.status.label_name == "done" %}done{% endif %}
+          </div>
+          <p><strong>{{ticket.ticket_id}}</strong>{{ticket.title}}</p>
+        </div>
+        {% endfor %}
+      </div>
+      <div class="detail reporting">
+        <span class="title margin-down">YOUR STATS</span>
+        <p><strong>{{feature_request_data.nr_open}}</strong> Open</p>
+        <p><strong>{{feature_request_data.nr_progress}}</strong> In progress</p>
+        <p><strong>{{feature_request_data.nr_done}}</strong> Done</p>
+        <div class="ruler"></div>
+        <span class="title margin-down">GLOBAL STATS</span>
+        <p><strong>{{feature_request_data.nr_open_g}}</strong> Open</p>
+        <p><strong>{{feature_request_data.nr_progress_g}}</strong> In progress</p>
+        <p><strong>{{feature_request_data.nr_done_g}}</strong> Done</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Donations section -->
+  <section class="ticket no-padding-top">
+    <div class="ticket-card">
+      <div class="main">
+        <h2>Donations</h2>
+        <span class="create-info margin-down">Payments made by <strong>{{ user }}</strong></span>
+        {% for donation in donation_data.donations %}
+        <div class="item-line" onclick="location.href='{% url 'ticket_view' id=donation.ticket.id %}';">
+          <p><span class="amount">€
+              {{donation.amount}}</span><strong>{{donation.ticket.ticket_id}}</strong>{{donation.ticket.title}}</p>
+        </div>
+        {% endfor %}
+      </div>
+      <div class="detail reporting donation">
+        <span class="title margin-down">YOUR STATS</span>
+        <p><strong>€ {{donation_data.total.amount__sum}}</strong> Total donated</p>
+        <div class="ruler"></div>
+        <span class="title margin-down">GLOBAL STATS</span>
+        <p><strong>€ {{donation_data.total_g.amount__sum}}</strong> Total donated</p>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+{% endblock %}
