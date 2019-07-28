@@ -1,0 +1,79 @@
+[
+  {
+    "model": "accounts.UserRole",
+    "pk": 1,
+    "fields": {
+      "label_name": "Developer"
+    }
+  },
+  {
+    "model": "accounts.UserRole",
+    "pk": 2,
+    "fields": {
+      "label_name": "End User"
+    }
+  },
+  {
+    "model": "accounts.UserRole",
+    "pk": 3,
+    "fields": {
+      "label_name": "Admin"
+    }
+  },
+  {
+    "model": "tickets.TicketType",
+    "pk": 1,
+    "fields": {
+      "name": "bug_report"
+    }
+  },
+  {
+    "model": "tickets.TicketType",
+    "pk": 2,
+    "fields": {
+      "name": "feature_request"
+    }
+  },
+  {
+    "model": "tickets.TicketPriorityLabel",
+    "pk": 1,
+    "fields": {
+      "label_name": "Lowest"
+    }
+  },
+  {
+    "model": "tickets.TicketPriorityLabel",
+    "pk": 2,
+    "fields": {
+      "label_name": "Medium"
+    }
+  },
+  {
+    "model": "tickets.TicketPriorityLabel",
+    "pk": 3,
+    "fields": {
+      "label_name": "Highest"
+    }
+  },
+  {
+    "model": "tickets.TicketProgressLabel",
+    "pk": 1,
+    "fields": {
+      "label_name": "open"
+    }
+  },
+  {
+    "model": "tickets.TicketProgressLabel",
+    "pk": 2,
+    "fields": {
+      "label_name": "progress"
+    }
+  },
+  {
+    "model": "tickets.TicketProgressLabel",
+    "pk": 3,
+    "fields": {
+      "label_name": "done"
+    }
+  }
+]

@@ -42,9 +42,12 @@ travis
 
 ## Installing Guide
 
+python manage.py loaddata initial_data_fixture.json
+
 ## Testing
 
 ## Deployment
+python manage.py collectstatic
 
 ## Develop on your own!
 
