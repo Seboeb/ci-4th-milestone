@@ -75,8 +75,9 @@
         {% if ticket.ticket_type.name == "bug_report" %}
         <p><span class="upvotes">{{ ticket.upvotes }}</span> Other{{ ticket.upvotes|pluralize }} with this problem.</p>
         {% else %}
-        <p><span class="upvotes">{{ ticket.upvotes }}</span> Donation{{ ticket.upvotes|pluralize }} <button
-            class="btn donate" onclick="TE.openModal('make_donation');">Donate</button></p>
+        <p><span class="upvotes">{{ ticket.upvotes }}</span>
+          Donation{{ ticket.upvotes|pluralize }}{% if user.is_authenticated %} <button class="btn donate"
+            onclick="TE.openModal('make_donation');">Donate</button>{% endif %}</p>
         {% endif %}
         <div class="ruler"></div>
         <div class="expense">
@@ -149,7 +150,8 @@
         <button type="submit" class="btn comment-btn no-stretch">Post Comment</button>
       </form>
       {% else %}
-      <p>You must login before you can place a comment. Log in over <a href="{% url 'login' %}">here</a>.</p>
+      <p>You must login before you can place a comment or make a donation. Log in over <a
+          href="{% url 'login' %}">here</a>.</p>
       {% endif %}
     </div>
 

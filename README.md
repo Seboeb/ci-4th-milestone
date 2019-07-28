@@ -27,6 +27,7 @@ Here you can see the features that are already implemented and which are left to
   ### Existing Features
 
   ### Features Left to Implement
+  code input implementation for new bug/feature report request
 
 ## Technologies Used
 

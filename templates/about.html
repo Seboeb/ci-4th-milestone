@@ -59,9 +59,10 @@
   <hr>
   <section>
     <h2>How does it work?</h2>
-    <p>You can start right away, even without having an account. You can see the reported bugs and feature requests on
-      the development page over <a href="">here</a>. However, if you want to contribute you will need to <a
-        href="">sign</a> in. This has several advantages, you can place comments and participate with other users and
+    <p>You can start right away, even without an account. You can see the reported bugs and feature requests on
+      the development page over <a href="{% url 'dev_panel' %}">here</a>. However, if you want to contribute, you will
+      need to <a href="{% url 'login' %}">log in</a>. This has several advantages, you can place comments and
+      participate with other users and
       place bug or feature request on your watchlist.</p>
 
     <div class="media-card">
@@ -95,7 +96,7 @@
       </div>
       <div class="info">
         <span class="info-title">Active Development</span>
-        <p>You can actively contribute to bug reports and feature request by joining the conversations. Comment or
+        <p>You can actively contribute to bug reports and feature request by joining the conversations, comment or
           reply on other users and provide them your thoughts about the subject.</p>
       </div>
     </div>
@@ -105,9 +106,9 @@
       </div>
       <div class="info">
         <span class="info-title">Dashboard</span>
-        <p>On can create new bug reports and feature request in your personal dashboard. You can find it on the main
-          development page. It provides a summary of your submitted reports and requests and a general overview of all
-          (non)active development. If you are interested in some specific request, you can add them to your watchlist.
+        <p>You can create new bug reports and feature request in your personal dashboard. You can find it on the main
+          development page. It provides a summary of your submitted reports and requests, and a general overview of all
+          (non)active development. If you are interested in a specific request, you can add them to your watchlist.
         </p>
       </div>
     </div>
