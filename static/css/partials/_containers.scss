@@ -1,0 +1,118 @@
+.wrapper {
+
+  &.gradient {
+    background: linear-gradient(60.64deg, #03BFE9 0%, #3B707B 100%);
+  }
+
+  &.centered {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    height: 100vh;
+  }
+}
+
+.container {
+  max-width: 1920px;
+  margin: 0 auto;
+  overflow-x: hidden;
+
+  @include respond-to(medium-screens) { overflow-x: visible }
+
+  &.content {
+    padding: 7em 1em 0;
+    max-width: 1000px;
+    text-align: justify;
+    position: relative;
+
+    @include respond-to(medium-screens) { 
+      padding: 8em 1em; 
+      text-align: left;
+    }
+
+    section {
+      padding: 2em 0;
+    }
+  }
+
+  &.dev-panel {
+    display: block;
+    position: relative;
+    padding-left: 0;
+    padding-right: 0;
+
+    @include respond-to(medium-screens) {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      grid-template-rows: auto auto 1fr;
+      grid-row-gap: 2em;
+      grid-column-gap: 3em;
+      grid-template-areas: 
+        "main dashboard"
+        "main watchlist"
+        "main empty";
+    }
+
+    main {
+      grid-area: main;
+    }
+
+    >section {
+      display: none;
+      padding: 0;
+      @include respond-to(medium-screens) { display: block }
+    }
+
+    >section:nth-of-type(1) {
+      grid-area: dashboard;
+    }
+
+    >section:nth-of-type(2) {
+      grid-area: watchlist;
+    }
+    >section:nth-of-type(3) {
+      grid-area: empty;
+    }
+
+  }
+
+  hr {
+    border-color: rgba(0,0,0,0.1);
+  }
+}
+
+.message-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  text-align: center;
+  transform: translateY(-100%);
+  z-index: 2000;
+  animation: test 4s;
+  animation-delay: 1s;
+
+  p {
+    margin: 0;
+    color: white;
+    font-weight: 400;
+    padding: 0.5em 1em;
+    background-color: #309e48;
+  }
+
+  p.error{
+    background-color: red;
+  }
+}
+
+@keyframes test {
+  0% { transform: translateY(-100%) }
+
+  10% { transform: translateY(0%); }
+
+  90% { transform: translateY(0%); }
+
+  100% { transform: translateY(-100%); }
+}

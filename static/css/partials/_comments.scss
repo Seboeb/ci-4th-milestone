@@ -1,0 +1,112 @@
+.comments {
+  background-color: rgb(27,96,135);
+  margin: 0 -1em;
+  color: white;
+  z-index: 10;
+
+  @include respond-to(medium-screens){
+    margin: -2em auto;
+    width: 100%;
+  }
+
+  .comment {
+    display: flex;
+
+    @include respond-to(medium-screens){ padding: 0 2em }
+
+    .avatar {
+      display: none;
+      flex-basis: 100px;
+
+      @include respond-to(medium-screens){ display: flex; }
+        
+      img {
+        height: 70px;
+        width: 70px;
+        background-color: rgba(255,255,255,0.35);;
+        padding: 5px;
+      }
+    }
+
+    .content {
+      padding: 1em; 
+      font-size: 0.9rem;
+
+      @include respond-to(medium-screens){ 
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 0 0 0 1em;
+        flex-basis: calc(100% - 100px - 1em);
+      }
+
+      p {
+        margin: 0;
+      }
+
+      .info {
+        margin-bottom: 0.35em;
+        padding-bottom: 0.15em;
+        border-bottom: 1px solid rgba(255,255,255,0.35);
+
+      }
+
+      .info > strong {
+        padding-right: 1em; 
+      }
+
+      .time {
+        font-size: 0.8rem;
+        opacity: 0.5;
+        margin-bottom: 1em;
+      }
+    }
+  }
+
+  .new-comment {
+    padding: 1em;
+
+    @include respond-to(medium-screens){ padding: 2em 2em 0 }
+
+    textarea {
+      width: calc(100% - 1em - 2px);
+      background-color: rgba(0,0,0,0.1);
+      border: 1px solid rgba(255,255,255,0.35);
+      padding: 0.5em;
+      color: white;
+      font-family: 'Montserrat', 'sans-serif';
+      font-size: 0.9rem;
+      font-weight: $light;
+      resize: none;
+    }
+
+    textarea::placeholder {
+      color: rgba(255,255,255,0.5);
+    }
+
+    p {
+      color: rgba(255,255,255,0.5);
+
+      a {
+        text-decoration: none;
+        color: $primary-blue;
+      }
+    }
+  }
+
+  .ruler {
+    width: calc(100% - 4em);
+    height: 1px;
+    // background-color: rgba(255,255,255,0.35);
+    margin: 1em;
+  }
+
+
+}
+
+#comment-error-container {
+  background-color: rgba(255,0,0,0.5);
+  padding: 0.5em;
+  margin-bottom: 1em;
+  font-size: 0.9rem;
+}

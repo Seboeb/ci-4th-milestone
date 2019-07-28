@@ -1,0 +1,332 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block page_title %}Dashboard - The Tasting Experience{% endblock %}
+
+{% block main_content %}
+<div class="container content dev-panel">
+
+  <!-- Main panel -->
+  <main>
+    <!-- Header with controls -->
+    <div class="controls">
+      <button {% if app_type == 'finder_app' %}class="active" {% endif %}
+        onclick="location.href='{% url 'dev_panel' %}?app=finder_app'">Finder app</button>
+      <button {% if app_type == 'recipe_community' %}class="active" {% endif %}
+        onclick="location.href='{% url 'dev_panel' %}?app=recipe_community'">Recipe community</button>
+      <input type="text" oninput='TE.searchInitialTickets(1, "{{ app_type }}", this.value);'
+        placeholder="Bugs, features, user...">
+    </div>
+
+    <!-- Ticket list -->
+    <div class="list">
+      {% for ticket in tickets %}
+      <div class="ticket-list-item" onclick="location.href='{% url 'ticket_view' id=ticket.id %}';">
+        {% if ticket.ticket_type.name == "bug_report" %}
+        <img src="{% static 'img/bug-report-red.svg' %}" alt="bug_report">
+        {% else %}
+        <img src="{% static 'img/develop-feature2-blue.svg' %}" alt="feature_request">
+        {% endif %}
+        <p class="title">{{ ticket.title }}</p>
+        <p class="subtitle">{{ ticket.ticket_id }} opened at {{ ticket.date_created|date:"M d, Y" }} by
+          {{ ticket.user }}</p>
+        <div class="icons">
+          <div class="icon">
+            <span>{{ ticket.nr_comments }}</span>
+            <img src="{% static 'img/comment3.svg' %}" alt="comments">
+          </div>
+          <div class="icon">
+            <span>{{ ticket.upvotes }}</span>
+            <img src="{% static 'img/up-vote.svg' %}" alt="upvote">
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+
+      <!-- Extend list -->
+      <div class="load-more" {% if not load_more %}style="display:none;" {% endif %}>
+        <div onclick='TE.loadMoreTickets(11, "{{ app_type }}", "");'>
+          <img src="{% static 'img/arrow-down.svg' %}" alt="load more">
+          <span>show more</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="mobile-menu-btn" onclick="TE.showMenu();">
+      <img src="{% static 'img/menu.svg' %}" alt="">
+    </div>
+  </main>
+
+  <!-- Dashboard panel -->
+  <section class="dashboard-card">
+    <div class="main">
+      {% if not user.is_authenticated %}
+      <p style="font-size:0.8rem;"><a href="{% url 'login' %}">Login</a> to activated your dashboard.</p>
+      {% else %}
+      <div class="profile-card">
+        <div class="avatar">
+          <img src="{% static user.profile_picture %}" alt="{{ user }}">
+          <button onclick="TE.openModal('user_profile')">Edit profile</button>
+        </div>
+        <div class="personal">
+          <span class="name">{{ user }}</span>
+          <p>{{ user.role }}</p>
+        </div>
+      </div>
+      <div class="ruler"></div>
+      <button onclick="TE.openModal('new_feature')">New feature request</button>
+      <button onclick="TE.openModal('new_bug_report')">New bug report</button>
+      <button onclick="location.href='{% url 'reporting' %}';">Show reporting</button>
+      {% endif %}
+    </div>
+
+    {% if user.is_authenticated %}
+    <div class="details">
+      <div class="summary">
+        <p>{{ user_summary.nr_bugs }} Bug{{ user_summary.nr_bugs|pluralize }}</p>
+        <p>{{ user_summary.nr_features }} Feature{{ user_summary.nr_features|pluralize }}</p>
+        <p>{{ user_summary.nr_donations }} Donation{{ user_summary.nr_donations|pluralize }}</p>
+      </div>
+      <div class="ruler"></div>
+      <div class="tickets-created-list">
+        {% for ticket in created_tickets|slice:":4" %}
+        <a href="{% url 'ticket_view' id=ticket.id %}">
+          <div class="created-list-item">
+            <span>{{ ticket.ticket_id }}</span>
+            <p>{{ ticket.title|truncatechars:35 }}</p>
+          </div>
+        </a>
+        {% endfor %}
+      </div>
+    </div>
+    {% endif %}
+  </section>
+
+  <!-- Watchlist panel -->
+  {% if user.is_authenticated %}
+  <section class="watchlist-card">
+    {% if not watchlist %}
+    <a href="#!">
+      <div class="watchlist-item">
+        <p>No tickets</p>
+      </div>
+    </a>
+    {% endif %}
+    {% for ticket in watchlist %}
+    <a href="{% url 'ticket_view' id=ticket.id %}">
+      <div class="watchlist-item">
+        <span>{{ ticket.ticket_id }}</span>
+        <p>{{ ticket.title|truncatechars:40 }}</p>
+      </div>
+    </a>
+    {% endfor %}
+  </section>
+  {% endif %}
+  <section>
+  </section>
+
+  <div class="mobile-menu">
+    <div class="inner">
+      <section class="dashboard-card">
+        <div class="main">
+          {% if not user.is_authenticated %}
+          <p style="font-size:0.8rem;"><a href="{% url 'login' %}">Login</a> to activated your dashboard.</p>
+          {% else %}
+          <div class="profile-card">
+            <div class="avatar">
+              <img src="{% static user.profile_picture %}" alt="{{ user }}">
+              <button onclick="TE.openModal('user_profile')">Edit profile</button>
+            </div>
+            <div class="personal">
+              <span class="name">{{ user }}</span>
+              <p>{{ user.role }}</p>
+            </div>
+          </div>
+          <div class="ruler"></div>
+          <button onclick="TE.openModal('new_feature')">New feature request</button>
+          <button onclick="TE.openModal('new_bug_report')">New bug report</button>
+          <button onclick="location.href='{% url 'reporting' %}';">Show reporting</button>
+          {% endif %}
+        </div>
+
+        {% if user.is_authenticated %}
+        <div class="details">
+          <div class="summary">
+            <p>{{ user_summary.nr_bugs }} Bug{{ user_summary.nr_bugs|pluralize }}</p>
+            <p>{{ user_summary.nr_features }} Feature{{ user_summary.nr_features|pluralize }}</p>
+            <p>{{ user_summary.nr_donations }} Donation{{ user_summary.nr_donations|pluralize }}</p>
+          </div>
+          <div class="ruler"></div>
+          <div class="tickets-created-list">
+            {% for ticket in created_tickets|slice:":4" %}
+            <a href="{% url 'ticket_view' id=ticket.id %}">
+              <div class="created-list-item">
+                <span>{{ ticket.ticket_id }}</span>
+                <p>{{ ticket.title|truncatechars:30 }}</p>
+              </div>
+            </a>
+            {% endfor %}
+          </div>
+        </div>
+        {% endif %}
+      </section>
+
+      <!-- Watchlist panel -->
+      {% if user.is_authenticated %}
+      <section class="watchlist-card">
+        {% if not watchlist %}
+        <a href="#!">
+          <div class="watchlist-item">
+            <p>No tickets</p>
+          </div>
+        </a>
+        {% endif %}
+        {% for ticket in watchlist %}
+        <a href="{% url 'ticket_view' id=ticket.id %}">
+          <div class="watchlist-item">
+            <span>{{ ticket.ticket_id }}</span>
+            <p>{{ ticket.title|truncatechars:40 }}</p>
+          </div>
+        </a>
+        {% endfor %}
+      </section>
+      {% endif %}
+    </div>
+  </div>
+
+
+</div>
+
+<div id="new_feature" class="modal-container">
+  <div class="modal">
+    <img src="{% static 'img/clear.svg' %}" alt="close" class="close-modal" onclick="TE.closeModal('new_feature')">
+    <h3>Request a new feature</h3>
+    <p>Requesting a new feature requires a donation. The minimum amount for a feature is €150,- but it may be altered.*
+    </p>
+    <form action="{% url 'post_feature_request' %}" method="POST" id="feature-request-form">
+      {% csrf_token %}
+      <div class="radio-group">
+        <label for="finder_app" class="radio-container">
+          Finder App
+          <input type="radio" id="finder_app" name="app_type" value="finder_app" checked>
+          <span class="checkbox"></span>
+        </label>
+        <label for="recipe_community" class="radio-container">
+          Recipe Community
+          <input type="radio" id="recipe_community" name="app_type" value="recipe_community">
+          <span class="checkbox"></span>
+        </label>
+      </div>
+      <div class="input-field">
+        <input type="text" data-length="75" name="title" placeholder="Title / summary">
+        <span class="counter"></span>
+      </div>
+      <div class="input-area">
+        <textarea name="description" data-length="350" cols="30" rows="10" placeholder="Feature description"></textarea>
+        <span class="counter"></span>
+      </div>
+      <div id="form-error-container" style="display:none;">
+      </div>
+      <button type="submit" class="btn no-stretch">Submit</button>
+    </form>
+    <p class="footnote">* Depends on the estimated development time.</p>
+  </div>
+</div>
+
+<div id="new_bug_report" class="modal-container">
+  <div class="modal">
+    <img src="{% static 'img/clear.svg' %}" alt="close" class="close-modal" onclick="TE.closeModal('new_bug_report')">
+    <h3>Report a new bug</h3>
+    <p>Reporting a bug is free of charge! Try to be as descriptive as possible.
+    </p>
+    <form action="{% url 'post_bug_report' %}" method="POST" id="bug-report-form">
+      {% csrf_token %}
+      <div class="radio-group">
+        <label for="finder_app2" class="radio-container">
+          Finder App
+          <input type="radio" id="finder_app2" name="app_type" value="finder_app" checked>
+          <span class="checkbox"></span>
+        </label>
+        <label for="recipe_community2" class="radio-container">
+          Recipe Community
+          <input type="radio" id="recipe_community2" name="app_type" value="recipe_community">
+          <span class="checkbox"></span>
+        </label>
+      </div>
+      <div class="input-field">
+        <input type="text" data-length="75" name="title" placeholder="Title / summary">
+        <span class="counter"></span>
+      </div>
+      <div class="input-area">
+        <textarea name="description" data-length="350" cols="30" rows="10" placeholder="Bug description"></textarea>
+        <span class="counter"></span>
+      </div>
+      <div id="form-error-container" style="display:none;">
+      </div>
+      <button type="submit" class="btn no-stretch">Submit</button>
+    </form>
+  </div>
+</div>
+
+<div id="user_profile" class="modal-container">
+  <div class="modal">
+    <img src="{% static 'img/clear.svg' %}" alt="close" class="close-modal" onclick="TE.closeModal('user_profile')">
+    <h3>Adjust your user profile</h3>
+    <p>Feel free to personalize your user profile.</p>
+    <form action="{% url 'update_user_profile' %}" method="POST" id="profile-form">
+      {% csrf_token %}
+      <h4>Choose your avater</h4>
+      <div class="radio-group-pictures">
+        <label for="non_user" class="radio-container">
+          <input type="radio" id="non_user" name="profile_picture" value="img/non-user.png"
+            {% if user.profile_picture == 'img/non-user.png' %}checked {% endif %}>
+          <img src="{% static 'img/non-user.png' %}" alt="non_user">
+        </label>
+        <label for="user_1" class="radio-container">
+          <input type="radio" id="user_1" name="profile_picture" value="img/user-1.svg"
+            {% if user.profile_picture == 'img/user-1.svg' %}checked {% endif %}>
+          <img src="{% static 'img/user-1.svg' %}" alt="user_1">
+        </label>
+        <label for="user_2" class="radio-container">
+          <input type="radio" id="user_2" name="profile_picture" value="img/user-2.svg"
+            {% if user.profile_picture == 'img/user-2.svg' %}checked {% endif %}>
+          <img src="{% static 'img/user-2.svg' %}" alt="user_2">
+        </label>
+        <label for="user_3" class="radio-container">
+          <input type="radio" id="user_3" name="profile_picture" value="img/user-3.svg"
+            {% if user.profile_picture == 'img/user-3.svg' %}checked {% endif %}>
+          <img src="{% static 'img/user-3.svg' %}" alt="user_3">
+        </label>
+        <label for="user_4" class="radio-container">
+          <input type="radio" id="user_4" name="profile_picture" value="img/user-4.svg"
+            {% if user.profile_picture == 'img/user-4.svg' %}checked {% endif %}>
+          <img src="{% static 'img/user-4.svg' %}" alt="user_4">
+        </label>
+        <label for="user_5" class="radio-container">
+          <input type="radio" id="user_5" name="profile_picture" value="img/user-5.svg"
+            {% if user.profile_picture == 'img/user-5.svg' %}checked {% endif %}>
+          <img src="{% static 'img/user-5.svg' %}" alt="user_5">
+        </label>
+        <label for="user_6" class="radio-container">
+          <input type="radio" id="user_6" name="profile_picture" value="img/user-6.svg"
+            {% if user.profile_picture == 'img/user-6.svg' %}checked {% endif %}>
+          <img src="{% static 'img/user-6.svg' %}" alt="user_6">
+        </label>
+      </div>
+      <div class="input-field margin-upper">
+        <label for="first_name">First name</label>
+        <input type="text" id="first_name" data-length="30" name="first_name" value="{{user.first_name}}">
+      </div>
+      <div class="input-field">
+        <label for="last_name">Last name</label>
+        <input type="text" id="last_name" data-length="30" name="last_name" value="{{user.last_name}}">
+      </div>
+      <div id="form-error-container" style="display:none;">
+      </div>
+      <button type="submit" class="btn no-stretch">Submit</button>
+    </form>
+  </div>
+</div>
+
+{% endblock %}

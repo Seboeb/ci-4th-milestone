@@ -1,7 +1,51 @@
 {% extends 'base.html' %}
 
-{% block page_title %}Jeeyy{% endblock %}
+{% block page_title %}The Tasting Experience{% endblock %}
 
 {% block main_content %}
-<h1>Hoi! Dit is de index!</h1>
+<div class="wrapper landing-page">
+  <section class="hero">
+    <div class="inner">
+      <h1>The Tasting Experience</h1>
+      <p>Follow the latest development for the finder app and the online recipe community</p>
+      <a href="{% url 'dev_panel' %}" class="btn arrow-btn start-btn">Get started</a>
+    </div>
+  </section>
+  <section class="sidebar">
+    <div class="inner">
+      <h2>Info</h2>
+      <p>Welcome to The Tasting Experience development portal! If you are having trouble with the Finder App or the
+        Recipe Community website, you are in the right place. Here you can report bugs that you have found and share it
+        with the developers of the Tasting Experience group. The cool thing is, is that you can request new features as
+        well! Just submit your idea and get it supported by other users. </p>
+      <a href="{% url 'about' %}" class="btn arrow-btn">Read more</a>
+    </div>
+  </section>
+  <section class="subscribe">
+    <div class="inner">
+      <h2>Subscribe</h2>
+      <p>Get the lastest updates and feature requests!</p>
+      <form action="{% url 'index' %}" method="POST">
+        <div class="input-field">
+          <input type="text" name="email" placeholder="Email Address">
+        </div>
+        {% csrf_token %}
+        <!-- {{subscribe_form.errors}} -->
+        {% if subscribe_form.errors %}
+        <div id="form-error-container">
+          {% for field in subscribe_form %}
+          {% for error in field.errors %}
+          <div id="form-error-message">{{ error|escape }}</div>
+          {% endfor %}
+          {% endfor %}
+          {% for error in subscribe_form.non_field_errors %}
+          <div id="form-error-message">{{ error|escape }}</div>
+          {% endfor %}
+        </div>
+        {% endif %}
+        <button type="submit" class="btn black">Subscribe Now</button>
+      </form>
+    </div>
+  </section>
+</div>
 {% endblock %}

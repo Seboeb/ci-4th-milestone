@@ -34,7 +34,8 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = development
 
-ALLOWED_HOSTS = ['the-tasting-experience-dev.herokuapp.com', 'localhost']
+ALLOWED_HOSTS = ['the-tasting-experience-dev.herokuapp.com',
+                 'localhost', 'citest.eu.ngrok.io']
 
 
 # Application definition
@@ -48,6 +49,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_forms_bootstrap',
     'accounts',
+    'tickets',
+    'dev_panel',
+    'donations',
 ]
 
 MIDDLEWARE = [
@@ -100,6 +104,11 @@ else:
         }
     }
 
+# User substitution
+# https://docs.djangoproject.com/en/1.11/topics/auth/customizing/#auth-custom-user
+
+AUTH_USER_MODEL = 'accounts.User'
+
 
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
@@ -121,7 +130,6 @@ AUTH_PASSWORD_VALIDATORS = [
 
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
-    'accounts.backends.EmailAuth'
 ]
 
 
@@ -143,7 +151,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
-# STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
@@ -152,13 +159,18 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
+STRIPE_PUBLISHABLE = os.environ.get('STRIPE_PUBLISHABLE')
+STRIPE_SECRET = os.environ.get('STRIPE_SECRET')
+
+
 MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
 
 if development:
     EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 else:
-    EMAIL_USE_TLS = True
+    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
     EMAIL_HOST = 'smtp.gmail.com'
-    EMAIL_HOST_USER = os.environ.get("EMAIL_ADDRESS")
-    EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_PASSWORD")
+    EMAIL_USE_TLS = True
     EMAIL_PORT = 587
+    EMAIL_HOST_USER = os.environ.get('EMAIL_ADDRESS')
+    EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_PASSWORD')

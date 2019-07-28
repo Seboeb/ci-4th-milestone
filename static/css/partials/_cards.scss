@@ -1,0 +1,417 @@
+.dialog {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: $background-color;
+  padding: 2em;
+  height: 100vh;
+  width: 100%;
+  box-sizing: border-box;
+
+  @include respond-to(dialog) { 
+    box-shadow: 0px 4px 10px #1B6087;
+    border-radius: 50px;
+    max-width: $dialog-width;
+    padding: 3em;
+    height: auto;
+  }
+
+  a.logo img {
+    width: 50vw;
+    margin: 1em 0;
+
+    @include respond-to(dialog) { width: 10em }
+  }
+
+  p {
+    font-size: 0.9rem;
+    color: black;
+    margin: 1em 0;
+  }
+  
+}
+
+.profile-card {
+  display: flex;
+  flex-direction: row;
+  align-items:flex-start;
+  min-height: 80px;
+  padding: 2em 0;
+
+  a {
+    text-decoration: none;
+    font-size: 0.8rem;
+    display:block;
+    color: $text-grey;
+  }
+
+  .avatar {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    img {
+      width: 60px;
+      padding: 0.5em;
+      border-radius: 50%;
+    }
+
+    button {
+      background: transparent;
+      color: $text-grey;
+      padding: 0.5em;
+    }
+
+    button:hover {
+      cursor: pointer;
+    }
+  }
+
+  .personal {
+    padding: 1em;
+
+    .name {
+      font-weight: $semi-bold;
+    }
+
+    p {
+      margin: 0;
+      font-size: 0.9em;
+    }
+  }
+}
+
+.media-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding: 1em 0;
+
+  @include respond-to(medium-screens) { 
+    flex-direction: row; 
+    padding: 2em 0;
+  }
+
+  .media {  
+    height: 75px;
+    padding: 2em 0;
+
+    @include respond-to(medium-screens) { padding: 0 1em; }
+
+    img {
+      height: 100%;
+    }
+  }
+
+  .info {
+
+    @include respond-to(medium-screens) { padding-left: 3em; }
+
+    .info-title {
+      text-align: left;
+      font-weight: $semi-bold;
+      display: inline-block;
+    }
+    p {
+      margin: 0;
+    }
+  }
+
+  &.link:hover {
+    cursor: pointer;
+    background-color: rgba(3,191,233,0.15);
+  }
+}
+
+.ticket-card {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  width: 100%;
+  padding-top: 3em;
+  z-index: 20;
+
+  @include respond-to(medium-screens) {
+    flex-direction: row;
+    padding-top: 0;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  }
+
+  .label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    text-transform: uppercase;
+    font-weight: $semi-bold;
+    padding: 0.25em 1.5em;
+    color: white;
+
+    &.open {
+      background-color: $primary-blue;
+    }
+    &.progress {
+      background-color: $primary-progress;
+    }
+    &.done {
+      background-color: $primary-done;
+    }
+  }
+
+  .icons {
+    display: flex;
+    position: absolute;
+    align-items: center;
+    top: 0;
+    right: 0;
+
+    button {
+      display: flex;
+      position: relative;
+      align-items: center;
+      background: transparent;
+      padding: 0.5em;
+      transition: background-color 0.2s ease;
+
+      &.active {
+        background-color: #7cd0ff;
+      }
+
+      img {
+        width: 25px;
+        height: 25px;
+      }
+
+      span {
+        position: absolute;
+        display: inline-block;
+        width: auto;
+        white-space: nowrap;
+        padding: 0.5em;
+        background: grey;
+        color: white;
+        top: -30px;
+        left: 50%;
+        transform: translateX(-10px);
+        visibility: hidden;
+      }
+
+
+      span::after {
+        content:'';
+        background:grey;
+        display: flex;
+        position: absolute;
+        bottom: 0;
+        width: 10px;
+        height: 10px;
+        margin: 0 auto;
+        transform: translateY(50%) rotate(45deg);
+      }
+    }
+
+    button:hover {
+      cursor: pointer;
+      background-color: $border-grey-2;
+    }
+
+    button:focus {
+      outline: none;
+    }
+
+    button:hover span {
+      visibility: visible;
+    }
+  }
+
+
+
+
+  .return {
+    position: absolute;
+    top: 0;
+    right: 0;
+    text-transform: uppercase;
+    padding: 0.2em 1em;
+    background-color: rgba(0,0,0,0.05);
+    
+    @include respond-to(medium-screens) { display: none }
+  }
+
+  .main {
+    padding: 2em 0;
+    text-align: left;
+    
+    @include respond-to(medium-screens) {
+      display: flex;
+      flex-direction: column;
+      flex-basis: 100%;
+      background-color: white;
+      padding: 3em;
+    }
+
+
+    h2 {
+      text-transform: none;
+      text-align: left;
+      margin: 0 0 0.3em;
+      line-height: 1.3;
+    }
+
+    h4 {
+     margin: 2em 0 0;
+    }
+
+    p {
+      margin: 0;
+    }
+
+    .ticket-type {
+      text-transform: uppercase;
+      font-weight: $regular;
+      font-size: 1.2em;
+      margin-bottom: 0.75em;
+      display: inline-block;
+
+      &.red {
+        color: red;
+      }
+
+      &.blue {
+        color: #1B6087;
+      }
+    }
+
+    .create-info {
+      font-size: 0.8em;
+    }
+
+    .item-line {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+
+      strong {
+        display: inline-block;
+        min-width: 4em;
+      }
+
+      .amount {
+        display: inline-block;
+        min-width: 7em;
+        color: black;
+      }
+
+      p {
+        padding: 0.5em;
+      }
+
+      .label {
+        position: static;
+        display: inline-block;
+
+        text-transform: uppercase;
+        font-weight: $semi-bold;
+        padding: 0.25em 1.5em;
+        color: white;
+        font-size: 0.8rem;
+        margin-right: 3em;
+
+        &.open {
+          background-color: $primary-blue;
+        }
+        &.progress {
+          background-color: $primary-progress;
+        }
+        &.done {
+          background-color: $primary-done;
+        }
+      }
+    }
+
+    .item-line:hover {
+      cursor: pointer;
+      background: $primary-blue;
+      color: white;
+    }
+
+  }
+
+  .detail {
+    background-color: #e6e6e6;
+    margin: 0 -1rem -2rem;
+    padding: 2rem 1rem;
+    text-align: left;
+    font-size: 0.9rem;
+
+    @include respond-to(medium-screens) {
+      display: flex;
+      flex-direction: column;
+      flex-basis: 40%;
+      background-color: #f7f7f7;
+      margin: 0;
+      padding: 3em;
+    }
+
+
+    .title {
+      font-weight: $semi-bold;
+    }
+
+    .ruler {
+      height: 1px;
+      background-color: $primary-blue;
+      margin: 2em -0.5em;
+    }
+
+    .upvotes {
+      font-size: 1.1em;
+      font-weight: $semi-bold;
+      padding-right: 0.5em;
+    }
+
+    .expense {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      margin: 0 2em;
+
+      @include respond-to(medium-screens) { margin: unset };
+
+      .costs {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-around;
+        padding-left: 1em;
+
+        p {
+          font-weight: $semi-bold;
+          margin: 0.25em 0 ;
+        }
+      }
+
+      .visual {
+        display: flex;
+        flex: 1;
+      }
+    }
+    &.reporting {
+      p {
+        margin: 0.35em 0;
+        font-size: 1rem;
+      }
+
+      strong {
+        display: inline-block;
+        min-width: 2em;
+      }
+      &.donation {
+        strong {
+          margin-right:1em;
+        }
+      }
+    }
+  }
+}

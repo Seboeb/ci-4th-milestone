@@ -1,0 +1,84 @@
+.landing-page {
+  display: grid;
+  grid-template-columns: auto;
+
+  section {
+    padding: 3em;
+
+    .start-btn {
+      font-weight: $regular;
+      font-size: 1.3rem;
+      width:auto;
+      background-color: rgba($primary-blue, 0.6);
+      padding: 1.5em 1.5em 1.5em calc(3em + 25px);
+      margin-top: 3em;
+      margin-left: -3em;
+    }
+  }
+
+  section.hero {
+    color: white;
+    padding-top: 12em;
+    background: url('../img/hero.jpg');
+    background-size: cover;
+
+    p {
+      margin-bottom: 0;
+    }
+  }
+
+  section.sidebar, section.subscribe {
+    font-size: 1rem;
+    line-height: 1.8em;
+  }
+
+  section.sidebar {
+    background: $primary-blue;
+    color: white;
+  }
+
+}
+
+// Meda Queries
+@media only screen and (min-width: 1020px) {
+  .wrapper.landing-page {
+    grid-template-columns: 75% auto;
+    grid-template-rows: 60% auto;
+    grid-template-areas: 
+      "hero featured"
+      "hero subscribe";
+    height: 100vh;
+
+    section {
+      .start-btn {
+        background-position: 6em;
+        padding: 1.5em 1.5em 1.5em calc(6em + 25px);
+        margin-left: -6em;
+      }
+    }
+  }
+  
+  section.hero {
+    grid-area: hero;
+
+    .inner {
+      margin-left: 3em;
+      margin-top: 2em;
+    }
+  }
+
+  section.sidebar, section.subscribe {
+    display: grid;
+    grid-template-rows: auto;
+    align-items: center;
+  }
+
+}
+
+@media only screen and (min-width: 1920px) {
+  section.hero {
+    .inner {
+      margin-top: 6em;
+    }
+  }
+}

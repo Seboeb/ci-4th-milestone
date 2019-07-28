@@ -1,0 +1,41 @@
+// Import all modules
+@import "../modules/all";
+
+body, html {
+  margin: 0;
+}
+
+body {
+  height: 100%;
+  background-color: $background-color;
+}
+
+h1, h2 {
+  text-transform: uppercase;
+  margin: 0;
+}
+
+h1 {
+  font-size: 2rem;
+}
+
+h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1em;
+}
+
+.margin-down {
+  margin-bottom: 2em !important;
+}
+
+.margin-upper {
+  margin-top: 2em !important;
+}
+
+.no-padding-top {
+  padding-top: 0px !important;
+}
+
+.no-scroll {
+  overflow: hidden;
+}

@@ -1,17 +1,40 @@
-{% extends 'base.html' %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
 
-{% block page_title %}Login{% endblock %}
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Log In - The Tasting Experience</title>
+  <link rel="stylesheet" href="{% static 'css/main.css' %}">
+</head>
 
-{% load bootstrap_tags %}
+<body>
+  <div class="wrapper centered gradient">
+    <div class="dialog">
+      <a href="{% url 'index' %}" class="logo"><img src="{% static 'img/logo-black.png' %}"
+          alt="The Tasting Experience"></a>
+      <p>Log in or create an account</p>
+      <form method="POST">
+        {% csrf_token %}
+        <input type="text" name="email" placeholder="Email Address">
+        <input type="password" name="password" placeholder="Password">
+        <button type="submit" class="btn outline-btn">Log In</button>
+        {% if login_form.errors %}
+        <div id="form-error-container">
+          {% for error in login_form.non_field_errors %}
+          <div id="form-error-message">{{ error|escape }}</div>
+          {% endfor %}
+        </div>
+        {% endif %}
+      </form>
+      <p>or</p>
+      <a href="{% url 'registration' %}" class="btn">Create account</a>
+      <a href="{% url 'password_reset' %}" style="color: black; font-size: 0.8rem; margin-top: 1em;">Forgot your
+        password?</a>
+    </div>
+  </div>
+</body>
 
-{% block main_content %}
-<h1>Hoi!</h1>
-
-<form method="POST">
-  {% csrf_token %}
-  {{ login_form | as_bootstrap }}
-  <button type="submit" class="btn btn-light">Login</button>
-</form>
-
-<p><a href="{% url 'password_reset' %}">Reset Password</a></p>
-{% endblock%}
+</html>

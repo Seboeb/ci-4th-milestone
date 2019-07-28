@@ -1,0 +1,260 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block page_title %}Ticket - The Tasting Experience{% endblock %}
+
+{% block head_js %}
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+<script type="text/javascript">
+  //<![CDATA[
+  Stripe.publishableKey = '{{ publishable }}';
+    //]]>
+</script>
+<script type="text/javascript" src="{% static 'js/stripe.js' %}"></script>
+{% endblock %}
+
+{% block main_content %}
+<div class="container content">
+  <div class="watermark {% if ticket.ticket_type.name == 'feature_request' %}shift{% endif %}">
+    {% if ticket.ticket_type.name == "bug_report" %}
+    <img src="{% static 'img/bug-report-watermark.svg' %}" alt="bug report">
+    {% else %}
+    <img src="{% static 'img/develop-feature2-watermark.svg' %}" alt="feature request">
+    {% endif %}
+  </div>
+
+  <!-- Bug report section -->
+  <section class="ticket no-padding-top">
+    <div class="ticket-card">
+      <div class="label {{ ticket.status }}">
+        {% if ticket.status.label_name == "open" %}open{%elif ticket.status.label_name == "progress" %}in
+        progress{%elif ticket.status.label_name == "done" %}done{% endif %}
+      </div>
+      {% if user.is_authenticated %}
+      <div class="icons">
+        {% if actions.owner %}
+        <button class="edit" onclick="TE.openModal('edit_ticket')">
+          <span class="tooltip">Edit ticket</span>
+          <img src="{% static 'img/edit.svg' %}" alt="edit">
+        </button>
+        {% endif %}
+        <button class="watchlist {% if actions.watchlist %}active{% endif %}"
+          onclick="TE.toggleWatchlist({{ ticket.pk }})">
+          <span class="tooltip">Add watchlist</span>
+          <img src="{% static 'img/eye.svg' %}" alt="watchlist">
+        </button>
+        {% if ticket.ticket_type.name == "bug_report" %}
+        <button class="upvote {% if actions.upvoted %}active{% endif %}" onclick="TE.toggleUpvote({{ ticket.pk }})">
+          <span class="tooltip">Upvote</span>
+          <img src="{% static 'img/up-vote.svg' %}" alt="upvote">
+        </button>
+        {% endif %}
+      </div>
+      {% endif %}
+      <div class="main">
+        {% if ticket.ticket_type.name == "bug_report" %}
+        <span class="ticket-type red">Bug report</span>
+        {% else %}
+        <span class="ticket-type blue">Feature request</span>
+        {% endif %}
+
+        <h2>{{ ticket.title }}</h2>
+        <span class="create-info">Created at {{ ticket.date_created }} by
+          <strong>{{ ticket.user }}</strong></span>
+        <h4>Problem</h4>
+        <p>{{ ticket.description }}</p>
+      </div>
+      <div class="detail">
+        <span class="title">{{ ticket.ticket_id }} | {% if ticket.finder_app %}FINDER
+          APP{% elif ticket.recipe_community %}RECIPE COMMUNITY{% endif %}</span>
+        <p>{{ ticket.priority }} priority</p>
+        <p>Estimated development time is {{ ticket.estimate_devtime }}.</p>
+        {% if ticket.ticket_type.name == "bug_report" %}
+        <p><span class="upvotes">{{ ticket.upvotes }}</span> Other{{ ticket.upvotes|pluralize }} with this problem.</p>
+        {% else %}
+        <p><span class="upvotes">{{ ticket.upvotes }}</span>
+          Donation{{ ticket.upvotes|pluralize }}{% if user.is_authenticated %} <button class="btn donate"
+            onclick="TE.openModal('make_donation');">Donate</button>{% endif %}</p>
+        {% endif %}
+        <div class="ruler"></div>
+        <div class="expense">
+          <div class="costs">
+            <div>
+              <span>Costs</span>
+              <p>{% if ticket.target_amount == 0%}
+                FREE
+                {% else %}
+                € {{ ticket.target_amount }}
+                {% endif %}</p>
+            </div>
+          </div>
+          <div class="progress-media">
+            <span class="donated">€ {{ ticket.donated_amount }}</span>
+            <div class="circle">
+              <svg class="progress-ring" width="100" height="100">
+                <circle class="progress-ring__stock {% if donate_info.complete %}complete
+                {% endif %}" stroke="#03BFE9" stroke-width="6" fill="transparent" r="44" cx="50" cy="50" />
+                <circle class="progress-ring__circle" stroke="#C4C4C4" stroke-width="6" fill="transparent" r="44"
+                  cx="50" cy="50" style="stroke-dashoffset: {{donate_info.circle_offset}}" />
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Comment section -->
+  <section class="comments">
+
+    {% if not comments %}
+    <div class="new-comment">
+      <p style="color:white; margin:0;">There are no comments placed.</p>
+    </div>
+    {% endif %}
+    {% for comment in comments %}
+    <div class="comment">
+      <div class="avatar">
+        <img src="{% static comment.user.profile_picture %}" alt="{{ comment.user.username }}">
+      </div>
+      <div class="content">
+        <span class="info"><strong>{{ comment.user }}</strong> <span
+            class="time">{{ comment.date_created }}</span></span>
+        <p>{{ comment.comment }}
+        </p>
+      </div>
+    </div>
+
+    {% if not forloop.last %}
+    <div class="ruler"></div>
+    {% endif %}
+
+    {% endfor %}
+
+    <div class="new-comment">
+      {% if user.is_authenticated %}
+      <form action="{% url 'post_comment' %}" method="POST" id="comment-form">
+        {% csrf_token %}
+        <input type="hidden" name="ticket_id" value="{{ ticket.id }}">
+        <div class="input-field">
+          <textarea name="comment" data-length="500" cols="30" rows="6"
+            placeholder="Type your new comment here..."></textarea>
+          <span class="counter" style="color:white"></span>
+        </div>
+        <div id="comment-error-container" style="display:none;">
+          <div id="comment-error-message"></div>
+        </div>
+        <button type="submit" class="btn comment-btn no-stretch">Post Comment</button>
+      </form>
+      {% else %}
+      <p>You must login before you can place a comment or make a donation. Log in over <a
+          href="{% url 'login' %}">here</a>.</p>
+      {% endif %}
+    </div>
+
+  </section>
+</div>
+
+<div id="edit_ticket" class="modal-container">
+  <div class="modal">
+    <img src="{% static 'img/clear.svg' %}" alt="close" class="close-modal" onclick="TE.closeModal('edit_ticket')">
+    {% if ticket.ticket_type.name == "bug_report" %}
+    <h3>Edit bug report</h3>
+    <p>Please adjust your bug report and submit when you are done.</p>
+    {% else %}
+    <h3>Edit feature request</h3>
+    <p>Please adjust your feature and submit when you are done.</p>
+    {% endif %}
+    <form action="{% url 'edit_ticket' %}" method="POST" class="margin-upper" id="edit-ticket-form">
+      {% csrf_token %}
+      <input type="hidden" name="ticket_id" value={{ticket.id}}>
+      <div class="input-field">
+        <label for="title">Title</label>
+        <input type="text" id="title" name="title" data-length="75" value="{{ ticket.title }}">
+        <span class="counter"></span>
+      </div>
+      <div class="input-area">
+        <label for="description">Description</label>
+        <textarea name="description" data-length="350" id="description" cols="30"
+          rows="10">{{ ticket.description }}</textarea>
+        <span class="counter"></span>
+      </div>
+      <div id="form-error-container" style="display:none;">
+      </div>
+      <button type="submit" class="btn no-stretch">Submit</button>
+    </form>
+  </div>
+</div>
+
+<div id="make_donation" class="modal-container">
+  <div class="modal">
+    <img src="{% static 'img/clear.svg' %}" alt="close" class="close-modal" onclick="TE.closeModal('make_donation')">
+    <h3>Make a donation</h3>
+    <p>Thank you for considering a donation! When the target is reached we will start developing for this feature.</p>
+    <form action="{% url 'make_payment' %}" id="payment-form" method="POST" class="margin-upper">
+      <p>Select the amount you would like to donate.</p>
+      <div class="radio-group-donation">
+        <label for="amount1" class="radio-container">
+          <input type="radio" id="amount1" name="amount" value="1">
+          <span class="selector">€ 1,-</span>
+        </label>
+        <label for="amount2" class="radio-container">
+          <input type="radio" id="amount2" name="amount" value="5">
+          <span class="selector">€ 5,-</span>
+        </label>
+        <label for="amount3" class="radio-container">
+          <input type="radio" id="amount3" name="amount" value="10">
+          <span class="selector">€ 10,-</span>
+        </label>
+        <label for="custom" class="radio-container">
+          <input type="radio" id="custom" name="amount" value="custom">
+          <span class="selector">Custom</span>
+        </label>
+      </div>
+      <div class="input-field" id="custom_amount_container" style="display:none">
+        <input type="number" step="0.01" min="0.5" max="999.99" id="custom_amount" name="custom_amount"
+          placeholder="Custom amount">
+      </div>
+      <div class="split unequal margin-upper">
+        <div class="input-field">
+          <label for="title">Credit card number</label>
+          <input type="text" id="credit_card_number" name="credit_card_number" placeholder="4242 4242 4242 4242">
+        </div>
+        <div class="input-field">
+          <label for="title">CVC/CVV</label>
+          <input type="text" id="cvv" name="cvv" placeholder="111">
+        </div>
+      </div>
+      <div class="split left-align">
+        <div class="input-field">
+          <label for="title">Expiry month</label>
+          <select name="expiry_month" id="expiry_month">
+            {% for i in i|rjust:12 %}
+            <option value="{{ forloop.counter }}">{{ forloop.counter }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="input-field">
+          <label for="title">Expiry year</label>
+          <select name="expiry_year" id="expiry_year">
+            {% for i in year_range %}
+            <option value="{{ i }}">{{ i }}</option>
+            {% endfor %}
+          </select>
+        </div>
+      </div>
+      <input type="hidden" id="stripe_id" name="stripe_id">
+      <input type="hidden" id="ticket_id" name="ticket_id" value="{{ticket.pk}}">
+      {% csrf_token %}
+      <div id="credit-card-errors" style="display: none;">
+        <div id="stripe-error-message"></div>
+      </div>
+      <button type="submit" class="btn no-stretch">Make donation</button>
+    </form>
+  </div>
+</div>
+
+{% endblock %}

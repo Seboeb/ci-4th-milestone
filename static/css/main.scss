@@ -1,0 +1,19 @@
+// Base partials with modules and parameters/variables
+@import "partials/base";
+
+// Remaining partials
+@import "partials/typography";
+@import "partials/buttons";
+@import "partials/header";
+@import "partials/containers";
+@import "partials/cards";
+@import "partials/media";
+@import "partials/comments";
+@import "partials/forms";
+@import "partials/modal";
+
+
+// Page Specifics
+@import "partials/landing-page";
+@import "partials/dev-panel";
+

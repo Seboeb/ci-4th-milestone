@@ -1,0 +1,59 @@
+.watermark {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: -425px;
+  z-index: -1;
+
+  @include respond-to(medium-screens) { display: inline-block; }
+
+  img {
+    height: 1000px;
+  }
+
+  &.shift {
+    left: -325px;
+  }
+}
+
+.progress-media {
+  position: relative;
+  
+  .donated {
+    display: block;
+    position: absolute;
+    width: 100%;
+    top: 50%;
+    text-align: center;
+    margin: 0 auto;
+    transform: translateY(-60%);
+    font-weight: $semi-bold;
+    font-size: 0.9rem;
+  }
+}
+
+.progress-ring {
+  transform: rotate(-90deg);
+}
+
+.progress-ring__circle {
+  stroke-dasharray: 276 276;
+  stroke-dashoffset: 276;
+  transition: stroke-dashoffset 0.35s;
+}
+
+.progress-ring__stock.complete {
+  animation: complete 4s infinite;
+}
+
+@keyframes complete {
+  0% {stroke: #03BFE9;}
+
+  10% {stroke: #03e97e;}
+
+  20% {stroke: #03BFE9;}
+
+  30% {stroke: #03e97e;}
+
+  40% {stroke: #03BFE9;}
+}
