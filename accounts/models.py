@@ -42,7 +42,8 @@ class User(AbstractUser):
 
     username = None
     email = models.EmailField(_('email address'), unique=True)
-    role = models.ForeignKey('UserRole', on_delete=models.CASCADE, default=2)
+    role = models.ForeignKey(
+        'UserRole', on_delete=models.CASCADE, default=2)
     profile_picture = models.CharField(
         max_length=20, default='img/non-user.png')
     watchlist = models.ManyToManyField(
