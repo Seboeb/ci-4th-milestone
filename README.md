@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/Seboeb/ci_4th_milestone.svg?branch=develop)](https://travis-ci.org/Seboeb/ci_4th_milestone)
 # Tasting Experience - Development
 This project is build for users of the [The Tasting Experience Finder](https://github.com/Seboeb/ci-2nd-milestone) app and [The Tasting Experience Recipes](https://github.com/Seboeb/ci-3rd-milestone) community website. Since these projects are new and still under development, there is a high probability that some bugs are present. This project provides a platform where users can submit bugs that they have found and keep track of reported issues (also from other users). The cool thing is, that not only bugs can be reported but new feature requests as well!
 
@@ -14,7 +15,6 @@ This project has a mobile first approach. The website must provide a clear landi
   - As a user I want to upvote existing bug reports of other users.
   - As a user I want to upvote/donate a feature request that I want to request myself.
   - As a user I want to be able to create comments on bug reports or feature request.
-  - As a user I want to be able to edit my comment.
   - As a user I want to see an overview of all the reported bugs and see the severity of that bug.
   - As a user I want to see an overview of the requested features and the current state of the donation.
   - As a user I want to see a list of features that are in active development.
