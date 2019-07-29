@@ -144,7 +144,7 @@ python manage.py runserver localhost:8080
 ```
 
 ## Testing
-**Database test**
+### Django tests
 This project uses the build-in assertion testing from Django in order to test the models, forms, urls and its functions. The tests are written in the ```tests.py``` Python scripts in each application and to run the test, simply run the following command:
 ```
 python manage.py test <application_name>
@@ -159,20 +159,83 @@ When the tests are successful, you should receive the an OK message in your term
 
 ![Django test failed](https://github.com/Seboeb/ci_4th_milestone/blob/develop/media/django_test_error.jpg)
 
-**End to End testing**
-When you run the project and navigate with your browser to the website, you can start testing the javascript functions. All the JavaScript functions are written in such a way that possible errors are logged in the console of the browser. When using the Google Chrome browers, you can open the development console and check for network operations and logs in the console while using the The Tasting Experience website.
+### End to End tests
+The Cypress Javascript tool is used in order to test the website in an end to end testing method. This testing method includes testing the client javascripts, but also the user interface. These tests are written in javascript in so called spec files. You can find these files over [here](https://github.com/Seboeb/ci_4th_milestone/tree/develop/cypress/integration). If you are interesed in writing your own test files or how it work, you can find more information at their [website](https://www.cypress.io/how-it-works/).
+
+In order to run the Cypress test, you must install Cypress first. When you have followed the installation guide it is already installed during the npm install command. Otherwise you can install it via the command:
+```
+npm install cypress --save-dev
+```
+In order to start the test environment, execute the following command in your terminal:
+```
+cypress open
+``` 
+Cypress should open and by clicking on the "Run all specs" button, you testing begins :) Cypress provides good feedback whenever a test fails and includes the current state of the website per testing step. See the GIF image below for an impression.
 
 ![Cypress](https://github.com/Seboeb/ci_4th_milestone/blob/develop/media/cypress_test.gif)
 
+All tests are green, which implies that the testing has been successful!
+
 ## Deployment
+In order to make a production version of this project, you must edit some settings. Make sure that the **DEVELOPMENT** environment variable is removed. The next step is to setup the static file serving. You could use an external service that serves your static files, which is recommended. More information about this topic over [here](https://docs.djangoproject.com/en/1.11/howto/static-files/). 
+
+This project has been deployed with Django it self as the static file server. If you want to do this by yourself, make sure that you run the following command in order to copy your assets in the static files folder:
+```
 python manage.py collectstatic
+``` 
+Do not forget to commit your changes before proceding. 
+
+This project is deployed using Heroku and can be seen over [here](https://the-tasting-experience-dev.herokuapp.com/). Heroku is a cloud platform as a service supporting several programming languages. 
+
+Follow the following steps to deploy this project to Heroku by yourself:
+
+1. Create a Heroku account over [here](https://signup.heroku.com).
+2. Create a new app and give it a name.
+3. Install the [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli).
+4. Open a terminal and login to heroku by using the ```heroku login``` command.
+5. When successfully logged in, we have to add the remote heroku git repository. In the terminal, navigate to the root folder of your project. When git is not initialize, initialize it with ```git init```. In order to add the remote heroku repository you first have to navigate to the settings of your Heroku application. Under 'Info' you will find your Heroku Git URL (see image below). Copy this git url and execute the following command to add this remote repository to your local git.
+```
+git remote add heroku https://git.heroku.com/the-tasting-experience-dev.git
+```
+6. Make sure that you have included a ```requirements.txt``` and a ```Procfile``` in your projects root folder. An example ```Procfile``` can be found in the source files of this project. 
+7. If you do not have an up-to-date ```requirements.txt``` file, create it using the following command:
+```
+pip freeze > requirements.txt
+```
+8. Now it is time to push your local git repository to your remote Heroku git repository by using the command below. Please note that ```master``` represents the git branche you want to push.
+```
+git push -u heroku master
+```
+9. The application is almost ready to be used on Heroku. Go to the settings tab and make sure you set the Config Vars. These variables are the environment parameters required for the application in order to run. Restart of the dyno may be necessary. See the image below which variables are required.
+
+![heroku settings](https://github.com/Seboeb/ci_4th_milestone/blob/develop/media/heroku-settings.jpg)
 
 ## Develop on your own!
+If you want to continue developing this project, you can do so by cloning this git repository. Make sure you install the project (see Installing) with the help of npm and pip. Make sure you configure the ```env.py``` file. The webpack config file is already good to go and does not need additional tweaks (but you can if you want). 
+
+The main application ```ci_4th_milestone```. The JavaScript, scss and images are located in the ```static``` folder, as this folder is statically served by Django in debug mode. The html files have their own ```templates``` folder per application.
+
+In order to build the JavaScript files using webpack, run the following command:
+```
+npm run build:webpack
+```
+and if you want to start the project run the command:
+``` 
+npm start
+```
+or
+```
+npm run start:win
+```
+when you are working on a Windows machine.
+
+If you want to write your own testing cases, please add them to the ```tests.py``` file located in each of the applications folder. If you want additional End to End testing, you can do so by making new spec files located in ```cypress/integration``` folder.
 
 ## Credits
+This project uses media and information from different sources. 
 
-  ### Media
+### Media
+Images used in this project are grabbed from [pixabay](https://pixabay.com).
 
-  ### Acknowledgements
-  https://www.fomfus.com/articles/how-to-use-email-as-username-for-django-authentication-removing-the-username
-  
+### Acknowledgements
+This project uses a custom Django authentication User model. [This](https://www.fomfus.com/articles/how-to-use-email-as-username-for-django-authentication-removing-the-username) article gives great information for you to follow.
