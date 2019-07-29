@@ -16,7 +16,7 @@
       <button {% if app_type == 'recipe_community' %}class="active" {% endif %}
         onclick="location.href='{% url 'dev_panel' %}?app=recipe_community'">Recipe community</button>
       <input type="text" oninput='TE.searchInitialTickets(1, "{{ app_type }}", this.value);'
-        placeholder="Bugs, features, user...">
+        placeholder="Bugs, features, status, user...">
     </div>
 
     <!-- Ticket list -->
