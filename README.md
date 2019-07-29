@@ -7,19 +7,22 @@ At [this](https://the-tasting-experience-dev.herokuapp.com/) website you can see
 ## UX
 This project has a mobile first approach. The website must provide a clear landing page where the users get a first impression of the goal of this website. Users must be able to subscribe and, subsequently, create an account. Bug reports and feature requests can be found via the navigation bar. After logging in users are able to create bug reports and feature request. User must be able to see a clear overview of all the issues and, where possible, see graphs of the development progress.
 
-  ### User Stories
-  - As a user I want to be able to subscribe and, subsequently, login to the website.
-  - As a user I want to be able to create a new bug report.
-  - As a user I want to be able to edit my bug report.
-  - As a user I want to create new feature request and select my prefered amount for donation.
-  - As a user I want to upvote existing bug reports of other users.
-  - As a user I want to upvote/donate a feature request that I want to request myself.
-  - As a user I want to be able to create comments on bug reports or feature request.
-  - As a user I want to see an overview of all the reported bugs and see the severity of that bug.
-  - As a user I want to see an overview of the requested features and the current state of the donation.
-  - As a user I want to see a list of features that are in active development.
-  - As a user I want to be able to navigate to the tasting experience finder app and the online recipe community website.
+![design mockup](https://github.com/Seboeb/ci_4th_milestone/blob/develop/media/mockup.jpg)
 
+A mockup is made with the use of Figma. [Here](https://www.figma.com/file/Eftlt380cS1zJEdY9fVJEISq/The-tasting-experience?node-id=0%3A1) you can find the full design.
+
+### User Stories
+- As a user I want to be able to subscribe and, subsequently, login to the website.
+- As a user I want to be able to create a new bug report.
+- As a user I want to be able to edit my bug report.
+- As a user I want to create new feature request and select my prefered amount for donation.
+- As a user I want to upvote existing bug reports of other users.
+- As a user I want to upvote/donate a feature request that I want to request myself.
+- As a user I want to be able to create comments on bug reports or feature request.
+- As a user I want to see an overview of all the reported bugs and see the severity of that bug.
+- As a user I want to see an overview of the requested features and the current state of the donation.
+- As a user I want to see a list of features that are in active development.
+- As a user I want to be able to navigate to the tasting experience finder app and the online recipe community website.
 
 ## Features
 Here you can see the features that are already implemented and which are left to implement in this project.
@@ -70,7 +73,8 @@ This project uses several existing third party technologies to improve code qual
     - Travis CI is a hosted continuous integration service used to build and test software projects hosted at GitHub.
 - **[Cypress](https://www.cypress.io/)**
     - Cypress is a Javascript End to End testing framework. In contrast to Puppeteer, which is a library, Cypress gives you a solid platform for writing and automating UI tests.
-
+- **[Stripe](https://www.stripe.com/)**
+    - Stripe is an American technology company based in San Francisco, California. Its software allows individuals and businesses to make and receive payments over the Internet.
 
 Additionally, the following webpack modules are used:
 - **babel-loader, babel/core, babel/preset-env**
@@ -97,7 +101,7 @@ This project uses a SQL type database and PostgreSQL to be specific. [Here](http
 - **TicketType**
     - There are two ticket types so far, feature requests and bug reports.
 
-A detailed overview of the table structure and data types can be seen in the [database_schema](https://github.com/Seboeb/ci-4th-milestone/tree/develop/database_schema) folder.
+A detailed overview of the table structure and data types can be seen in the [database_schema](https://github.com/Seboeb/ci_4th_milestone/tree/develop/database_schema) folder.
 
 ## Installing Guide
 This project uses NodeJs for managing the Javascript libraries, webpack and a testing application. Visite their [website](https://nodejs.org/en/) to install NodeJs for your operation system. NodeJs ships with npm, which will be automatically installed.
@@ -139,8 +143,26 @@ Make sure that you create your own ennvironment python file, you can find an exa
 python manage.py runserver localhost:8080
 ```
 
-
 ## Testing
+**Database test**
+This project uses the build-in assertion testing from Django in order to test the models, forms, urls and its functions. The tests are written in the ```tests.py``` Python scripts in each application and to run the test, simply run the following command:
+```
+python manage.py test <application_name>
+```
+if you want to run specific application tests. When you want to run all tests use the following command:
+```
+python manage.py test
+```
+When the tests are successful, you should receive the an OK message in your terminal. If a test fails you can will see the details why it failed (see images below).
+
+![Django tests](https://github.com/Seboeb/ci_4th_milestone/blob/develop/media/django_test.jpg)
+
+![Django test failed](https://github.com/Seboeb/ci_4th_milestone/blob/develop/media/django_test_error.jpg)
+
+**End to End testing**
+When you run the project and navigate with your browser to the website, you can start testing the javascript functions. All the JavaScript functions are written in such a way that possible errors are logged in the console of the browser. When using the Google Chrome browers, you can open the development console and check for network operations and logs in the console while using the The Tasting Experience website.
+
+![Cypress](https://github.com/Seboeb/ci_4th_milestone/blob/develop/media/cypress_test.gif)
 
 ## Deployment
 python manage.py collectstatic
