@@ -44,7 +44,7 @@ def login(request):
 
             if user:
                 auth.login(user=user, request=request)
-                return redirect(reverse('index'))
+                return redirect(reverse('dev_panel'))
             else:
                 print('error')
                 login_form.add_error(
