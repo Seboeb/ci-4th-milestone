@@ -44,7 +44,7 @@ def login(request):
 
             if user:
                 auth.login(user=user, request=request)
-                return redirect(reverse('index'))
+                return redirect(reverse('dev_panel'))
             else:
                 print('error')
                 login_form.add_error(
@@ -79,13 +79,13 @@ def registration(request):
             user = auth.authenticate(
                 email=request.POST['email'], password=request.POST['password1'])
 
-        if user:
-            auth.login(user=user, request=request)
-            messages.success(request, 'You have been registered!')
-            return redirect(reverse('index'))
-        else:
-            messages.error(
-                request, 'Unable to register. Please try again later.')
+            if user:
+                auth.login(user=user, request=request)
+                messages.success(request, 'You have been registered!')
+                return redirect(reverse('index'))
+            else:
+                messages.error(
+                    request, 'Unable to register. Please try again later.')
     else:
         registration_form = UserRegistrationForm()
 

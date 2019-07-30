@@ -4,3 +4,4 @@ __pycache__
 *.pyc
 *.sqlite3
 node_modules
+media/cypress_test.mov

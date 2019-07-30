@@ -42,7 +42,7 @@
 // Meda Queries
 @media only screen and (min-width: 1020px) {
   .wrapper.landing-page {
-    grid-template-columns: 75% auto;
+    grid-template-columns: 70% auto;
     grid-template-rows: 60% auto;
     grid-template-areas: 
       "hero featured"
@@ -71,6 +71,16 @@
     display: grid;
     grid-template-rows: auto;
     align-items: center;
+  }
+
+}
+
+@media only screen and (min-width: 1020px) and (max-width: 1350px)
+{
+  .landing-page {
+    section.sidebar, section.subscribe {
+      font-size: 0.8rem;
+    }
   }
 
 }
